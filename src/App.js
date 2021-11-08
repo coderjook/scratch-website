@@ -4,7 +4,7 @@ import Snippets from './components/Snippets';
 import Faq from './components/Faq';
 import Tutorials from './components/Tutorials';
 import UploadTutorial from './components/UploadTutorial';
-import './App.css';
+
 
 function App() {
   return (

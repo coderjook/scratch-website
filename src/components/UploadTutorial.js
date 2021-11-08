@@ -72,9 +72,11 @@ export default function UploadTutorial() {
   return (
     <>
       <div className="container">
+        
         <div className="title">Voeg tutorial toe</div>
 
         <div className="form">
+         
           <div class="inputfield">
             <p>
               <label for="imgUrl">Kies pdf</label>
@@ -88,7 +90,7 @@ export default function UploadTutorial() {
             />
           </div>
 
-           <div class="inputfield">
+          <div class="inputfield">
             <label for="titel">Titel</label>
 
             <input
