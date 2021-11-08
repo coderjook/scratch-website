@@ -4,13 +4,18 @@ import Snippets from './components/Snippets';
 import Faq from './components/Faq';
 import Tutorials from './components/Tutorials';
 import UploadTutorial from './components/UploadTutorial';
+import './css/style.css';
+ 
 
 
 function App() {
   return (
     <div className="App">
     <Nav/>
-    <h1>Coderjook Scratch App</h1>
+    <div className="container">
+      <h1>Coderjook Scratch App</h1>
+    </div>
+    
     <UploadTutorial />
     <Tutorials />
     <Snippets />
