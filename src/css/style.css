@@ -1,0 +1,31 @@
+:root {
+  --color-offwhite: #f3eed9;
+  --color-brown: #824936;
+  --color-dark: #222c2a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* responsive image */
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: var(--color-dark);
+  font-size: 1.3125rem;
+  line-height: 1.6;
+}
+
+.container {
+  width: 85%;
+  max-width: 1128px;
+  margin: 0 auto;
+}

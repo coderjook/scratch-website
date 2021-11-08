@@ -2,8 +2,10 @@ import React from 'react';
 
 export default function Tutorials() {
     return (
-        <div>
-           <h1>Tutorials</h1>  
+        <div className="tutorials">
+            <div className="container">
+                <h1>tutorials</h1> 
+            </div>
         </div>
     )
 }

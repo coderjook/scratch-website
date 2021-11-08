@@ -1,9 +1,12 @@
 import React from 'react';
 
+
 export default function Faq() {
     return (
-        <div>
-            <h1>FAQ</h1> 
+        <div className="faq">
+            <div className="container">
+                <h1>FAQ</h1> 
+            </div>
         </div>
     )
 }
