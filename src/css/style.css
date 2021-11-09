@@ -2,6 +2,13 @@
   --color-offwhite: #f3eed9;
   --color-brown: #824936;
   --color-dark: #222c2a;
+  --color-light-grey: #d5dbd9;
+  --color-orange: #f98602;
+  --color-purple: #ad58cb;
+  --color-yellow: #ffd501;
+  --color-dark-blue: #504699;
+  --color-light-blue: #3dbeff;
+  --color-light-green: #90d4c5;
 }
 
 *,
@@ -28,4 +35,17 @@ body {
   width: 85%;
   max-width: 1128px;
   margin: 0 auto;
+}
+
+h2 {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin-bottom: 1.3rem;
+}
+
+/* -----nav----------  */
+
+.nav {
+  background-color: var(--color-dark-blue);
+  color: white;
 }

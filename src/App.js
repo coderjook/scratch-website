@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from './components/Nav';
 import Snippets from './components/Snippets';
 import Faq from './components/Faq';
-import Tutorials from './components/Tutorials';
+import TutorialsList from './components/TutorialsList';
 import UploadTutorial from './components/UploadTutorial';
 import './css/style.css';
  
@@ -17,7 +17,7 @@ function App() {
     </div>
     
     <UploadTutorial />
-    <Tutorials />
+    <TutorialsList />
     <Snippets />
     <Faq />  
     </div>
