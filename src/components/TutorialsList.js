@@ -3,6 +3,10 @@ import firebase from "../firebase/firebase";
 
 export default function TutorialsList() {
   const [tutorialsList, setTutorialsList] = useState();
+  const [filterTutorialsList, setFilterTutorialsList] = useState(tutorialsList);
+  const [allCategories, setAllCategories] = useState()
+  const [categories, setCategories] = useState();
+  const [currentCategorie, setCurrenCategorie] = useState("alle")
  
 
    useEffect(() => {
@@ -18,11 +22,15 @@ export default function TutorialsList() {
       }
       console.log(tutorialsList);
       setTutorialsList(tutorialsList);
-    //   const allTypes = ["all", ...new Set(tutorialsList.map((item) => item.type))];
-    //   setTypes(allTypes);
+      const allCategories = ["all", ...new Set(tutorialsList.map((item) => item.categorie))];
+      setAllCategories(allCategories);
     });
   }, []);
-
+  
+//    useEffect(() => {
+//     console.log("useEffect imageList voor categorien", filterTutorialsList);
+//     handleCategorie();
+//   }, [currentCategorie]);
 
 
 
@@ -30,31 +38,47 @@ export default function TutorialsList() {
         <div className="tutorials">
             <div className="container">
                 <h1>tutorials</h1> 
+                
+
                 <div className="tutorialslist">
                     <div className="container">
-                {tutorialsList && tutorialsList.map((tutorial) => (
-                    <>
-                    
-                        <div className="tutorial" key={tutorial.id}>
-                            <div>
-                                {tutorial.titel}
-                            </div>
-                            <div>
-                                {tutorial.leerdoelen}
-                            </div>
-                            <div>
-                                {tutorial.categorie}
-                            </div>
-                            <div>
-                                <a href={tutorial.pdfUrl} target="_blank">{tutorial.pdfName}</a>
-                            </div>
-                            <div>
-                                <a href={tutorial.scratchUrl} target="_blank">ga naar project</a>
-                            </div>
+                        <div className="categories row">
+                            {allCategories && allCategories.map((categorie) => (
+                                <>
+                                <div className="btn-categories">{categorie}</div>
+                                </>
+
+                            ))}
                         </div>
-                    </>
-                )
-                )}
+                        <div className="tutorials">
+                            {tutorialsList && tutorialsList.map((tutorial) => (
+                                <>
+                                 <div className="tutorial" key={tutorial.id}>
+                                    {/* <iframe src={`${tutorial.scratchUrl}/embed`} allowtransparency="true" 
+                                    width="300" height="150" frameborder="0" scrolling="no" allowfullscreen></iframe> */}
+                                    <div>
+                                        <img src="https://picsum.photos/300/200"/>
+                                    </div>
+                                    <div>
+                                        {tutorial.titel}
+                                    </div>
+                                    <div>
+                                        {tutorial.leerdoelen}
+                                    </div>
+                                    <div>
+                                        {tutorial.categorie}
+                                    </div>
+                                    <div>
+                                        <a href={tutorial.pdfUrl} target="_blank">{tutorial.pdfName}</a>
+                                    </div>
+                                    <div>
+                                        <a href={tutorial.scratchUrl} target="_blank">ga naar project</a>
+                                    </div>
+                                  </div>
+                                 </>
+                        )
+                    )}
+                    </div>
                 </div>
                 </div>
             </div>
