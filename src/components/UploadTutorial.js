@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import firebase from "./../firebase/firebase";
 import { storage } from "./../firebase/firebase";
+import "./../css/form.css"
 
 export default function UploadTutorial() {
     const [title, setTitle] = useState("");
@@ -71,16 +72,15 @@ export default function UploadTutorial() {
 
   return (
     <>
+    <section className="upload-tutorials">
       <div className="container">
         
-        <div className="title">Voeg tutorial toe</div>
+        <h2>Voeg tutorial toe</h2>
 
         <div className="form">
          
-          <div class="inputfield">
-            <p>
-              <label for="imgUrl">Kies pdf</label>
-            </p>
+          <div className="inputfield">
+            <label for="imgUrl">Kies pdf</label>
             <input
               className="file"
               type="file"
@@ -90,12 +90,11 @@ export default function UploadTutorial() {
             />
           </div>
 
-          <div class="inputfield">
+          <div className="inputfield">
             <label for="titel">Titel</label>
-
             <input
               type="text"
-              class="input"
+              className="input"
               name="titel"
               placeholder="titel"
               onChange={handleInputChange}
@@ -103,12 +102,11 @@ export default function UploadTutorial() {
             ></input>
           </div>
 
-           <div class="inputfield">
+           <div className="inputfield">
             <label for="leerdoelen">leerdoelen</label>
-
             <input
               type="text"
-              class="input"
+              className="input"
               name="leerdoelen"
               placeholder="leerdoelen"
               onChange={handleInputChange}
@@ -117,7 +115,7 @@ export default function UploadTutorial() {
           </div>
          
         
-         <div class="inputfield">
+         <div className="inputfield">
             <label for="omschrijving">Omschrijving</label>
             <textarea
               className="textarea"
@@ -128,10 +126,9 @@ export default function UploadTutorial() {
             ></textarea>
           </div>
 
-           <div class="inputfield">
+           <div className="inputfield">
             <label for="type">Categorie</label>
-
-        <div class="custom_select">
+            <div className="custom_select">
               <select
                 name="categorie"
                 onChange={handleInputChange}
@@ -147,12 +144,11 @@ export default function UploadTutorial() {
             </div>
           </div>
 
-         <div class="inputfield">
+         <div className="inputfield">
             <label for="scratchUrl">Scratch Url</label>
-
             <input
               type="text"
-              class="input"
+              className="input"
               name="scratchUrl"
               placeholder="scratchUrl"
               onChange={handleInputChange}
@@ -160,16 +156,17 @@ export default function UploadTutorial() {
             ></input>
           </div>
 
-          <div class="inputfield">
+          <div className="inputfield">
             <input
               type="submit"
               value="Voeg toe"
-              class="btn"
+              className="btn btn-form"
               onClick={handleFinalSubmit}
             />
           </div>
         </div>
         </div>
+        </section>
      
     </>
   );
