@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
-import firebase from "./../firebase/firebase";
-import { storage } from "./../firebase/firebase";
+import firebase from "./../util/firebase";
+import { storage } from "./../util/firebase";
 import "./../css/form.css"
 
 export default function UploadTutorial() {
