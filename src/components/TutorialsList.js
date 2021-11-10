@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-import firebase from "../firebase/firebase";
+import firebase from "../util/firebase";
 
 export default function TutorialsList() {
   const [tutorialsList, setTutorialsList] = useState();
@@ -37,11 +37,11 @@ export default function TutorialsList() {
     return (
         <div className="tutorials">
             <div className="container">
-                <h1>tutorials</h1> 
+                <h2>tutorials</h2> 
                 
 
                 <div className="tutorialslist">
-                    <div className="container">
+                    <div className="container container__tutorialslist">
                         <div className="categories row">
                             {allCategories && allCategories.map((categorie) => (
                                 <>

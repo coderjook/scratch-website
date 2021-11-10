@@ -71,10 +71,25 @@ h2 {
   cursor: pointer;
 }
 
+.tutorial {
+  width: 100%;
+  border: 1px solid var(--color-light-blue);
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 @media (min-width: 800px) {
   .tutorials {
     display: flex;
+    gap: 0.75rem;
     justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .tutorial {
+    width: 30%;
+    border: 1px solid var(--color-light-blue);
   }
 
   h2 {
