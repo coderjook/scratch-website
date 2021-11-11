@@ -1,10 +1,11 @@
 import react, { useEffect, useState } from "react";
 import firebase from "../util/firebase";
+import Tutorial from './tutorials/Tutorial';
 
 export default function TutorialsList() {
-  const [tutorialsList, setTutorialsList] = useState();
+  const [tutorialsList, setTutorialsList] = useState([]);
   const [filterTutorialsList, setFilterTutorialsList] = useState(tutorialsList);
-  const [allCategories, setAllCategories] = useState()
+  const [allCategories, setAllCategories] = useState([]);
   const [categories, setCategories] = useState();
   const [currentCategorie, setCurrenCategorie] = useState("alle")
  
@@ -53,28 +54,8 @@ export default function TutorialsList() {
                         <div className="tutorials">
                             {tutorialsList && tutorialsList.map((tutorial) => (
                                 <>
-                                 <div className="tutorial" key={tutorial.id}>
-                                    {/* <iframe src={`${tutorial.scratchUrl}/embed`} allowtransparency="true" 
-                                    width="300" height="150" frameborder="0" scrolling="no" allowfullscreen></iframe> */}
-                                    <div>
-                                        <img src="https://picsum.photos/300/200"/>
-                                    </div>
-                                    <div>
-                                        {tutorial.titel}
-                                    </div>
-                                    <div>
-                                        {tutorial.leerdoelen}
-                                    </div>
-                                    <div>
-                                        {tutorial.categorie}
-                                    </div>
-                                    <div>
-                                        <a href={tutorial.pdfUrl} target="_blank">{tutorial.pdfName}</a>
-                                    </div>
-                                    <div>
-                                        <a href={tutorial.scratchUrl} target="_blank">ga naar project</a>
-                                    </div>
-                                  </div>
+                                <Tutorial tutorial={tutorial} />
+                                 
                                  </>
                         )
                     )}
