@@ -1,0 +1,17 @@
+.nav .link {
+  color: white;
+  text-decoration: none;
+}
+
+.nav ul {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.nav li {
+  list-style-type: none;
+}
