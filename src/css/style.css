@@ -1,16 +1,15 @@
 :root {
-  --color-offwhite: #f3eed9;
-  --color-brown: #824936;
   --color-dark: #222c2a;
   --color-light-grey: #d5dbd9;
   --color-bg-grey: #f7f8fc;
   --color-font-dark: #10182f;
   --color-orange: #f98602;
-  --color-purple: #ad58cb;
+  --color-purple: #5e76bf;
+  --color-pink: #cd5b9f;
   --color-yellow: #ffd501;
   --color-dark-blue: #504699;
   --color-light-blue: #3dbeff;
-  --color-light-green: #90d4c5;
+  --color-teal: #47bcd4;
 }
 
 *,
@@ -62,11 +61,12 @@ h2 {
 /* ----tutorialslist----------  */
 
 .btn-categories {
-  border: 1px solid var(--color-light-grey);
-  background-color: var(--color-dark-blue);
+  background-color: var(--color-teal);
   color: white;
+  font-size: 1rem;
   text-transform: uppercase;
-  padding: 1em 1.25em;
+  padding: 0.5em 1em;
+  border-radius: 50px;
 }
 
 .btn-categories:hover {

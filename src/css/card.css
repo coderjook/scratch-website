@@ -36,7 +36,7 @@
   text-transform: uppercase;
 }
 .tag-teal {
-  background-color: #47bcd4;
+  background-color: var(--color-teal);
 }
 
 .card__content h4 {

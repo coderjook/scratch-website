@@ -15,12 +15,9 @@ export default function Tutorial({tutorial}) {
     const scratchUrlProjectId = scratchUrlProject.slice(0,9)
     const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
 
-    // fetch api scratch 
-    // foutmelding:
-    //Access to XMLHttpRequest at 'https://api.scratch.mit.edu/projects/561249702/' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-    // const projectInfo = useFetch(scratchUrlApi, [])
-
+    // fetch api scratch foutmelding: https://gitlab.com/Marianne-v-R/coderjook-scratch-app/-/issues/3
     // const {titel, leerdoelen,  categorie, pdfUrl, scratchUrl} = tutorial;
+    
     return (
         <>
             <div className="card tutorial">                 
