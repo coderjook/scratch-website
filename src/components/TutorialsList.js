@@ -6,8 +6,7 @@ export default function TutorialsList() {
   const [tutorialsList, setTutorialsList] = useState([]);
   const [filterTutorialsList, setFilterTutorialsList] = useState(tutorialsList);
   const [allCategories, setAllCategories] = useState([]);
-  const [categories, setCategories] = useState();
-  const [currentCategorie, setCurrenCategorie] = useState("alle")
+ 
  
 
    useEffect(() => {
@@ -23,15 +22,21 @@ export default function TutorialsList() {
       }
       console.log(tutorialsList);
       setTutorialsList(tutorialsList);
-      const allCategories = ["all", ...new Set(tutorialsList.map((item) => item.categorie))];
+      setFilterTutorialsList(tutorialsList)
+      const allCategories = ["alle opdrachten", ...new Set(tutorialsList.map((item) => item.categorie))];
       setAllCategories(allCategories);
     });
   }, []);
   
-//    useEffect(() => {
-//     console.log("useEffect imageList voor categorien", filterTutorialsList);
-//     handleCategorie();
-//   }, [currentCategorie]);
+    const handleFilterTutorialsList = (categorie) => {
+        if (categorie === "alle opdrachten") {
+        setFilterTutorialsList(tutorialsList);
+        return;
+        }
+        const newTutorialsList = tutorialsList.filter((tutorial) => tutorial.categorie === categorie);
+        setFilterTutorialsList(newTutorialsList);
+        
+    };
 
 
 
@@ -46,13 +51,13 @@ export default function TutorialsList() {
                         <div className="categories row">
                             {allCategories && allCategories.map((categorie) => (
                                 <>
-                                <div className="btn-categories">{categorie}</div>
+                                <div className="btn-categories" onClick={() => handleFilterTutorialsList(categorie)}>{categorie}</div>
                                 </>
 
                             ))}
                         </div>
                         <div className="tutorials">
-                            {tutorialsList && tutorialsList.map((tutorial) => (
+                            {filterTutorialsList && filterTutorialsList.map((tutorial) => (
                                 <>
                                 <Tutorial tutorial={tutorial} />
                                  
