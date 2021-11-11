@@ -6,12 +6,16 @@ import logo from "./../images/logo-coderjook.png";
 
 export default function Nav() {
     return (
-        <div className="nav">
+        <nav className="nav" id="hamnav">
             <div className="container row">
+                  {/* (B) THE HAMBURGER */}
+                <label for="hamburger">&#9776;</label>
+                <input type="checkbox" id="hamburger"/>  
                 <div className="logo">
                     <img src={logo} alt="logo coderjook" />
                 </div>
-                <ul>
+                 
+                 <ul id="hamitems">
                     <li>
                     <Link to="/" className="link">
                         Home
@@ -37,8 +41,9 @@ export default function Nav() {
                         voeg tutorials toe
                     </Link>
                     </li>
-      </ul>
+                </ul>
+            
             </div>
-        </div>
+        </nav>
     )
 }
