@@ -28,7 +28,7 @@ export default function Tutorial({tutorial}) {
 
     return (
         <>
-            <div className="card__big">{openUpdateTutorial && <UpdateTutorial tutorial={tutorial} openUpdateTutorial={openUpdateTutorial} setOpenUpdateTutorial={setOpenUpdateTutorial}  />   } </div>  
+            {openUpdateTutorial && <UpdateTutorial tutorial={tutorial} openUpdateTutorial={openUpdateTutorial} setOpenUpdateTutorial={setOpenUpdateTutorial}  />   }  
             <div className="card tutorial">                 
             <div className="card__header">
                 <img src={`https://cdn2.scratch.mit.edu/get_image/project/${scratchUrlProjectId}_200x200.png`} alt={tutorial.titel} className="card__image"/>

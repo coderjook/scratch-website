@@ -50,6 +50,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
   return (
     <>
     { openUpdateTutorial &&
+    <div className='modal'>
     <section className="update-tutorials">
       <div className="container">
         
@@ -123,19 +124,24 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
             ></input>
           </div>
 
-          <div className="inputfield">
+          <div className='row'>
+          {/* <div className="inputfield"> */}
             <input
               type="submit"
-              value="Voeg toe"
-              className="btn btn-form"
+              value="wijzig"
+              className="btn"
               onClick={updateTutorial}
             />
+          {/* </div> */}
+          <div className="btn" onClick={() => setOpenUpdateTutorial(false)}>verwijderen &#65039;&#x1f5d1;&#xfe0f;</div>
+          <div className="btn" onClick={() => setOpenUpdateTutorial(false)}>sluiten</div>
+          
           </div>
-          <button onClick={() => setOpenUpdateTutorial(false)}>sluiten</button>
-        
+          &#65039;
         </div>
         </div>
         </section>
+        </div>
     }
     </>
   );
