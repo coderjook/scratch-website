@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useFetch } from '../../util/useFetch';
 import "./../../css/card.css";
+import UpdateTutorial from './UpdateTutorial';
 
 
 export default function Tutorial({tutorial}) {
+
+    const [openUpdateTutorial, setOpenUpdateTutorial] = useState(false);
     // bekijk https://scratch.mit.edu/discuss/topic/439490/?page=1#post-4423497
     // vb api: https://api.scratch.mit.edu/projects/561005727/
     // vb img: https://cdn2.scratch.mit.edu/get_image/project/561005727_200x200.png
@@ -18,8 +21,14 @@ export default function Tutorial({tutorial}) {
     // fetch api scratch foutmelding: https://gitlab.com/Marianne-v-R/coderjook-scratch-app/-/issues/3
     // const {titel, leerdoelen,  categorie, pdfUrl, scratchUrl} = tutorial;
     
+    const handleUpdateTutorial = () => {
+        console.log('updateTurial openen')
+        setOpenUpdateTutorial(true);
+    }
+
     return (
         <>
+            <div className="card__big">{openUpdateTutorial && <UpdateTutorial tutorial={tutorial} openUpdateTutorial={openUpdateTutorial} setOpenUpdateTutorial={setOpenUpdateTutorial}  />   } </div>  
             <div className="card tutorial">                 
             <div className="card__header">
                 <img src={`https://cdn2.scratch.mit.edu/get_image/project/${scratchUrlProjectId}_200x200.png`} alt={tutorial.titel} className="card__image"/>
@@ -29,7 +38,11 @@ export default function Tutorial({tutorial}) {
                 <span className="tag tag-teal">
                     {tutorial.categorie} 
                     {/* projectID: {scratchUrlProjectId} */}
-                 </span>                     
+                 </span> 
+
+               
+                   <button onClick={handleUpdateTutorial}>wijzig</button>
+                                  
                              
                  <h4>{tutorial.titel}</h4>                 
                  <p>{tutorial.omschrijving}</p>

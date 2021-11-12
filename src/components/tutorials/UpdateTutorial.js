@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import "./../../css/form.css";
-import Tutorial from './Tutorial';
 
-export default function UploadTutorial({tutorial}) {
+
+export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpdateTutorial}) {
   
   const initialInputState = {
     omschrijving: "",
@@ -28,12 +28,14 @@ export default function UploadTutorial({tutorial}) {
   }, []);
 
   const updateTutorial = () => {
-    const imageRef = firebase.database().ref("tutorials").child(tutorial.id);
-    imageRef.update({
-      type: type,
-      categorie: categorie,
+    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id);
+    tutorialRef.update({
+      titel: titel,
       omschrijving: omschrijving,
-      uitleg: uitleg
+      categorie: categorie,
+      leerdoelen: leerdoelen,
+      scratchUrl: scratchUrl
+  
     });
   };
 
@@ -41,12 +43,13 @@ export default function UploadTutorial({tutorial}) {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
   
-  const toggle = () => {
-    setOpenTutorialUpdate(!openTutorialUpdate);
-  };
+  // const toggle = () => {
+  //   setOpenTutorialUpdate(!openTutorialUpdate);
+  // };
 
   return (
     <>
+    { openUpdateTutorial &&
     <section className="update-tutorials">
       <div className="container">
         
@@ -128,12 +131,13 @@ export default function UploadTutorial({tutorial}) {
               onClick={updateTutorial}
             />
           </div>
-
+          <button onClick={() => setOpenUpdateTutorial(false)}>sluiten</button>
         
         </div>
         </div>
         </section>
-     
+    }
     </>
   );
+    
 }

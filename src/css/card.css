@@ -1,3 +1,7 @@
+.card__big {
+  width: 510px;
+}
+
 .card {
   /* border: 1px solid var(--color-light-blue); */
   display: flex;
