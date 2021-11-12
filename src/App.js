@@ -3,8 +3,8 @@ import Home from "./components/Home"
 import Nav from './components/Nav';
 import Snippets from './components/Snippets';
 import Faq from './components/Faq';
-import TutorialsList from './components/TutorialsList';
-import UploadTutorial from './components/UploadTutorial';
+import TutorialsList from './components/tutorials/TutorialsList';
+import UploadTutorial from './components/tutorials/UploadTutorial';
 import './css/style.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
  

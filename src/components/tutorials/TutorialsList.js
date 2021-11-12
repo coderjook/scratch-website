@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from "react";
-import firebase from "../util/firebase";
-import Tutorial from './tutorials/Tutorial';
+import firebase from "./../../util/firebase";
+import Tutorial from './Tutorial';
 
 export default function TutorialsList() {
   const [tutorialsList, setTutorialsList] = useState([]);

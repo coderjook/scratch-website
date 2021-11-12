@@ -1,10 +1,10 @@
 import React,{useState, useEffect} from 'react';
-import firebase from "./../util/firebase";
-import { storage } from "./../util/firebase";
-import "./../css/form.css";
+import firebase from "../../util/firebase";
+import { storage } from "../../util/firebase";
+import "./../../css/form.css";
 
-export default function UploadTutorial() {
-    const [title, setTitle] = useState("");
+export default function UpdateTutorial() {
+    
   const initialInputState = {
     omschrijving: "",
     titel: "",
