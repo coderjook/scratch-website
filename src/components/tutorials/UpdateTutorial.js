@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
+import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
 
@@ -15,6 +16,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl } = eachEntry;
+  const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
     setEachEntry({
@@ -37,6 +39,21 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
       scratchUrl: scratchUrl
   
     });
+  };
+
+  const deleteTutorial = () => {
+    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.id);
+    deleteTutorialRef.remove();
+    const tutorialStorageRef = storage.ref(`tutorials/${tutorial.pdfName}`);
+    tutorialStorageRef
+      .delete()
+      .then(function () {
+        console.log(" File deleted successfully ");
+        setOpenUpdateTutorial(false)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const handleInputChange = (e) => {
@@ -133,9 +150,10 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
               onClick={updateTutorial}
             />
           {/* </div> */}
-          <div className="btn" onClick={() => setOpenUpdateTutorial(false)}>verwijderen &#65039;&#x1f5d1;&#xfe0f;</div>
-          <div className="btn" onClick={() => setOpenUpdateTutorial(false)}>sluiten</div>
           
+          <div className="btn" onClick={() => setOpenUpdateTutorial(false)}>sluiten</div>
+          <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
+          {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteTutorial}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
           </div>
           &#65039;
         </div>
