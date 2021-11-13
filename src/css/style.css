@@ -88,6 +88,16 @@ h2 {
   max-width: 150px;
 }
 
+.icon {
+  font-size: 1rem;
+}
+
+.icon:hover {
+  color: var(--color-dark-blue);
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* ----tutorialslist----------  */
 
 .btn-categories {

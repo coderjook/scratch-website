@@ -24,38 +24,54 @@
   color: var(--color-teal);
 }
 
-/* (C) HIDE HAMBURGER */
-#hamnav label,
-#hamburger {
+.navfooter {
   display: none;
 }
 
 /* [ON SMALL SCREENS] */
 @media screen and (max-width: 768px) {
-  /* (A) BREAK INTO VERTICAL MENU */
-  #hamitems li {
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    /* padding-top: 0.5em; */
-    /* border-top: 1px solid #333; */
-  }
-
-  /* (B) SHOW HAMBURGER ICON */
-  #hamnav label {
-    display: inline-block;
-    color: white;
-    background: var(--color-purple);
-    font-style: normal;
-    font-size: 2rem;
-    padding: 10px;
-  }
-
-  /* (C) TOGGLE SHOW/HIDE MENU */
-  #hamitems li {
+  .nav #hamitems {
     display: none;
   }
-  #hamnav input:checked ~ #hamitems li {
-    display: block;
+
+  .navfooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    font-family: sans-serif;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    color: var(--color-dark-blue);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+  }
+
+  .nav__link:hover {
+    background-color: #eeeeee;
+  }
+
+  .nav__link--active {
+    color: var(--color-teal);
+  }
+
+  .nav__icon {
+    font-size: 18px;
   }
 }
