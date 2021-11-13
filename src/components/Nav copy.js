@@ -6,10 +6,11 @@ import logo from "./../images/logo-coderjook.png";
 
 export default function Nav() {
     return (
-        <>
         <nav className="nav" id="hamnav">
             <div className="container row">
-          
+                  {/* (B) THE HAMBURGER */}
+                <label for="hamburger">&#9776;</label>
+                <input type="checkbox" id="hamburger"/>  
                 <div className="logo">
                     <img src={logo} alt="logo coderjook" />
                 </div>
@@ -44,31 +45,5 @@ export default function Nav() {
             
             </div>
         </nav>
-
-        <nav className="navfooter">
-            <Link to="/" className="nav__link">
-                <i className="material-icons nav__icon">home</i>
-                <span className="nav__text">Home</span>
-            </Link>
-            <Link to="/tutorials" className="nav__link">
-                <i className="material-icons nav__icon">article</i>
-                <span className="nav__text">Tutorials</span>
-            </Link>
-            <Link to="/snippets" className="nav__link">
-                <i className="material-icons nav__icon">code</i>
-                <span className="nav__text">Codesnippets</span>
-            </Link>
-            <Link to="/faq" className="nav__link">
-                <i className="material-icons nav__icon">help_outline</i>
-                {/* <span class="material-icons-outlined nav__icon">help_outline</span> */}
-                <span className="nav__text">FAQ</span>
-            </Link>
-            <Link to="/uploadtutorials" className="nav__link">
-                <i className="material-icons nav__icon">settings</i>
-                <span className="nav__text">Toevoegen</span>
-            </Link>
-        </nav>
-
-        </>
     )
 }

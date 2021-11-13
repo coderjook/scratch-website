@@ -39,14 +39,12 @@ export default function Tutorial({tutorial}) {
                     {tutorial.categorie} 
                     {/* projectID: {scratchUrlProjectId} */}
                  </span> 
-
-               
-                   <button onClick={handleUpdateTutorial}>wijzig</button>
-                                  
+                 
+                                             
                              
-                 <h4>{tutorial.titel}</h4>                 
+                 <h4>{tutorial.titel} | <i className="material-icons icon" onClick={handleUpdateTutorial}>mode</i></h4>                 
                  <p>{tutorial.omschrijving}</p>
-
+ 
                  <span className="tagline">
                     leerdoelen: {tutorial.leerdoelen}
                  </span>
