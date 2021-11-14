@@ -38,7 +38,9 @@ export default function TutorialsList() {
         
     };
 
-
+    const determineColor = () => {
+        return "yellow"
+    }
 
     return (
         <div className="tutorials">
@@ -48,7 +50,7 @@ export default function TutorialsList() {
 
                 <div className="tutorialslist">
                     <div className="container container__tutorialslist">
-                        <div className="categories row">
+                        <div className={`categories row ${determineColor()}`}>
                             {allCategories && allCategories.map((categorie) => (
                                 <>
                                 <div className="btn-categories" onClick={() => handleFilterTutorialsList(categorie)}>{categorie}</div>

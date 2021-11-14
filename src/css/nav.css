@@ -51,7 +51,7 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    min-width: 50px;
+    width: 20%;
     overflow: hidden;
     /* white-space: nowrap; */
     font-family: sans-serif;

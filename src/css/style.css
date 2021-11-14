@@ -60,6 +60,10 @@ h2 {
   gap: 1rem;
 }
 
+.yellow {
+  background-color: darkorange;
+}
+
 .btn {
   border: 1px solid var(--color-light-grey);
   background-color: var(--color-dark-blue);
