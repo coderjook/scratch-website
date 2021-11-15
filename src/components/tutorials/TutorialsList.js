@@ -6,7 +6,12 @@ export default function TutorialsList() {
   const [tutorialsList, setTutorialsList] = useState([]);
   const [filterTutorialsList, setFilterTutorialsList] = useState(tutorialsList);
   const [allCategories, setAllCategories] = useState([]);
- 
+  const [currentCategorie, setCurrentCategorie] = useState('alle opdrachten');
+  const [toggleCategorie, setToggleCategorie] = useState(false);
+  const [device, setDevice] = useState('');
+  
+
+  const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
  
 
    useEffect(() => {
@@ -26,20 +31,36 @@ export default function TutorialsList() {
       const allCategories = ["alle opdrachten", ...new Set(tutorialsList.map((item) => item.categorie))];
       setAllCategories(allCategories);
     });
+
+    if (viewportWidth >= 900 ) {
+        setToggleCategorie(true);
+        setDevice('desktop')
+     } else {
+         setToggleCategorie(false);
+        setDevice('mobile')
+     }
   }, []);
   
     const handleFilterTutorialsList = (categorie) => {
         if (categorie === "alle opdrachten") {
         setFilterTutorialsList(tutorialsList);
+        setCurrentCategorie(categorie);
+         if ( device === 'mobile') {
+            setToggleCategorie(!toggleCategorie)
+        }
         return;
         }
         const newTutorialsList = tutorialsList.filter((tutorial) => tutorial.categorie === categorie);
         setFilterTutorialsList(newTutorialsList);
+        setCurrentCategorie(categorie);
         
+         if ( device === 'mobile') {
+            setToggleCategorie(!toggleCategorie)
+        }
     };
 
-    const determineColor = () => {
-        return "yellow"
+    const determineColor = (categorie) => {
+        return   categorie.substring(0, categorie.indexOf("-"))
     }
 
     return (
@@ -50,14 +71,19 @@ export default function TutorialsList() {
 
                 <div className="tutorialslist">
                     <div className="container container__tutorialslist">
-                        <div className={`categories row ${determineColor()}`}>
+                        { device === "mobile" &&
+                        <div className={`filter ${device}`} onClick={() => {setToggleCategorie(!toggleCategorie)}}>{currentCategorie === 'alle opdrachten' ? `gebruik een filter` : `huidige filter: ${currentCategorie} `} </div>
+                        }                           
+                        {toggleCategorie &&
+                            <div className="categories row">
                             {allCategories && allCategories.map((categorie) => (
                                 <>
-                                <div className="btn-categories" onClick={() => handleFilterTutorialsList(categorie)}>{categorie}</div>
+                                <div className={`btn-categories ${determineColor(categorie)} ${device}`} onClick={() => handleFilterTutorialsList(categorie)}>{categorie}</div>
                                 </>
 
                             ))}
                         </div>
+                        }
                         <div className="tutorials">
                             {filterTutorialsList && filterTutorialsList.map((tutorial) => (
                                 <>
