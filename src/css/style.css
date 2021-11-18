@@ -159,6 +159,26 @@ h2 {
   color: white;
   border: none;
 }
+/*--------storagelist -------------*/
+
+.storagelistitem {
+  border-bottom: 1px solid var(--color-dark-blue);
+  padding: 0.25em 0px;
+  margin: 0.5em 0px;
+}
+
+.storagelist img {
+  width: 50px;
+  height: 50px;
+}
+
+.storagelist .name {
+  width: 500px;
+}
+
+.storagelist .btn {
+  border-radius: 50px;
+}
 
 /* -------------[ON SMALL SCREENS]------------------- */
 @media screen and (max-width: 900px) {
