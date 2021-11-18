@@ -3,93 +3,78 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
-export default function UploadTutorial() {
-    
+
+export default function UpdateSnippet({snippet, openUpdateSnippet, setOpenUpdateSnippet}) {
+  
   const initialInputState = {
     omschrijving: "",
     titel: "",
     leerdoelen: "",
     categorie: "",
-    pdfName: "",
-    pdfUrl: "",
     scratchUrl: ""
   };
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
-  const [file, setFile] = useState(null);
-  const [error, setError] = useState(null);
- 
+  const { omschrijving,titel, leerdoelen, categorie,scratchUrl } = eachEntry;
+  const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
-    if (file) {
-      handleUpload();
-    } else {
-      console.log("er gaat iets mis met het wegschrijven van de pdf");
-    }
-  }, [file]);
+    setEachEntry({
+      ...eachEntry,
+      titel: snippet.titel,
+      omschrijving: snippet.omschrijving,
+      categorie: snippet.categorie,
+      leerdoelen: snippet.leerdoelen,
+      scratchUrl: snippet.scratchUrl
+    });
+  }, []);
 
-
-  const onFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const updateSnippet = () => {
+    const snippetRef = firebase.database().ref("snippets").child(snippet.id);
+    snippetRef.update({
+      titel: titel,
+      omschrijving: omschrijving,
+      categorie: categorie,
+      leerdoelen: leerdoelen,
+      scratchUrl: scratchUrl
+  
+    });
   };
 
-  console.log("file", file);
-
-  const handleUpload = () => {
-    const upLoadTask = storage.ref(`tutorials/${file.name}`).put(file);
-    upLoadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
+  const deleteSnippet = () => {
+    const deleteSnippetRef = firebase.database().ref("snippets").child(snippet.id);
+    deleteSnippetRef.remove();
+    const snippetStorageRef = storage.ref(`snippets/${snippet.pdfName}`);
+    snippetStorageRef
+      .delete()
+      .then(function () {
+        console.log(" File deleted successfully ");
+        setOpenUpdateSnippet(false)
+      })
+      .catch(function (error) {
         console.log(error);
-      },
-      () => {
-        storage
-          .ref("tutorials")
-          .child(file.name)
-          .getDownloadURL()
-          .then((url) => {
-            console.log(url);
-            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: file.name });
-          });
-      }
-    );
+      });
   };
 
   const handleInputChange = (e) => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
-
-  const handleFinalSubmit = (e) => {
-    console.log("final submit");
-    console.log('each entry:',eachEntry)
-    const pdfRef = firebase.database().ref("tutorials");
-    pdfRef.push(eachEntry);
-    setFile(null);
-    setEachEntry(initialInputState);
-  };
+  
+  // const toggle = () => {
+  //   setOpenSnippetUpdate(!openSnippetUpdate);
+  // };
 
   return (
     <>
-    <section className="upload-tutorials">
+    { openUpdateSnippet &&
+    <div className='modal'>
+    <section className="update-snippets">
       <div className="container">
         
-        <h2>Voeg tutorial toe</h2>
+        <h2>wijzig snippet toe</h2>
 
         <div className="form">
          
-          <div className="inputfield">
-            <label for="imgUrl">Kies pdf</label>
-            <input
-              className="file"
-              type="file"
-              name="imgUrl"
-              id="exampleFile"
-              onChange={onFileChange}
-            />
-          </div>
-
           <div className="inputfield">
             <label for="titel">Titel</label>
             <input
@@ -135,11 +120,9 @@ export default function UploadTutorial() {
                 value={categorie}
               >
                 <option value="">-kies-</option>
-                <option value="basis-opdracht">basis-opdracht</option>
-                <option value="basis-spel">basis-spel</option>
-                <option value="start">start</option>
-                <option value="vervolg-opdracht">vervolg-opdracht</option>
-                <option value="vervolg-spel">vervolg-spel</option>
+                <option value="besturing">besturing</option>
+                <option value="beweging">beweging</option>
+                <option value="spelelement">spelelement</option> 
               </select>
             </div>
           </div>
@@ -156,18 +139,27 @@ export default function UploadTutorial() {
             ></input>
           </div>
 
-          <div className="inputfield">
+          <div className='row'>
+          {/* <div className="inputfield"> */}
             <input
               type="submit"
-              value="Voeg toe"
-              className="btn btn-form"
-              onClick={handleFinalSubmit}
+              value="wijzig"
+              className="btn"
+              onClick={updateSnippet}
             />
+          {/* </div> */}
+          
+          <div className="btn" onClick={() => setOpenUpdateSnippet(false)}>sluiten</div>
+          <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
+          {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
           </div>
+          &#65039;
         </div>
         </div>
         </section>
-     
+        </div>
+    }
     </>
   );
+    
 }
