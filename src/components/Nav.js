@@ -36,8 +36,8 @@ export default function Nav() {
                     </Link>
                     </li>
                     <li>
-                    <Link to="/uploadtutorials" className="link">
-                        voeg tutorials toe
+                    <Link to="/uploadforms" className="link">
+                        upload forms
                     </Link>
                     </li>
                 </ul>

@@ -84,6 +84,19 @@ h2 {
   background-color: var(--color-purple);
   cursor: pointer;
 }
+
+.toggle {
+  background-color: var(--color-teal);
+  color: white;
+  cursor: pointer;
+  padding: 0.5em 0.5em;
+  margin: 0.5em 0;
+  border-radius: 50px;
+}
+
+.toggle:hover {
+  color: var(--color-dark-blue);
+}
 /* -----nav----------  */
 
 .nav {
@@ -147,7 +160,7 @@ h2 {
   border: none;
 }
 
-/* [ON SMALL SCREENS] */
+/* -------------[ON SMALL SCREENS]------------------- */
 @media screen and (max-width: 900px) {
   .mobile {
     display: block;
