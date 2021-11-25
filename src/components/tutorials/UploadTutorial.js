@@ -77,7 +77,7 @@ export default function UploadTutorial() {
         
         <h2>Voeg tutorial toe</h2>
 
-        <div className="form">
+        <form className="form" onSubmit={handleFinalSubmit}>
          
           <div className="inputfield">
             <label for="imgUrl">Kies pdf</label>
@@ -90,7 +90,7 @@ export default function UploadTutorial() {
             />
           </div>
 
-          <div className="inputfield">
+          {/* <div className="inputfield">
             <label for="titel">Titel</label>
             <input
               type="text"
@@ -154,17 +154,28 @@ export default function UploadTutorial() {
               onChange={handleInputChange}
               value={scratchUrl}
             ></input>
-          </div>
+          </div> */}
 
-          <div className="inputfield">
-            <input
-              type="submit"
-              value="Voeg toe"
-              className="btn btn-form"
-              onClick={handleFinalSubmit}
-            />
-          </div>
-        </div>
+
+                  {Object.keys(initialInputState).map((inputName) => {
+    return (
+        <div className="inputfield">
+        <label htmlFor={inputName}>{inputName}</label>
+        <input
+            type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+            className="input"
+            name={inputName}
+            placeholder={inputName}
+            onChange={handleInputChange}
+            value={eachEntry[inputName]}
+        ></input>
+    </div>)
+} )}
+
+          
+            <input type='submit' value='voeg toe'/>
+          
+        </form>
         </div>
         </section>
      
