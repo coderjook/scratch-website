@@ -3,20 +3,25 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
+
+
+const initialInputState = {
+  titel: "",
+  omschrijving: "",
+  leerdoelen: "",
+  categorie: "",
+  pdfName: "",
+  pdfUrl: "",
+  scratchUrl: ""
+};
+
+
 export default function UploadTutorial() {
     
-  const initialInputState = {
-    omschrijving: "",
-    titel: "",
-    leerdoelen: "",
-    categorie: "",
-    pdfName: "",
-    pdfUrl: "",
-    scratchUrl: ""
-  };
+ 
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
+  // const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
  
@@ -88,92 +93,48 @@ export default function UploadTutorial() {
               id="exampleFile"
               onChange={onFileChange}
             />
-          </div>
-
-          {/* <div className="inputfield">
-            <label for="titel">Titel</label>
-            <input
-              type="text"
-              className="input"
-              name="titel"
-              placeholder="titel"
-              onChange={handleInputChange}
-              value={titel}
-            ></input>
-          </div>
-
-           <div className="inputfield">
-            <label for="leerdoelen">leerdoelen</label>
-            <input
-              type="text"
-              className="input"
-              name="leerdoelen"
-              placeholder="leerdoelen"
-              onChange={handleInputChange}
-              value={leerdoelen}
-            ></input>
-          </div>
-         
-        
-         <div className="inputfield">
-            <label for="omschrijving">Omschrijving</label>
-            <textarea
-              className="textarea"
-              name="omschrijving"
-              placeholder="omschrijving handleiding"
-              onChange={handleInputChange}
-              value={omschrijving}
-            ></textarea>
-          </div>
-
-           <div className="inputfield">
-            <label for="type">Categorie</label>
-            <div className="custom_select">
-              <select
-                name="categorie"
-                onChange={handleInputChange}
-                value={categorie}
-              >
-                <option value="">-kies-</option>
-                <option value="basis-opdracht">basis-opdracht</option>
-                <option value="basis-spel">basis-spel</option>
-                <option value="start">start</option>
-                <option value="vervolg-opdracht">vervolg-opdracht</option>
-                <option value="vervolg-spel">vervolg-spel</option>
-              </select>
-            </div>
-          </div>
-
-         <div className="inputfield">
-            <label for="scratchUrl">Scratch Url</label>
-            <input
-              type="text"
-              className="input"
-              name="scratchUrl"
-              placeholder="scratchUrl"
-              onChange={handleInputChange}
-              value={scratchUrl}
-            ></input>
-          </div> */}
+          </div>       
 
 
-                  {Object.keys(initialInputState).map((inputName) => {
-    return (
-        <div className="inputfield">
-        <label htmlFor={inputName}>{inputName}</label>
-        <input
-            type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
-            className="input"
-            name={inputName}
-            placeholder={inputName}
-            onChange={handleInputChange}
-            value={eachEntry[inputName]}
-        ></input>
-    </div>)
-} )}
-
-          
-            <input type='submit' value='voeg toe'/>
+      {Object.keys(initialInputState).map((inputName) => {
+        return (
+            inputName === 'pdfName' || inputName === 'pdfUrl' ? <></> :
+            inputName === 'categorie'
+            ?
+              <div className="inputfield">
+                <label for="type">{inputName}</label>
+                <div className="custom_select">
+                  <select
+                    name={inputName}
+                    onChange={handleInputChange}
+                    value={eachEntry[inputName]}
+                  >
+                    <option value="">-kies-</option>
+                    <option value="basis-opdracht">basis-opdracht</option>
+                    <option value="basis-spel">basis-spel</option>
+                    <option value="start">start</option>
+                    <option value="vervolg-opdracht">vervolg-opdracht</option>
+                    <option value="vervolg-spel">vervolg-spel</option>
+                  </select>
+                </div>
+              </div>
+              :
+                <div className="inputfield">
+                  <label htmlFor={inputName}>{inputName}</label>
+                  <input
+                      type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                      className="input"
+                      name={inputName}
+                      placeholder={inputName}
+                      onChange={handleInputChange}
+                      value={eachEntry[inputName]}
+                  ></input>
+                </div>
+            
+            )
+        } )}
+       
+            <input type='submit' value='voeg toe' className="btn btn-form"/>
           
         </form>
         </div>

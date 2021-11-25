@@ -3,16 +3,18 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
+const initialInputState = {
+  omschrijving: "",
+  titel: "",
+  leerdoelen: "",
+  categorie: "",
+  scratchUrl: ""
+};
+
 
 export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpdateTutorial}) {
   
-  const initialInputState = {
-    omschrijving: "",
-    titel: "",
-    leerdoelen: "",
-    categorie: "",
-    scratchUrl: ""
-  };
+  
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl } = eachEntry;
@@ -73,9 +75,9 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
         
         <h2>wijzig tutorial toe</h2>
 
-        <div className="form">
+        <form className="form" onSubmit={updateTutorial}>
          
-          <div className="inputfield">
+          {/* <div className="inputfield">
             <label for="titel">Titel</label>
             <input
               type="text"
@@ -139,24 +141,62 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
               onChange={handleInputChange}
               value={scratchUrl}
             ></input>
-          </div>
+          </div> */}
 
-          <div className='row'>
-          {/* <div className="inputfield"> */}
-            <input
+          {Object.keys(initialInputState).map((inputName) => {
+        return (
+            
+            inputName === 'categorie'
+            ?
+              <div className="inputfield">
+                <label for="type">{inputName}</label>
+                <div className="custom_select">
+                  <select
+                    name={inputName}
+                    onChange={handleInputChange}
+                    value={eachEntry[inputName]}
+                  >
+                    <option value="">-kies-</option>
+                    <option value="basis-opdracht">basis-opdracht</option>
+                    <option value="basis-spel">basis-spel</option>
+                    <option value="start">start</option>
+                    <option value="vervolg-opdracht">vervolg-opdracht</option>
+                    <option value="vervolg-spel">vervolg-spel</option>
+                  </select>
+                </div>
+              </div>
+              :
+                <div className="inputfield">
+                  <label htmlFor={inputName}>{inputName}</label>
+                  <input
+                      type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                      className="input"
+                      name={inputName}
+                      placeholder={inputName}
+                      onChange={handleInputChange}
+                      value={eachEntry[inputName]}
+                  ></input>
+                </div>
+            
+            )
+        } )}
+
+          
+        <div className='row'>
+          <input
               type="submit"
               value="wijzig"
               className="btn"
-              onClick={updateTutorial}
+             
             />
-          {/* </div> */}
-          
+         
+         
           <div className="btn" onClick={() => setOpenUpdateTutorial(false)}>sluiten</div>
           <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
           {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteTutorial}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
           </div>
           &#65039;
-        </div>
+        </form>
         </div>
         </section>
         </div>
