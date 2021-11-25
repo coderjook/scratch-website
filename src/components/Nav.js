@@ -63,7 +63,7 @@ export default function Nav() {
                 {/* <span class="material-icons-outlined nav__icon">help_outline</span> */}
                 <span className="nav__text">FAQ</span>
             </Link>
-            <Link to="/uploadtutorials" className="nav__link">
+            <Link to="/uploadforms" className="nav__link">
                 <i className="material-icons nav__icon">settings</i>
                 <span className="nav__text">Toevoegen</span>
             </Link>

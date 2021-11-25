@@ -21,7 +21,7 @@ export default function Tutorial({tutorial}) {
     const colorCategorie = tutorial.categorie && tutorial.categorie.substring(0, tutorial.categorie.indexOf("-"))
 
     // fetch api scratch foutmelding: https://gitlab.com/Marianne-v-R/coderjook-scratch-app/-/issues/3
-    const dataScratch = useFetch("https://api.scratch.mit.edu/projects/561005727/",[])
+    // const dataScratch = useFetch("27/",[])
     // const {titel, leerdoelen,  categorie, pdfUrl, scratchUrl} = tutorial;
     
     const handleUpdateTutorial = () => {
