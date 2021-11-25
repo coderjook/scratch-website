@@ -6,7 +6,7 @@ import { storage } from "../../util/firebase";
 
 
 
-export default function GifList() {
+export default function StorageList() {
 // const initialInputState = {
 //     itemUrl: '',
 //     itemName:'',
