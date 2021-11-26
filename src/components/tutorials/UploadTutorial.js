@@ -122,7 +122,7 @@ export default function UploadTutorial() {
                 <div className="inputfield">
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
-                      type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                      type='text'
                       className="input"
                       name={inputName}
                       placeholder={inputName}

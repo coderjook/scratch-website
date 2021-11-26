@@ -3,11 +3,9 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
-export default function UploadSnippet() {
-    
-  const initialInputState = {
-    omschrijving: "",
+const initialInputState = {
     titel: "",
+    omschrijving: "",    
     leerdoelen: "",
     categorie: "",
     pdfName: "",
@@ -16,6 +14,11 @@ export default function UploadSnippet() {
     gifUrl: "",
     scratchUrl: ""
   };
+
+
+export default function UploadSnippet() {
+    
+  
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
@@ -112,10 +115,10 @@ export default function UploadSnippet() {
         
         <h2>Voeg codesnippet toe</h2>
 
-        <div className="form">
+        <form className="form" onSubmit={handleFinalSubmit}>
          
           <div className="inputfield">
-            <label for="imgUrl">Kies img</label>
+            <label for="imgUrl">Kies pdf</label>
             <input
               className="file"
               type="file"
@@ -123,7 +126,7 @@ export default function UploadSnippet() {
               id="exampleFile"
               onChange={onFileChange}
             />
-          </div>
+          </div>   
 
           <div className="inputfield">
             <label for="imgUrl">Kies Animated Gif</label>
@@ -134,81 +137,49 @@ export default function UploadSnippet() {
               id="exampleFile"
               onChange={onGifChange}
             />
-          </div>
+          </div>    
 
-          <div className="inputfield">
-            <label for="titel">Titel</label>
-            <input
-              type="text"
-              className="input"
-              name="titel"
-              placeholder="titel"
-              onChange={handleInputChange}
-              value={titel}
-            ></input>
-          </div>
 
-           <div className="inputfield">
-            <label for="leerdoelen">leerdoelen</label>
-            <input
-              type="text"
-              className="input"
-              name="leerdoelen"
-              placeholder="leerdoelen"
-              onChange={handleInputChange}
-              value={leerdoelen}
-            ></input>
-          </div>
-         
-        
-         <div className="inputfield">
-            <label for="omschrijving">Omschrijving</label>
-            <textarea
-              className="textarea"
-              name="omschrijving"
-              placeholder="omschrijving handleiding"
-              onChange={handleInputChange}
-              value={omschrijving}
-            ></textarea>
-          </div>
+      {Object.keys(initialInputState).map((inputName) => {
+        return (
+            inputName.includes('pdf') || inputName.includes('gif') ? <></> :
+            inputName === 'categorie'
+            ?
+              <div className="inputfield">
+                <label for="type">{inputName}</label>
+                <div className="custom_select">
+                  <select
+                    name={inputName}
+                    onChange={handleInputChange}
+                    value={eachEntry[inputName]}
+                  >
+                    <option value="">-kies-</option>
+                    <option value="besturing">besturing</option>
+                    <option value="beweging">beweging</option>
+                    <option value="spelelement">spelelement</option>  
+                  </select>
+                </div>
+              </div>
+              :
+                <div className="inputfield">
+                  <label htmlFor={inputName}>{inputName}</label>
+                  <input
+                      type='text'
+                      className="input"
+                      name={inputName}
+                      placeholder={inputName}
+                      onChange={handleInputChange}
+                      value={eachEntry[inputName]}
+                  ></input>
+                </div>
+            
+            )
+        } )}
+       
+            <input type='submit' value='voeg toe' className="btn btn-form"/>
+          
+        </form>
 
-           <div className="inputfield">
-            <label for="type">Categorie</label>
-            <div className="custom_select">
-              <select
-                name="categorie"
-                onChange={handleInputChange}
-                value={categorie}
-              >
-                <option value="">-kies-</option>
-                <option value="besturing">besturing</option>
-                <option value="beweging">beweging</option>
-                <option value="spelelement">spelelement</option>                
-              </select>
-            </div>
-          </div>
-
-         <div className="inputfield">
-            <label for="scratchUrl">Scratch Url</label>
-            <input
-              type="text"
-              className="input"
-              name="scratchUrl"
-              placeholder="scratchUrl"
-              onChange={handleInputChange}
-              value={scratchUrl}
-            ></input>
-          </div>
-
-          <div className="inputfield">
-            <input
-              type="submit"
-              value="Voeg toe"
-              className="btn btn-form"
-              onClick={handleFinalSubmit}
-            />
-          </div>
-        </div>
         </div>
         </section>
      
