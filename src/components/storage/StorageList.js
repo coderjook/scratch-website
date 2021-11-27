@@ -2,25 +2,55 @@ import React, { useState, useEffect} from 'react';
 import { storage } from "../../util/firebase";
 
 
-
-
-
-
 export default function StorageList() {
-// const initialInputState = {
-//     itemUrl: '',
-//     itemName:'',
-// }
+
 
 const [allItems, setAllItems] = useState([]);
 const [categorie, setCategorie] = useState('');
 
 useEffect(() => {
-    // setAllItems([]);
+  // setAllItems([]);
   getFromFirebase();
   }, [categorie]) 
 
-  const deleteFromFirebase = (url) => {
+  const getFromFirebase = () => {
+
+      let currentItems = [];
+    //1.
+    console.log('categorie:', categorie)
+    if (categorie) {
+        let storageRef = storage.ref().child(categorie);
+      
+        //2.
+        storageRef.listAll().then(function (res) {
+            //3.
+            res.items.map((imageRef) => {
+         
+            imageRef.getDownloadURL().then((url) => {
+                //4.
+                let currentItem = {
+                    itemUrl: url, 
+                    itemName: imageRef.name 
+                }
+                currentItems.push(currentItem);
+                console.log('currentItems:' ,currentItems) 
+            });
+            
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+        setAllItems(currentItems)
+    }
+  };
+
+   const consoleLog = () => {
+        console.log ('consolelog allItems', allItems)
+  }
+
+    const deleteFromFirebase = (url) => {
     //1.
     let pictureRef = storage.refFromURL(url);
    //2.
@@ -35,40 +65,15 @@ useEffect(() => {
       });
   };
 
-  const getFromFirebase = () => {
-    //1.
-    console.log('categorie:', categorie)
-    if (categorie) {
-        let storageRef = storage.ref().child(categorie);
-        //2.
-        storageRef.listAll().then(function (res) {
-            //3.
-            res.items.forEach((imageRef) => {
-            console.log('naam afbeelding:' ,imageRef.name)
-            imageRef.getDownloadURL().then((url) => {
-                //4.
-                let currentItem = {
-                    itemUrl: url, 
-                    itemName: imageRef.name 
-                }
-                allItems.push(currentItem);
-            });
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-  };
-
-
     return (
         <div>
             <div className="storagelist">
 
             <div onClick={() => setCategorie('snippets/')} className="btn">bekijk jpg scripts</div>
             <div onClick={() => setCategorie('gif/')} className="btn">bekijk animated gif</div>
+            <div onClick={consoleLog} className="btn">console log</div>
      {allItems.map((item, index) => {
+         console.log('item.itemName: ',item.itemName)
         return (
            <div key={index} className="storagelistitem row">
               <div className="name"> {item.itemName}</div>
