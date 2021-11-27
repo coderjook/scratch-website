@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
+import AnimatedGifList from './AnimatedGifList';
 import "./../../css/form.css";
 
 const initialInputState = {
@@ -22,6 +23,7 @@ export default function UploadSnippet() {
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
+  const [openAnimatedGifList, setOpenAnimatedGifList] = useState(true)
   const [file, setFile] = useState(null);
   const [gif, setGif] = useState(null);
   const [error, setError] = useState(null);
@@ -112,6 +114,8 @@ export default function UploadSnippet() {
     <>
     <section className="upload-snippets">
       <div className="container">
+
+        {openAnimatedGifList && <AnimatedGifList />}
         
         <h2>Voeg codesnippet toe</h2>
 
@@ -137,7 +141,9 @@ export default function UploadSnippet() {
               id="exampleFile"
               onChange={onGifChange}
             />
-          </div>    
+          </div>   
+
+          <div className='inputfield' onClick={() => setOpenAnimatedGifList(true)}>kies animated gif</div> 
 
 
       {Object.keys(initialInputState).map((inputName) => {
