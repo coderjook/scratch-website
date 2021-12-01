@@ -6,9 +6,9 @@ export interface TutorialInt  {
     id: number
     titel: string 
     categorie: string
-    leerdoelen?: string
-    omschrijving?: string
-    scratchUrl?: string
+    leerdoelen: string 
+    omschrijving: string 
+    scratchUrl: string 
     pdfName: string
     pdfUrl: string
 }

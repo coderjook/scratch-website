@@ -3,6 +3,24 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
+
+type UploadTutorialProps = {
+    tutorial: {
+      id: number
+      titel: string 
+      categorie: string
+      leerdoelen: string 
+      omschrijving: string 
+      scratchUrl: string 
+      pdfName: string
+      pdfUrl: string
+  }
+ 
+  openUpdateTutorial : boolean
+  setOpenUpdateTutorial : any
+
+}
+
 const initialInputState = {
   omschrijving: "",
   titel: "",
@@ -12,9 +30,9 @@ const initialInputState = {
 };
 
 
-export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpdateTutorial}) {
+export default function UploadTutorial(props : UploadTutorialProps) {
   
-  
+  const {tutorial, openUpdateTutorial, setOpenUpdateTutorial} = props
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl } = eachEntry;
@@ -32,7 +50,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
   }, []);
 
   const updateTutorial = () => {
-    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id);
+    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id.toString());
     tutorialRef.update({
       titel: titel,
       omschrijving: omschrijving,
@@ -44,7 +62,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
   };
 
   const deleteTutorial = () => {
-    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.id);
+    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.id.toString());
     deleteTutorialRef.remove();
     const tutorialStorageRef = storage.ref(`tutorials/${tutorial.pdfName}`);
     tutorialStorageRef
@@ -58,7 +76,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
       });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
   
@@ -77,73 +95,9 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
 
         <form className="form" onSubmit={updateTutorial}>
          
-          {/* <div className="inputfield">
-            <label for="titel">Titel</label>
-            <input
-              type="text"
-              className="input"
-              name="titel"
-              placeholder="titel"
-              onChange={handleInputChange}
-              value={titel}
-            ></input>
-          </div>
-
-           <div className="inputfield">
-            <label for="leerdoelen">leerdoelen</label>
-            <input
-              type="text"
-              className="input"
-              name="leerdoelen"
-              placeholder="leerdoelen"
-              onChange={handleInputChange}
-              value={leerdoelen}
-            ></input>
-          </div>
          
-        
-         <div className="inputfield">
-            <label for="omschrijving">Omschrijving</label>
-            <textarea
-              className="textarea"
-              name="omschrijving"
-              placeholder="omschrijving handleiding"
-              onChange={handleInputChange}
-              value={omschrijving}
-            ></textarea>
-          </div>
 
-           <div className="inputfield">
-            <label for="type">Categorie</label>
-            <div className="custom_select">
-              <select
-                name="categorie"
-                onChange={handleInputChange}
-                value={categorie}
-              >
-                <option value="">-kies-</option>
-                <option value="basis-opdracht">basis-opdracht</option>
-                <option value="basis-spel">basis-spel</option>
-                <option value="start">start</option>
-                <option value="vervolg-opdracht">vervolg-opdracht</option>
-                <option value="vervolg-spel">vervolg-spel</option>
-              </select>
-            </div>
-          </div>
-
-         <div className="inputfield">
-            <label for="scratchUrl">Scratch Url</label>
-            <input
-              type="text"
-              className="input"
-              name="scratchUrl"
-              placeholder="scratchUrl"
-              onChange={handleInputChange}
-              value={scratchUrl}
-            ></input>
-          </div> */}
-
-          {Object.keys(initialInputState).map((inputName) => {
+          {Object.keys(initialInputState).map((inputName : string) => {
         return (
             
             inputName === 'categorie'
