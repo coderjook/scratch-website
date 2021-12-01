@@ -2,26 +2,25 @@ import react, { useEffect, useState } from "react";
 import firebase from "../../util/firebase";
 import Tutorial from './Tutorial';
 
-interface List  {
+export interface TutorialInt  {
     id: number
+    titel: string 
     categorie: string
-    leerdoelen: string
-    omschrijving: string
+    leerdoelen?: string
+    omschrijving?: string
+    scratchUrl?: string
     pdfName: string
     pdfUrl: string
-    scratchUrl: string
-    titel: string 
-
 }
 
 
 export default function TutorialsList() {
-  const [tutorialsList, setTutorialsList] = useState<List[]>([]);
-  const [filterTutorialsList, setFilterTutorialsList] = useState(tutorialsList);
+  const [tutorialsList, setTutorialsList] = useState<TutorialInt[]>([]);
+  const [filterTutorialsList, setFilterTutorialsList] = useState<TutorialInt[]>(tutorialsList);
   const [allCategories, setAllCategories] = useState<string[]>([]);
-  const [currentCategorie, setCurrentCategorie] = useState('alle opdrachten');
-  const [toggleCategorie, setToggleCategorie] = useState(false);
-  const [device, setDevice] = useState('');
+  const [currentCategorie, setCurrentCategorie] = useState<string>('alle opdrachten');
+  const [toggleCategorie, setToggleCategorie] = useState<boolean>(false);
+  const [device, setDevice] = useState<string>('');
   
 
   const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
@@ -34,7 +33,7 @@ export default function TutorialsList() {
       console.log(snapshot.val());
 
       const tutorials = snapshot.val();
-      let tutorialsList: List[] = [];
+      let tutorialsList: TutorialInt[] = [];
       for (let id in tutorials) {
         tutorialsList.push({ id, ...tutorials[id] });
       }
