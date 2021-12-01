@@ -1,11 +1,24 @@
 import react, { useEffect, useState } from "react";
-import firebase from "./../../util/firebase";
+import firebase from "../../util/firebase";
 import Tutorial from './Tutorial';
 
+interface List  {
+    id: number
+    categorie: string
+    leerdoelen: string
+    omschrijving: string
+    pdfName: string
+    pdfUrl: string
+    scratchUrl: string
+    titel: string 
+
+}
+
+
 export default function TutorialsList() {
-  const [tutorialsList, setTutorialsList] = useState([]);
+  const [tutorialsList, setTutorialsList] = useState<List[]>([]);
   const [filterTutorialsList, setFilterTutorialsList] = useState(tutorialsList);
-  const [allCategories, setAllCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState<string[]>([]);
   const [currentCategorie, setCurrentCategorie] = useState('alle opdrachten');
   const [toggleCategorie, setToggleCategorie] = useState(false);
   const [device, setDevice] = useState('');
@@ -21,15 +34,17 @@ export default function TutorialsList() {
       console.log(snapshot.val());
 
       const tutorials = snapshot.val();
-      const tutorialsList = [];
+      let tutorialsList: List[] = [];
       for (let id in tutorials) {
         tutorialsList.push({ id, ...tutorials[id] });
       }
       console.log(tutorialsList);
       setTutorialsList(tutorialsList);
       setFilterTutorialsList(tutorialsList)
-      const allCategories = ["alle opdrachten", ...new Set(tutorialsList.map((item) => item.categorie))];
-      setAllCategories(allCategories);
+    //   const allCategories = ["alle opdrachten", ...new Set(tutorialsList.map((item) => item.categorie))];
+    // let allCurrentCategories:string[] = ["alle opdrachten", Array.from(new Set(tutorialsList.map((item) => item.categorie))) ];
+      let allCurrentCategories:string[] = ["alle opdrachten", "basis-opdracht", "basis-spel" ];
+      setAllCategories(allCurrentCategories);
     });
 
     if (viewportWidth >= 900 ) {
@@ -41,7 +56,7 @@ export default function TutorialsList() {
      }
   }, []);
   
-    const handleFilterTutorialsList = (categorie) => {
+    const handleFilterTutorialsList = (categorie:string) => {
         if (categorie === "alle opdrachten") {
         setFilterTutorialsList(tutorialsList);
         setCurrentCategorie(categorie);
@@ -59,7 +74,7 @@ export default function TutorialsList() {
         }
     };
 
-    const determineColor = (categorie) => {
+    const determineColor = (categorie:string) => {
         return   categorie.substring(0, categorie.indexOf("-"))
     }
 
