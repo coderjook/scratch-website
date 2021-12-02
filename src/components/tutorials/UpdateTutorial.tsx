@@ -4,6 +4,8 @@ import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
 
+// wanneer gebruik je type en wanneer gebruik je een interface?
+
 type UploadTutorialProps = {
     tutorial: {
       id: number
@@ -14,14 +16,16 @@ type UploadTutorialProps = {
       scratchUrl: string 
       pdfName: string
       pdfUrl: string
-  }
- 
-  openUpdateTutorial : boolean
-  setOpenUpdateTutorial : any
-
+     }
+   openUpdateTutorial : boolean
+   setOpenUpdateTutorial : React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const initialInputState = {
+export interface IInputState {
+  [propertyName: string]: string;
+}
+
+const initialInputState: IInputState = {
   omschrijving: "",
   titel: "",
   leerdoelen: "",
@@ -80,6 +84,10 @@ export default function UploadTutorial(props : UploadTutorialProps) {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
   
+  const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
+    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+  };
+
   // const toggle = () => {
   //   setOpenTutorialUpdate(!openTutorialUpdate);
   // };
@@ -97,17 +105,16 @@ export default function UploadTutorial(props : UploadTutorialProps) {
          
          
 
-          {Object.keys(initialInputState).map((inputName : string) => {
-        return (
-            
+          {Object.keys(initialInputState).map((inputName, index) => {
+            return (            
             inputName === 'categorie'
             ?
-              <div className="inputfield">
-                <label for="type">{inputName}</label>
+              <div className="inputfield" key={index}>
+                <label htmlFor="type">{inputName}</label>
                 <div className="custom_select">
                   <select
                     name={inputName}
-                    onChange={handleInputChange}
+                    onChange={handleInputChangeSelect}
                     value={eachEntry[inputName]}
                   >
                     <option value="">-kies-</option>
@@ -120,7 +127,7 @@ export default function UploadTutorial(props : UploadTutorialProps) {
                 </div>
               </div>
               :
-                <div className="inputfield">
+                <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
                       type={`${inputName === 'imgUrl' ? 'file': 'text'}`}

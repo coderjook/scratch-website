@@ -2,7 +2,7 @@ import react, { useEffect, useState } from "react";
 import firebase from "../../util/firebase";
 import Tutorial from './Tutorial';
 
-export interface TutorialInt  {
+export interface ITutorial  {
     id: number
     titel: string 
     categorie: string
@@ -15,8 +15,8 @@ export interface TutorialInt  {
 
 
 export default function TutorialsList() {
-  const [tutorialsList, setTutorialsList] = useState<TutorialInt[]>([]);
-  const [filterTutorialsList, setFilterTutorialsList] = useState<TutorialInt[]>(tutorialsList);
+  const [tutorialsList, setTutorialsList] = useState<ITutorial[]>([]);
+  const [filterTutorialsList, setFilterTutorialsList] = useState<ITutorial[]>(tutorialsList);
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [currentCategorie, setCurrentCategorie] = useState<string>('alle opdrachten');
   const [toggleCategorie, setToggleCategorie] = useState<boolean>(false);
@@ -33,7 +33,7 @@ export default function TutorialsList() {
       console.log(snapshot.val());
 
       const tutorials = snapshot.val();
-      let tutorialsList: TutorialInt[] = [];
+      let tutorialsList: ITutorial[] = [];
       for (let id in tutorials) {
         tutorialsList.push({ id, ...tutorials[id] });
       }
@@ -55,7 +55,7 @@ export default function TutorialsList() {
      }
   }, []);
   
-    const handleFilterTutorialsList = (categorie:string) => {
+    const handleFilterTutorialsList = (categorie:string) : void => {
         if (categorie === "alle opdrachten") {
         setFilterTutorialsList(tutorialsList);
         setCurrentCategorie(categorie);
@@ -73,7 +73,7 @@ export default function TutorialsList() {
         }
     };
 
-    const determineColor = (categorie:string) => {
+    const determineColor = (categorie:string) : string => {
         return   categorie.substring(0, categorie.indexOf("-"))
     }
 
@@ -101,9 +101,8 @@ export default function TutorialsList() {
                         <div className="tutorials">
                             {filterTutorialsList && filterTutorialsList.map((tutorial) => (
                                 <>
-                                <Tutorial tutorial={tutorial} />
-                                 
-                                 </>
+                                    <Tutorial tutorial={tutorial} />
+                                </>
                         )
                     )}
                     </div>
