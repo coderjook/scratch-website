@@ -3,10 +3,12 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 
+export interface IInputState {
+  [propertyName: string]: string;
+}
 
-
-const initialInputState = {
-  titel: "",
+const initialInputState : IInputState = {
+  titel: "", 
   omschrijving: "",
   leerdoelen: "",
   categorie: "",
@@ -15,14 +17,18 @@ const initialInputState = {
   scratchUrl: ""
 };
 
+// export interface IFile {
+//   [propertyName: string | ArrayBuffer]: any;
+// }
 
 export default function UploadTutorial() {
     
  
 
-  const [eachEntry, setEachEntry] = useState(initialInputState);
+  const [eachEntry, setEachEntry] = useState<IInputState>(initialInputState);
   // const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<ArrayBuffer | Blob | Uint8Array | null>(null);
+  const [fileName, setFileName] = useState<string>('');
   const [error, setError] = useState(null);
  
 
@@ -35,14 +41,24 @@ export default function UploadTutorial() {
   }, [file]);
 
 
-  const onFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement> ) : void => {
+    const input = e.target as HTMLInputElement;
+    if (!input.files?.length) {
+      return;
+    }
+    const currentFile : ArrayBuffer | Blob | Uint8Array = input.files[0];
+    const currentFileName : string = input.files[0].name;
+    setFile(currentFile);
+    setFileName(currentFileName);
   };
 
   console.log("file", file);
 
   const handleUpload = () => {
-    const upLoadTask = storage.ref(`tutorials/${file.name}`).put(file);
+    if (!file) {
+      return
+    }
+    const upLoadTask = storage.ref(`tutorials/${fileName}`).put(file);
     upLoadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -52,21 +68,26 @@ export default function UploadTutorial() {
       () => {
         storage
           .ref("tutorials")
-          .child(file.name)
+          .child(fileName)
           .getDownloadURL()
           .then((url) => {
             console.log(url);
-            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: file.name });
+            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: fileName });
           });
       }
     );
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
 
-  const handleFinalSubmit = (e) => {
+  const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
+    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+  };
+
+
+  const handleFinalSubmit = () => {
     console.log("final submit");
     console.log('each entry:',eachEntry)
     const pdfRef = firebase.database().ref("tutorials");
@@ -85,7 +106,7 @@ export default function UploadTutorial() {
         <form className="form" onSubmit={handleFinalSubmit}>
          
           <div className="inputfield">
-            <label for="imgUrl">Kies pdf</label>
+            <label htmlFor="imgUrl">Kies pdf</label>
             <input
               className="file"
               type="file"
@@ -102,11 +123,11 @@ export default function UploadTutorial() {
             inputName === 'categorie'
             ?
               <div className="inputfield">
-                <label for="type">{inputName}</label>
+                <label htmlFor="type">{inputName}</label>
                 <div className="custom_select">
                   <select
                     name={inputName}
-                    onChange={handleInputChange}
+                    onChange={handleInputChangeSelect}
                     value={eachEntry[inputName]}
                   >
                     <option value="">-kies-</option>
