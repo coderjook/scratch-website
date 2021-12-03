@@ -2,27 +2,16 @@ import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
+import { ITutorial} from './TutorialsList';
+import { IInputState} from './UploadTutorial'
 
 
 // wanneer gebruik je type en wanneer gebruik je een interface?
 
 type UploadTutorialProps = {
-    tutorial: {
-      id: number
-      titel: string 
-      categorie: string
-      leerdoelen: string 
-      omschrijving: string 
-      scratchUrl: string 
-      pdfName: string
-      pdfUrl: string
-     }
+   tutorial: ITutorial
    openUpdateTutorial : boolean
    setOpenUpdateTutorial : React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export interface IInputState {
-  [propertyName: string]: string;
 }
 
 const initialInputState: IInputState = {
@@ -38,9 +27,9 @@ export default function UploadTutorial(props : UploadTutorialProps) {
   
   const {tutorial, openUpdateTutorial, setOpenUpdateTutorial} = props
 
-  const [eachEntry, setEachEntry] = useState(initialInputState);
+  const [eachEntry, setEachEntry] = useState<IInputState>(initialInputState);
+  const [promptDelete, setPromptDelete] = useState<boolean>(false);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl } = eachEntry;
-  const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
     setEachEntry({
@@ -54,6 +43,7 @@ export default function UploadTutorial(props : UploadTutorialProps) {
   }, []);
 
   const updateTutorial = () => {
+    //tutorial.id : number ==>> tutorial.id.toString()
     const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id.toString());
     tutorialRef.update({
       titel: titel,
@@ -88,9 +78,7 @@ export default function UploadTutorial(props : UploadTutorialProps) {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
 
-  // const toggle = () => {
-  //   setOpenTutorialUpdate(!openTutorialUpdate);
-  // };
+
 
   return (
     <>
@@ -147,8 +135,7 @@ export default function UploadTutorial(props : UploadTutorialProps) {
           <input
               type="submit"
               value="wijzig"
-              className="btn"
-             
+              className="btn"             
             />
          
          

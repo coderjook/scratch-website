@@ -27,7 +27,7 @@ export default function TutorialsList() {
  
 
    useEffect(() => {
-    console.log("useEffect tutorialsList");
+    console.log("useEffect tutorialslist: vraag tutorials op uit firebase/db/tutorials");
     const imageRef = firebase.database().ref("tutorials");
     imageRef.on("value", (snapshot) => {
       console.log(snapshot.val());
@@ -41,8 +41,13 @@ export default function TutorialsList() {
       setTutorialsList(tutorialsList);
       setFilterTutorialsList(tutorialsList)
     //   const allCategories = ["alle opdrachten", ...new Set(tutorialsList.map((item) => item.categorie))];
-    // let allCurrentCategories:string[] = ["alle opdrachten", Array.from(new Set(tutorialsList.map((item) => item.categorie))) ];
-      let allCurrentCategories:string[] = ["alle opdrachten", "basis-opdracht", "basis-spel" ];
+    //   let allCurrentCategories:string[] = ["alle opdrachten", Array.from(new Set(tutorialsList.map((item) => item.categorie))) ];
+    //   let allCurrentCategories:string[] = ["alle opdrachten", "basis-opdracht", "basis-spel" ];
+      let allCurrentCategories:string[] = ["alle opdrachten"];
+      tutorialsList.map((item) => {
+        if (!allCurrentCategories.includes(item.categorie))
+         allCurrentCategories.push(item.categorie)
+      })
       setAllCategories(allCurrentCategories);
     });
 
@@ -53,18 +58,18 @@ export default function TutorialsList() {
          setToggleCategorie(false);
         setDevice('mobile')
      }
-  }, []);
+   }, []);
   
     const handleFilterTutorialsList = (categorie:string) : void => {
         if (categorie === "alle opdrachten") {
-        setFilterTutorialsList(tutorialsList);
-        setCurrentCategorie(categorie);
+         setFilterTutorialsList(tutorialsList);
+         setCurrentCategorie(categorie);
          if ( device === 'mobile') {
             setToggleCategorie(!toggleCategorie)
+            }
+         return;
         }
-        return;
-        }
-        const newTutorialsList = tutorialsList.filter((tutorial) => tutorial.categorie === categorie);
+        const newTutorialsList : ITutorial[] = tutorialsList.filter((tutorial) => tutorial.categorie === categorie);
         setFilterTutorialsList(newTutorialsList);
         setCurrentCategorie(categorie);
         

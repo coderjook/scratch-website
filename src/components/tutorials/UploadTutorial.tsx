@@ -17,14 +17,8 @@ const initialInputState : IInputState = {
   scratchUrl: ""
 };
 
-// export interface IFile {
-//   [propertyName: string | ArrayBuffer]: any;
-// }
-
 export default function UploadTutorial() {
     
- 
-
   const [eachEntry, setEachEntry] = useState<IInputState>(initialInputState);
   // const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
   const [file, setFile] = useState<ArrayBuffer | Blob | Uint8Array | null>(null);
