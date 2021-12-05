@@ -51,14 +51,19 @@ export default function TutorialsList() {
       setAllCategories(allCurrentCategories);
     });
 
-    if (viewportWidth >= 900 ) {
-        setToggleCategorie(true);
-        setDevice('desktop')
-     } else {
-         setToggleCategorie(false);
-        setDevice('mobile')
-     }
-   }, []);
+    }, []);
+
+    useEffect(() => {
+        if (viewportWidth >= 900 ) {
+            setToggleCategorie(true);
+            setDevice('desktop')
+        } else {
+            setToggleCategorie(false);
+            setDevice('mobile')
+        }
+    }, [viewportWidth])
+    
+  
   
     const handleFilterTutorialsList = (categorie:string) : void => {
         if (categorie === "alle opdrachten") {
