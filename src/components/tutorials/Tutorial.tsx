@@ -45,14 +45,14 @@ export default function Tutorial(props:TutorialProps) {
                    leerdoelen: {tutorial.leerdoelen}
                 </span>
                 <div className="card__footer mobile">
-                   <a href={tutorial.pdfUrl} target="_blank" className="btn">handleiding</a>
-                   <a href={tutorial.scratchUrl} target="_blank" className="btn">speel spel</a>
+                   <a href={tutorial.pdfUrl} target="_blank" rel="noopener noreferrer" className="btn">handleiding</a>
+                   <a href={tutorial.scratchUrl} target="_blank" rel="noopener noreferrer" className="btn">speel spel</a>
                 </div>
                 
             </div> 
             <div className="card__footer desktop">
-                   <a href={tutorial.pdfUrl} target="_blank">handleiding pdf</a>                |
-                   <a href={tutorial.scratchUrl} target="_blank">speel het spel</a>
+                   <a href={tutorial.pdfUrl} target="_blank" rel="noopener noreferrer">handleiding pdf</a>                |
+                   <a href={tutorial.scratchUrl} target="_blank"  rel="noopener noreferrer">speel het spel</a>
             </div>
        
          </div>
