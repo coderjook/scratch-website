@@ -4,6 +4,7 @@ import Tutorial from './Tutorial';
 
 export interface ITutorial  {
     id: number
+    objName: string
     titel: string 
     categorie: string
     leerdoelen: string 
@@ -13,6 +14,7 @@ export interface ITutorial  {
     pdfUrl: string
 }
 
+// vraag: id is in interface een number, maar met for loop stop ik er een string in. Dit wordt wel geaccepteerd..
 
 export default function TutorialsList() {
   const [tutorialsList, setTutorialsList] = useState<ITutorial[]>([]);
@@ -31,23 +33,16 @@ export default function TutorialsList() {
     const imageRef = firebase.database().ref("tutorials");
     imageRef.on("value", (snapshot) => {
       console.log(snapshot.val());
-
       const tutorials = snapshot.val();
+    
       let tutorialsList: ITutorial[] = [];
-      for (let id in tutorials) {
-        tutorialsList.push({ id, ...tutorials[id] });
+      for (let objName in tutorials) {
+        tutorialsList.push({objName: objName, id: objName, ...tutorials[objName] });       
       }
-      console.log(tutorialsList);
+      console.log('tutorialsList:',tutorialsList);
       setTutorialsList(tutorialsList);
       setFilterTutorialsList(tutorialsList)
-    //   const allCategories = ["alle opdrachten", ...new Set(tutorialsList.map((item) => item.categorie))];
-    //   let allCurrentCategories:string[] = ["alle opdrachten", Array.from(new Set(tutorialsList.map((item) => item.categorie))) ];
-    //   let allCurrentCategories:string[] = ["alle opdrachten", "basis-opdracht", "basis-spel" ];
-      let allCurrentCategories:string[] = ["alle opdrachten"];
-      tutorialsList.map((item) => {
-        if (!allCurrentCategories.includes(item.categorie))
-         allCurrentCategories.push(item.categorie)
-      })
+      let allCurrentCategories:string[] = ["alle opdrachten", ...Array.from(new Set(tutorialsList.map((item) => item.categorie))) ];
       setAllCategories(allCurrentCategories);
     });
 

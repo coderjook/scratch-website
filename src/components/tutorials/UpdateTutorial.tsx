@@ -25,7 +25,7 @@ const initialInputState: IInputState = {
 
 export default function UploadTutorial(props : UploadTutorialProps) {
   
-  const {tutorial, openUpdateTutorial, setOpenUpdateTutorial} = props
+  const {tutorial, openUpdateTutorial, setOpenUpdateTutorial} = props;
 
   const [eachEntry, setEachEntry] = useState<IInputState>(initialInputState);
   const [promptDelete, setPromptDelete] = useState<boolean>(false);
@@ -43,8 +43,8 @@ export default function UploadTutorial(props : UploadTutorialProps) {
   }, []);
 
   const updateTutorial = () => {
-    //tutorial.id : number ==>> tutorial.id.toString()
-    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id.toString());
+    console.log('tutorial.id:',tutorial.id)
+    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.objName);
     tutorialRef.update({
       titel: titel,
       omschrijving: omschrijving,
@@ -56,7 +56,8 @@ export default function UploadTutorial(props : UploadTutorialProps) {
   };
 
   const deleteTutorial = () => {
-    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.id.toString());
+  
+    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.objName);
     deleteTutorialRef.remove();
     const tutorialStorageRef = storage.ref(`tutorials/${tutorial.pdfName}`);
     tutorialStorageRef
