@@ -16,7 +16,7 @@ useEffect(() => {
   const getFromFirebase = () => {
 
       let currentItems = [];
-    //1.
+    
     console.log('categorie:', categorie)
     if (categorie) {
         let storageRef = storage.ref().child(categorie);

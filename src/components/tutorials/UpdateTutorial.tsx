@@ -2,8 +2,19 @@ import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
+import { ITutorial} from './TutorialsList';
+import { IInputState} from './UploadTutorial'
 
-const initialInputState = {
+
+// wanneer gebruik je type en wanneer gebruik je een interface?
+
+type UploadTutorialProps = {
+   tutorial: ITutorial
+   openUpdateTutorial : boolean
+   setOpenUpdateTutorial : React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const initialInputState: IInputState = {
   omschrijving: "",
   titel: "",
   leerdoelen: "",
@@ -12,13 +23,13 @@ const initialInputState = {
 };
 
 
-export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpdateTutorial}) {
+export default function UploadTutorial(props : UploadTutorialProps) {
   
-  
+  const {tutorial, openUpdateTutorial, setOpenUpdateTutorial} = props;
 
-  const [eachEntry, setEachEntry] = useState(initialInputState);
+  const [eachEntry, setEachEntry] = useState<IInputState>(initialInputState);
+  const [promptDelete, setPromptDelete] = useState<boolean>(false);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl } = eachEntry;
-  const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
     setEachEntry({
@@ -32,7 +43,8 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
   }, []);
 
   const updateTutorial = () => {
-    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id);
+    console.log('tutorial.id:',tutorial.id)
+    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.objName);
     tutorialRef.update({
       titel: titel,
       omschrijving: omschrijving,
@@ -44,7 +56,8 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
   };
 
   const deleteTutorial = () => {
-    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.id);
+  
+    const deleteTutorialRef = firebase.database().ref("tutorials").child(tutorial.objName);
     deleteTutorialRef.remove();
     const tutorialStorageRef = storage.ref(`tutorials/${tutorial.pdfName}`);
     tutorialStorageRef
@@ -58,13 +71,15 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
       });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
   
-  // const toggle = () => {
-  //   setOpenTutorialUpdate(!openTutorialUpdate);
-  // };
+  const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
+    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+  };
+
+
 
   return (
     <>
@@ -77,83 +92,18 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
 
         <form className="form" onSubmit={updateTutorial}>
          
-          {/* <div className="inputfield">
-            <label for="titel">Titel</label>
-            <input
-              type="text"
-              className="input"
-              name="titel"
-              placeholder="titel"
-              onChange={handleInputChange}
-              value={titel}
-            ></input>
-          </div>
-
-           <div className="inputfield">
-            <label for="leerdoelen">leerdoelen</label>
-            <input
-              type="text"
-              className="input"
-              name="leerdoelen"
-              placeholder="leerdoelen"
-              onChange={handleInputChange}
-              value={leerdoelen}
-            ></input>
-          </div>
          
-        
-         <div className="inputfield">
-            <label for="omschrijving">Omschrijving</label>
-            <textarea
-              className="textarea"
-              name="omschrijving"
-              placeholder="omschrijving handleiding"
-              onChange={handleInputChange}
-              value={omschrijving}
-            ></textarea>
-          </div>
 
-           <div className="inputfield">
-            <label for="type">Categorie</label>
-            <div className="custom_select">
-              <select
-                name="categorie"
-                onChange={handleInputChange}
-                value={categorie}
-              >
-                <option value="">-kies-</option>
-                <option value="basis-opdracht">basis-opdracht</option>
-                <option value="basis-spel">basis-spel</option>
-                <option value="start">start</option>
-                <option value="vervolg-opdracht">vervolg-opdracht</option>
-                <option value="vervolg-spel">vervolg-spel</option>
-              </select>
-            </div>
-          </div>
-
-         <div className="inputfield">
-            <label for="scratchUrl">Scratch Url</label>
-            <input
-              type="text"
-              className="input"
-              name="scratchUrl"
-              placeholder="scratchUrl"
-              onChange={handleInputChange}
-              value={scratchUrl}
-            ></input>
-          </div> */}
-
-          {Object.keys(initialInputState).map((inputName) => {
-        return (
-            
+          {Object.keys(initialInputState).map((inputName, index) => {
+            return (            
             inputName === 'categorie'
             ?
-              <div className="inputfield">
-                <label for="type">{inputName}</label>
+              <div className="inputfield" key={index}>
+                <label htmlFor="type">{inputName}</label>
                 <div className="custom_select">
                   <select
                     name={inputName}
-                    onChange={handleInputChange}
+                    onChange={handleInputChangeSelect}
                     value={eachEntry[inputName]}
                   >
                     <option value="">-kies-</option>
@@ -166,7 +116,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
                 </div>
               </div>
               :
-                <div className="inputfield">
+                <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
                       type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
@@ -186,8 +136,7 @@ export default function UploadTutorial({tutorial, openUpdateTutorial, setOpenUpd
           <input
               type="submit"
               value="wijzig"
-              className="btn"
-             
+              className="btn"             
             />
          
          
