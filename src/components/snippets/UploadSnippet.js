@@ -16,18 +16,28 @@ const initialInputState = {
     scratchUrl: ""
   };
 
+let currentItemsSnippets = [];
+let currentItemsGif = [];
+
 
 export default function UploadSnippet() {
     
   
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
+  const [allItems, setAllItems] = useState([]);
   const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
-  const [openAnimatedGifList, setOpenAnimatedGifList] = useState(true)
+  const [openAnimatedGifList, setOpenAnimatedGifList] = useState(false)
   const [file, setFile] = useState(null);
   const [gif, setGif] = useState(null);
   const [error, setError] = useState(null);
  
+
+      useEffect(() => {console.log('eachEntry', eachEntry)}, [eachEntry])
+  useEffect(() => {
+    getFromFirebaseGif();
+    
+  }, [])
 
   useEffect(() => {
     if (file) {
@@ -54,8 +64,35 @@ export default function UploadSnippet() {
     setGif(e.target.files[0]);
   };
 
-  console.log("file", file);
+  
 
+const getFromFirebaseGif = () => {
+   
+        let storageRef = storage.ref().child('gif/');
+        storageRef.listAll().then(function (res) {
+            res.items.forEach((imageRef) => {
+
+            imageRef.getDownloadURL().then((url) => {
+             let currentItem = {
+                    itemUrl: url,
+                    itemName: imageRef.name
+                }
+               currentItemsGif.push(currentItem);
+            });
+          });  
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+   
+};
+
+
+
+     const handleGif = () => {
+        setAllItems(currentItemsGif)
+        setOpenAnimatedGifList(true);
+    }
   const handleUpload = () => {
     const upLoadTask = storage.ref(`snippets/${file.name}`).put(file);
     upLoadTask.on(
@@ -102,6 +139,8 @@ export default function UploadSnippet() {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
 
+ 
+
   const handleFinalSubmit = (e) => {
     console.log('each entry:',eachEntry)
     const pdfRef = firebase.database().ref("snippets");
@@ -114,36 +153,40 @@ export default function UploadSnippet() {
     <>
     <section className="upload-snippets">
       <div className="container">
-
-        {openAnimatedGifList && <AnimatedGifList />}
         
+        {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} openAnimatedGifList={openAnimatedGifList}/>}
+  
         <h2>Voeg codesnippet toe</h2>
 
         <form className="form" onSubmit={handleFinalSubmit}>
          
           <div className="inputfield">
-            <label for="imgUrl">Kies pdf</label>
+            <label for="imgUrl">Kies jpg code</label>
             <input
               className="file"
               type="file"
               name="imgUrl"
-              id="exampleFile"
               onChange={onFileChange}
             />
           </div>   
-
-          <div className="inputfield">
-            <label for="imgUrl">Kies Animated Gif</label>
+           
+            
+            <div className="inputfield">
+            <label >Kies Animated Gif</label>
+            <div onClick={handleGif} className="btn">bekijk animated gifs</div>
+            <div>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
+          </div>
+          {/* <div className="inputfield">
+            <label for="gifUrl">Kies Animated Gif</label>
             <input
               className="file"
               type="file"
               name="gifUrl"
-              id="exampleFile"
               onChange={onGifChange}
             />
-          </div>   
+          </div>    */}
 
-          <div className='inputfield' onClick={() => setOpenAnimatedGifList(true)}>kies animated gif</div> 
+          
 
 
       {Object.keys(initialInputState).map((inputName) => {
@@ -188,6 +231,7 @@ export default function UploadSnippet() {
 
         </div>
         </section>
+  
      
     </>
   );
