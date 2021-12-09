@@ -2,90 +2,107 @@ import React, { useState, useEffect} from 'react';
 import { storage } from "../../util/firebase";
 
 
+export default function AnimatedGifList({allItems, eachEntry, setEachEntry, setOpenAnimatedGifList, openAnimatedGifList}) {
 
+  const [currentGif, setCurrentGif] = useState({gifName: 'geen gif', gifUrl: 'geen gifUrl'});
+  const [newGif, setNewGif] = useState(null)
 
+  useEffect(() => {
+    console.log('useEffect animatedgiflist allItems:', allItems)
+  },[])
 
-
-export default function StorageList() {
-// const initialInputState = {
-//     itemUrl: '',
-//     itemName:'',
-// }
-
-const [allItems, setAllItems] = useState([]);
-// const [categorie, setCategorie] = useState('');
-
-useEffect(() => {
-    // setAllItems([]);
-  getFromFirebase();
-  console.log('useEffect getFromFirebase')
-  }, []) 
-
-  const deleteFromFirebase = (url) => {
-    //1.
-    let pictureRef = storage.refFromURL(url);
-   //2.
-    pictureRef.delete()
-      .then(() => {
-        //3.
-        setAllItems(allItems.filter((item) => item !== url));
-        alert("Picture is deleted successfully!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getFromFirebase = () => {
-    //1. 
-        let currentItems = [];
-        let storageRef = storage.ref().child('snippets/');
-        //2.
-        storageRef.listAll().then(function (res) {
-            //3.
-            res.items.map((imageRef) => {
-            console.log('naam afbeelding:' ,imageRef.name)
-            imageRef.getDownloadURL().then((url) => {
-                //4.
-                let currentItem = {
-                    itemUrl: url, 
-                    itemName: imageRef.name 
-                }
-                currentItems.push(currentItem);
-                console.log('currentItem:',currentItem)
-            });
-            console.log('currentItems:',currentItems)
-        setAllItems(currentItems);
-
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        console.log('AllItems giflist:',allItems)
+  const closeList = () => {
+    console.log('currentGif:',currentGif);
     
+    if (!newGif) {
+      if ( currentGif.gifName === 'geen gif' ) {
+    setEachEntry({...eachEntry, gifName: "", gifUrl: ""})
+    } else {
+      setEachEntry({...eachEntry, gifName: currentGif.gifName, gifUrl: currentGif.gifUrl})
+    }} else {
+      handleUploadGif();
+    }
+    setOpenAnimatedGifList(false);
+  }
+
+    const handleChange = (e,itemName, itemUrl) => {
+      console.log(itemName, itemUrl, 'e.target.checked:',e.target.checked);
+    const target = e.target;
+      if (target.checked) {
+        console.log(itemName, itemUrl);
+        setCurrentGif({ gifName: itemName, gifUrl:itemUrl });
+        
+      }
+    }
+
+    const onGifChange = (e) => {
+    setNewGif(e.target.files[0]);
   };
 
 
-    return (
+     const handleUploadGif = () => {
+    const upLoadTask = storage.ref(`gif/${newGif.name}`).put(newGif);
+    upLoadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("gif")
+          .child(newGif.name)
+          .getDownloadURL()
+          .then((url) => {
+            console.log('gif:',url);
+            setEachEntry({ ...eachEntry, gifUrl: url, gifName: newGif.name });
+          });
+      }
+    );
+  };
+
+
+      return (
         <div>
-            <div className="storagelist">
-        <h1>Animated gif list</h1>
-      {allItems.map((item, index) => {
-        console.log('dit is het item:', item);
-        console.log('dit is het itemUrl:', item.itemUrl);
-        return (
-           <div key={index} className="storagelistitem row">
-              <div className="name"> {item.itemName}</div>
-              <img src={item.itemUrl} alt={item.itemName} />
-              <a href={item.itemUrl} target="_blank" className="img">bekijk grote afbeelding</a>
-              {/* <div onClick={() => deleteFromFirebase(item.itemUrl)} className="btn">
-               verwijder
-              </div> */}
-           </div>
-         );
-     })}
-</div>
+          <div className="storagelist">
+          <h1>Animated gif list</h1>
+
+          <form className="form">
+            <div  className="storagelistitem row">
+             <input type="radio" id='geen gif'
+               name="gif" value='geen gif' onChange={(e) => handleChange(e,'geen gif','geen gifUrl')}/>
+               <label for='geen gif'>geen gif</label>
+            </div>
+
+            {allItems && allItems.map((item, index) => {
+              return (
+                <div key={index} className="storagelistitem row">
+                  <input type="radio" id={item.itemName}
+                    name="gif" value={item.itemName} onChange={(e) => handleChange(e,item.itemName,item.itemUrl)}/>
+                  <label for={item.itemName}>{item.itemName}</label>
+                  <img src={item.itemUrl} alt={item.itemName} />
+                  <a href={item.itemUrl} target="_blank" className="img">bekijk grote afbeelding</a>
+                </div>
+                      );
+            })}
+     
+          </form>
+          </div>
+          <h3>animated gif niet gevonden? voeg toe uit bestand</h3>
+          <form>
+            <div className="inputfield">
+            <label for="imgUrl">Kies Animated Gif</label>
+            <input
+              className="file"
+              type="file"
+              name="gifUrl"
+              id="exampleFile"
+              onChange={onGifChange}
+            />
+          </div> 
+
+          </form>
+          <div onClick={closeList} className="btn">opslaan en sluiten</div>
         </div>
     )
 }
