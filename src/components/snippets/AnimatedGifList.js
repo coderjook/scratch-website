@@ -63,11 +63,14 @@ export default function AnimatedGifList({allItems, eachEntry, setEachEntry, setO
 
 
       return (
-        <div>
-          <div className="storagelist">
-          <h1>Animated gif list</h1>
-
-          <form className="form">
+        <>
+          <div className='modal'>
+          <section className="storagelist">
+            <div className='container'>
+              <div className='form'>
+              <h1>Animated gif list</h1>
+          
+          <form >
             <div  className="storagelistitem row">
              <input type="radio" id='geen gif'
                name="gif" value='geen gif' onChange={(e) => handleChange(e,'geen gif','geen gifUrl')}/>
@@ -87,7 +90,7 @@ export default function AnimatedGifList({allItems, eachEntry, setEachEntry, setO
             })}
      
           </form>
-          </div>
+          
           <h3>animated gif niet gevonden? voeg toe uit bestand</h3>
           <form>
             <div className="inputfield">
@@ -103,6 +106,10 @@ export default function AnimatedGifList({allItems, eachEntry, setEachEntry, setO
 
           </form>
           <div onClick={closeList} className="btn">opslaan en sluiten</div>
-        </div>
+          </div>
+          </div>
+          </section>
+          </div>
+        </>
     )
 }
