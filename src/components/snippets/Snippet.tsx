@@ -51,7 +51,7 @@ export default function Snippet(props : TutorialProps) {
                  <span className="tagline">
                     leerdoelen: {snippet.leerdoelen}
                  </span>
-                {snippet.gifUrl}
+                
                 <div className="card__footer mobile">
                    <a href={snippet.pdfUrl} target="_blank" className="btn">bekijk code</a>
                    <a href={snippet.scratchUrl} target="_blank" className="btn">voorbeeld</a>

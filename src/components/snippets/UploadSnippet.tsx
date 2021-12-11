@@ -20,7 +20,7 @@ const initialInputState : IInputState = {
     scratchUrl: ""
   };
 
-  interface IItem {
+ export interface IItem {
       itemUrl: string
       itemName: string
               
@@ -140,7 +140,7 @@ const getFromFirebaseGif = () => {
     <section className="upload-snippets">
       <div className="container">
         
-        {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} openAnimatedGifList={openAnimatedGifList}/>}
+        {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} />}
   
         <h2>Voeg codesnippet toe</h2>
 
