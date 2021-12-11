@@ -2,9 +2,15 @@ import React, {useState} from 'react';
 import { useFetch } from '../../util/useFetch';
 import "./../../css/card.css";
 import UpdateSnippet from './UpdateSnippet';
+import { ISnippet } from './SnippetsList';
 
+type TutorialProps = {
+    snippet : ISnippet
+}
 
-export default function Snippet({snippet}) {
+export default function Snippet(props : TutorialProps) {
+
+    const {snippet} = props
 
     const [openUpdateSnippet, setOpenUpdateSnippet] = useState(false);
    
