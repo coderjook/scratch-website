@@ -32,7 +32,7 @@ export default function TutorialsList() {
     console.log("useEffect tutorialslist: vraag tutorials op uit firebase/db/tutorials");
     const imageRef = firebase.database().ref("tutorials");
     imageRef.on("value", (snapshot) => {
-      console.log(snapshot.val());
+      console.log('tutorial list: snapshot.val()',snapshot.val());
       const tutorials = snapshot.val();
     
       let tutorialsList: ITutorial[] = [];

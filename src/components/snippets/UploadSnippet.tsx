@@ -38,7 +38,7 @@ export default function UploadSnippet() {
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
   const [openAnimatedGifList, setOpenAnimatedGifList] = useState(false)
-  const [file, setFile] = useState<any>(null)
+  const [file, setFile] = useState<any | null>(null)
   const [fileName, setFileName] = useState<string>('');
   const [gif, setGif] = useState(null);
   const [error, setError] = useState(null);
@@ -64,7 +64,7 @@ export default function UploadSnippet() {
     if (!input.files?.length) {
       return;
     }
-    const currentFile : any  = input.files[0];
+    const currentFile : any = input.files[0];
     const currentFileName : string = input.files[0].name;
     setFile(currentFile);
     setFileName(currentFileName);
