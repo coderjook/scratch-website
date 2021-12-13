@@ -2,10 +2,26 @@ import react, { useEffect, useState } from "react";
 import firebase from "../../util/firebase";
 import Snippet from './Snippet';
 
+export interface ISnippet  {
+    id: number
+    objName: string
+    titel: string 
+    categorie: string
+    leerdoelen: string 
+    omschrijving: string 
+    scratchUrl: string 
+    pdfName: string
+    pdfUrl: string
+    gifName: string
+    gifUrl: string
+}
+
+
+
 export default function SnippetsList() {
-  const [snippetsList, setSnippetsList] = useState([]);
-  const [filterSnippetsList, setFilterSnippetsList] = useState(snippetsList);
-  const [allCategories, setAllCategories] = useState([]);
+  const [snippetsList, setSnippetsList] = useState<ISnippet[]>([]);
+  const [filterSnippetsList, setFilterSnippetsList] = useState<ISnippet[]>(snippetsList);
+  const [allCategories, setAllCategories] = useState<string[]>([]);
   const [currentCategorie, setCurrentCategorie] = useState('alle opdrachten');
   const [toggleCategorie, setToggleCategorie] = useState(false);
   const [device, setDevice] = useState('');
@@ -21,15 +37,15 @@ export default function SnippetsList() {
       console.log(snapshot.val());
 
       const snippets = snapshot.val();
-      const snippetsList = [];
+      const snippetsList: ISnippet[] = [];
       for (let id in snippets) {
         snippetsList.push({ id, ...snippets[id] });
       }
       console.log(snippetsList);
       setSnippetsList(snippetsList);
       setFilterSnippetsList(snippetsList)
-      const allCategories = ["alle opdrachten", ...new Set(snippetsList.map((item) => item.categorie))];
-      setAllCategories(allCategories);
+      const allcurrentCategories: string[] = ["alle opdrachten", ...Array.from(new Set(snippetsList.map((item) => item.categorie)))];
+      setAllCategories(allcurrentCategories);
     });
 
     if (viewportWidth >= 900 ) {
@@ -41,7 +57,7 @@ export default function SnippetsList() {
      }
   }, []);
   
-    const handleFiltersnippetsList = (categorie) => {
+    const handleFiltersnippetsList = (categorie : string) => {
         if (categorie === "alle opdrachten") {
         setFilterSnippetsList(snippetsList);
         setCurrentCategorie(categorie);
@@ -59,7 +75,7 @@ export default function SnippetsList() {
         }
     };
 
-    const determineColor = (categorie) => {
+    const determineColor = (categorie : string) => {
         return   categorie.substring(0, categorie.indexOf("-"))
     }
 

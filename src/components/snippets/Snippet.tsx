@@ -2,9 +2,15 @@ import React, {useState} from 'react';
 import { useFetch } from '../../util/useFetch';
 import "./../../css/card.css";
 import UpdateSnippet from './UpdateSnippet';
+import { ISnippet } from './SnippetsList';
 
+type TutorialProps = {
+    snippet : ISnippet
+}
 
-export default function Snippet({snippet}) {
+export default function Snippet(props : TutorialProps) {
+
+    const {snippet} = props
 
     const [openUpdateSnippet, setOpenUpdateSnippet] = useState(false);
    
@@ -45,7 +51,7 @@ export default function Snippet({snippet}) {
                  <span className="tagline">
                     leerdoelen: {snippet.leerdoelen}
                  </span>
-                {snippet.gifUrl}
+                
                 <div className="card__footer mobile">
                    <a href={snippet.pdfUrl} target="_blank" className="btn">bekijk code</a>
                    <a href={snippet.scratchUrl} target="_blank" className="btn">voorbeeld</a>

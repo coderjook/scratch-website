@@ -4,7 +4,11 @@ import { storage } from "../../util/firebase";
 import AnimatedGifList from './AnimatedGifList';
 import "./../../css/form.css";
 
-const initialInputState = {
+export interface IInputState {
+  [propertyName: string]: string;
+}
+
+const initialInputState : IInputState = {
     titel: "",
     omschrijving: "",    
     leerdoelen: "",
@@ -16,8 +20,14 @@ const initialInputState = {
     scratchUrl: ""
   };
 
+ export interface IItem {
+      itemUrl: string
+      itemName: string
+              
+  }
+
 let currentItemsSnippets = [];
-let currentItemsGif = [];
+let currentItemsGif : IItem[] = [];
 
 
 export default function UploadSnippet() {
@@ -25,18 +35,19 @@ export default function UploadSnippet() {
   
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [allItems, setAllItems] = useState([]);
+  const [allItems, setAllItems] = useState<IItem[]>([]);
   const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
   const [openAnimatedGifList, setOpenAnimatedGifList] = useState(false)
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null)
+  const [fileName, setFileName] = useState<string>('');
   const [gif, setGif] = useState(null);
   const [error, setError] = useState(null);
  
 
-      useEffect(() => {console.log('eachEntry', eachEntry)}, [eachEntry])
+  useEffect(() => {console.log('eachEntry', eachEntry)}, [eachEntry])
+  // haal de animated gif op van firebase storage gif/
   useEffect(() => {
-    getFromFirebaseGif();
-    
+    getFromFirebaseGif();    
   }, [])
 
   useEffect(() => {
@@ -47,24 +58,17 @@ export default function UploadSnippet() {
     }
   }, [file]);
 
-   useEffect(() => {
-    if (gif) {
-      handleUploadGif();
-    } else {
-      console.log("er gaat iets mis met het wegschrijven van de animated gif");
+
+   const onFileChange = (e: React.ChangeEvent<HTMLInputElement> ) : void => {
+    const input = e.target as HTMLInputElement;
+    if (!input.files?.length) {
+      return;
     }
-  }, [gif]);
-
-
-  const onFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const currentFile : any = input.files[0];
+    const currentFileName : string = input.files[0].name;
+    setFile(currentFile);
+    setFileName(currentFileName);
   };
-
-  const onGifChange = (e) => {
-    setGif(e.target.files[0]);
-  };
-
-  
 
 const getFromFirebaseGif = () => {
    
@@ -89,12 +93,13 @@ const getFromFirebaseGif = () => {
 
 
 
-     const handleGif = () => {
+  const handleGif = () => {
         setAllItems(currentItemsGif)
         setOpenAnimatedGifList(true);
-    }
+  } 
+
   const handleUpload = () => {
-    const upLoadTask = storage.ref(`snippets/${file.name}`).put(file);
+    const upLoadTask = storage.ref(`snippets/${fileName}`).put(file);
     upLoadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -104,44 +109,25 @@ const getFromFirebaseGif = () => {
       () => {
         storage
           .ref("snippets")
-          .child(file.name)
+          .child(fileName)
           .getDownloadURL()
           .then((url) => {
             console.log(url);
-            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: file.name });
+            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: fileName });
           });
       }
     );
   };
 
-   const handleUploadGif = () => {
-    const upLoadTask = storage.ref(`gif/${gif.name}`).put(gif);
-    upLoadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref("gif")
-          .child(gif.name)
-          .getDownloadURL()
-          .then((url) => {
-            console.log('gif:',url);
-            setEachEntry({ ...eachEntry, gifUrl: url, gifName: gif.name });
-          });
-      }
-    );
-  };
-
-  const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
 
- 
+  const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
+    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+  };
 
-  const handleFinalSubmit = (e) => {
+  const handleFinalSubmit = () => {
     console.log('each entry:',eachEntry)
     const pdfRef = firebase.database().ref("snippets");
     pdfRef.push(eachEntry);
@@ -154,14 +140,14 @@ const getFromFirebaseGif = () => {
     <section className="upload-snippets">
       <div className="container">
         
-        {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} openAnimatedGifList={openAnimatedGifList}/>}
+        {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} />}
   
         <h2>Voeg codesnippet toe</h2>
 
         <form className="form" onSubmit={handleFinalSubmit}>
          
           <div className="inputfield">
-            <label for="imgUrl">Kies jpg code</label>
+            <label htmlFor="imgUrl">Kies jpg code</label>
             <input
               className="file"
               type="file"
@@ -176,15 +162,7 @@ const getFromFirebaseGif = () => {
             <div onClick={handleGif} className="btn">bekijk animated gifs</div>
             <div>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
           </div>
-          {/* <div className="inputfield">
-            <label for="gifUrl">Kies Animated Gif</label>
-            <input
-              className="file"
-              type="file"
-              name="gifUrl"
-              onChange={onGifChange}
-            />
-          </div>    */}
+   
 
           
 
@@ -195,11 +173,11 @@ const getFromFirebaseGif = () => {
             inputName === 'categorie'
             ?
               <div className="inputfield">
-                <label for="type">{inputName}</label>
+                <label htmlFor="type">{inputName}</label>
                 <div className="custom_select">
                   <select
                     name={inputName}
-                    onChange={handleInputChange}
+                    onChange={handleInputChangeSelect}
                     value={eachEntry[inputName]}
                   >
                     <option value="">-kies-</option>
