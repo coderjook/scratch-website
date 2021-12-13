@@ -33,7 +33,6 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
       handleUploadGif();   
     }
     setOpenAnimatedGifList(false);
-    console.log('close animatedgiflist each entry:', eachEntry)
   }
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>,itemName :string, itemUrl: string) => {

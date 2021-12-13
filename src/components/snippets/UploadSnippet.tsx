@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import AnimatedGifList from './AnimatedGifList';
+import { IItem} from '../../util/getFromFirebase'
 import "./../../css/form.css";
 
 export interface IInputState {
@@ -20,20 +21,12 @@ const initialInputState : IInputState = {
     scratchUrl: ""
   };
 
- export interface IItem {
-      itemUrl: string
-      itemName: string
-              
-  }
+  type uploadSnippetProps = {
+   allItemsGif : IItem[]
+}
 
-let currentItemsSnippets = [];
-let currentItemsGif : IItem[] = [];
-
-
-export default function UploadSnippet() {
+export default function UploadSnippet({allItemsGif} : uploadSnippetProps) {
     
-  
-
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
@@ -44,11 +37,11 @@ export default function UploadSnippet() {
   const [error, setError] = useState(null);
  
 
-  useEffect(() => {console.log('eachEntry', eachEntry)}, [eachEntry])
-  // haal de animated gif op van firebase storage gif/
-  useEffect(() => {
-    getFromFirebaseGif();    
-  }, [])
+  // useEffect(() => {console.log('eachEntry', eachEntry)}, [eachEntry])
+  // // haal de animated gif op van firebase storage gif/
+  // useEffect(() => {
+  //   getFromFirebaseGif();    
+  // }, [])
 
   useEffect(() => {
     if (file) {
@@ -70,31 +63,8 @@ export default function UploadSnippet() {
     setFileName(currentFileName);
   };
 
-const getFromFirebaseGif = () => {
-   
-        let storageRef = storage.ref().child('gif/');
-        storageRef.listAll().then(function (res) {
-            res.items.forEach((imageRef) => {
-
-            imageRef.getDownloadURL().then((url) => {
-             let currentItem = {
-                    itemUrl: url,
-                    itemName: imageRef.name
-                }
-               currentItemsGif.push(currentItem);
-            });
-          });  
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-   
-};
-
-
-
   const handleGif = () => {
-        setAllItems(currentItemsGif)
+        setAllItems(allItemsGif)
         setOpenAnimatedGifList(true);
   } 
 
@@ -157,7 +127,7 @@ const getFromFirebaseGif = () => {
           </div>   
            
             
-            <div className="inputfield">
+          <div className="inputfield">
             <label >Kies Animated Gif</label>
             <div onClick={handleGif} className="btn">bekijk animated gifs</div>
             <div>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
