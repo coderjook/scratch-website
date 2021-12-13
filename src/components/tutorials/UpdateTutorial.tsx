@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
+
 import { ITutorial} from './TutorialsList';
 import { IInputState} from './UploadTutorial'
 
@@ -44,7 +45,7 @@ export default function UploadTutorial(props : UploadTutorialProps) {
 
   const updateTutorial = () => {
     console.log('tutorial.id:',tutorial.id)
-    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.objName);
+    const tutorialRef = firebase.database().ref("tutorials").child(tutorial.id.toString());
     tutorialRef.update({
       titel: titel,
       omschrijving: omschrijving,

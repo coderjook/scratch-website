@@ -3,6 +3,7 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 import { IInputState} from './UploadSnippet';
+import AnimatedGifList from './AnimatedGifList';
 import {ISnippet} from './SnippetsList';
 
   type UpdateSnippetProps = {
@@ -84,6 +85,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
       <div className="container">
         
         <h2>wijzig snippet toe</h2>
+        
 
         <form className="form" onSubmit={updateSnippet}>
          
