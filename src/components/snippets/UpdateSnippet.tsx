@@ -4,8 +4,10 @@ import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 import { IInputState} from './UploadSnippet';
 import AnimatedGifList from './AnimatedGifList';
-import { IItem, allItemsGif} from '../../util/getFromFirebase';
+import SnippetJpgList from "./SnippetJpgList"
+import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase';
 import {ISnippet} from './SnippetsList';
+import { isPropertyAccessOrQualifiedName } from 'typescript';
 
   type UpdateSnippetProps = {
     snippet :ISnippet
@@ -14,13 +16,15 @@ import {ISnippet} from './SnippetsList';
   }
 
   const initialInputState : IInputState = {
-    omschrijving: "",
     titel: "",
+    omschrijving: "",
     leerdoelen: "",
     categorie: "",
     scratchUrl: "",
     gifName: "",
-    gifUrl: ""
+    gifUrl: "",
+    pdfName: "",
+    pdfUrl: "",
   };
 
 export default function UpdateSnippet(props: UpdateSnippetProps) {
@@ -28,9 +32,9 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
  const {snippet, openUpdateSnippet, setOpenUpdateSnippet} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const [openAnimatedGifList, setOpenAnimatedGifList] = useState(false)
-  
+  const [openSnippetJpgList, setOpenSnippetJpgList] = useState(false)
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl } = eachEntry;
+  const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
   const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
@@ -42,7 +46,9 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
       leerdoelen: snippet.leerdoelen,
       scratchUrl: snippet.scratchUrl,
       gifName: snippet.gifName,
-      gifUrl: snippet.gifUrl
+      gifUrl: snippet.gifUrl,
+      pdfName: snippet.pdfName,
+      pdfUrl: snippet.pdfUrl,
     });
   }, []);
 
@@ -55,7 +61,9 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
       leerdoelen: leerdoelen,
       scratchUrl: scratchUrl,
       gifName: gifName,
-      gifUrl: gifUrl
+      gifUrl: gifUrl,
+      pdfName: pdfName,
+      pdfUrl: pdfUrl
   
     }); 
   };
@@ -63,6 +71,11 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   const handleGif = () => {
         setAllItems(allItemsGif)
         setOpenAnimatedGifList(true);
+  }
+
+   const handleJpg = () => {
+        setAllItems(allItemsSnippets)
+        setOpenSnippetJpgList(true);
   }
 
   const deleteSnippet = () => {
@@ -101,19 +114,25 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
         <h2>wijzig snippet</h2>
         
         {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} />}
-
+        {openSnippetJpgList && <SnippetJpgList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenSnippetJpgList={setOpenSnippetJpgList} />}
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
             <div onClick={handleGif} className="btn">bekijk animated gifs</div>
             <div>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
           </div>
+
+          <div className="inputfield">
+            <label >Kies CodeSnippet</label>
+            <div onClick={handleJpg} className="btn">bekijk codes</div>
+            <div>{eachEntry.pdfName ? `gekozen gif: ${eachEntry.pdfName}` : `geen code gekozen`}</div>
+          </div>
          
          {/* {snippet.gifUrl ? <p>wijzig animated gif</p> : <p>voeg animated gif toe</p>} */}
 
           {Object.keys(initialInputState).map((inputName, index) => {
             return (            
-            inputName === 'categorie'
+            inputName.includes('Url') ? <> </> : inputName === 'categorie'
             ?
               <div className="inputfield" key={index}>
                 <label htmlFor="type">{inputName}</label>
