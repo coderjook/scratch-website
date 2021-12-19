@@ -18,7 +18,7 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
   const [newFileName, setNewFileName] = useState<string>('')
 
   useEffect(() => {
-    console.log('useEffect animatedgiflist allItems:', allItems)
+    console.log('useEffect snippetlist allItems:', allItems)
   },[])
 
   const closeList = () => {
@@ -33,7 +33,7 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
       handleUploadFile();   
     }
     setOpenSnippetJpgList(false);
-    console.log('close animatedgiflist each entry:', eachEntry)
+    console.log('close snippetlist each entry:', eachEntry)
   }
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>,itemName :string, itemUrl: string) => {
@@ -84,7 +84,7 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
           <section className="storagelist">
             <div className='container'>
               <div className='form'>
-              <h1>Animated gif list</h1>
+              <h1>Snippet  list</h1>
           
               <form >
                 <div  className="storagelistitem row">
@@ -107,10 +107,10 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
         
               </form>
           
-              <h3>animated gif niet gevonden? voeg toe uit bestand</h3>
+              <h3>juiste snippet niet gevonden? voeg toe uit bestand</h3>
               <form>
                 <div className="inputfield">
-                <label htmlFor="imgUrl">Kies Animated Gif</label>
+                <label htmlFor="imgUrl">Kies code snippet</label>
                 <input
                   className="file"
                   type="file"

@@ -118,14 +118,18 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
-            <div onClick={handleGif} className="btn">bekijk animated gifs</div>
-            <div>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
+            <div className='row fileselect'>
+            <div onClick={handleGif} className="btn fileselect">bekijk animated gifs</div>
+            <div className='choosenfile'>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
+            </div>
           </div>
 
           <div className="inputfield">
             <label >Kies CodeSnippet</label>
-            <div onClick={handleJpg} className="btn">bekijk codes</div>
-            <div>{eachEntry.pdfName ? `gekozen gif: ${eachEntry.pdfName}` : `geen code gekozen`}</div>
+            <div className='row fileselect'>
+            <div onClick={handleJpg} className="btn fileselect">bekijk codes</div>
+            <div className='choosenfile'>{eachEntry.pdfName ? `gekozen gif: ${eachEntry.pdfName}` : `geen code gekozen`}</div>
+            </div>
           </div>
          
          {/* {snippet.gifUrl ? <p>wijzig animated gif</p> : <p>voeg animated gif toe</p>} */}
