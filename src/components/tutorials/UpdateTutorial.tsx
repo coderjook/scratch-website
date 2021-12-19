@@ -16,8 +16,8 @@ type UploadTutorialProps = {
 }
 
 const initialInputState: IInputState = {
-  omschrijving: "",
   titel: "",
+  omschrijving: "",
   leerdoelen: "",
   categorie: "",
   scratchUrl: ""

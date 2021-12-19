@@ -3,6 +3,8 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  overflow-y: scroll;
+  max-height: 600px;
 }
 
 .form .inputfield {
@@ -16,7 +18,7 @@
   width: 200px;
   color: var(--color-dark);
   margin-right: 10px;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .form .inputfield .file,
@@ -27,7 +29,7 @@
   width: 100%;
   outline: none;
   border: 1px solid var(--color-light-grey);
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 8px 10px;
   border-radius: 3px;
   /* transition: all 0.3s ease; */
@@ -37,19 +39,35 @@
   width: 100%;
   outline: none;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 0;
 }
 
 .form .inputfield .custom_select select {
   font-family: "Roboto", sans-serif;
   color: var(--color-dark);
-  font-size: 1rem;
+  font-size: 0.9rem;
   width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--color-light-grey);
 }
 
+.row.fileselect {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.btn.fileselect {
+  background-color: var(--color-dark);
+  font-size: 0.8em;
+  text-transform: lowercase;
+  padding: 0.6em 0.6rem;
+  width: 40%;
+}
+
+.row .choosenfile {
+  width: 60%;
+}
 /* .form .btn {
   border: 1px solid var(--color-light-grey);
   background-color: var(--color-dark-blue);

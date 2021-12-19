@@ -6,34 +6,34 @@ type AnimatedGifListProps = {
   allItems : IItem[]
   eachEntry : any
   setEachEntry : any
-  setOpenAnimatedGifList : React.Dispatch<React.SetStateAction<boolean>>
+  setOpenSnippetJpgList : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function AnimatedGifList(props : AnimatedGifListProps) {
 
-  const {allItems, eachEntry, setEachEntry, setOpenAnimatedGifList} = props
+  const {allItems, eachEntry, setEachEntry, setOpenSnippetJpgList} = props
 
-  const [currentGif, setCurrentGif] = useState({gifName: 'geen gif', gifUrl: 'geen gifUrl'});
-  const [newGif, setNewGif] = useState<any | null>(null)
-  const [newGifName, setNewGifName] = useState<string>('')
+  const [currentFile, setCurrentFile] = useState({fileName: 'geen file', fileUrl: 'geen fileUrl'});
+  const [newFile, setNewFile] = useState<any | null>(null)
+  const [newFileName, setNewFileName] = useState<string>('')
 
   useEffect(() => {
-    console.log('useEffect animatedgiflist allItems:', allItems)
+    console.log('useEffect snippetlist allItems:', allItems)
   },[])
 
   const closeList = () => {
-    console.log('currentGif:',currentGif);
+    console.log('currentGif:',currentFile);
     
-    if (!newGif) {
-      if ( currentGif.gifName === 'geen gif' ) {
-      setEachEntry({...eachEntry, gifName: "", gifUrl: ""})
+    if (!newFile) {
+      if ( currentFile.fileName === 'geen file' ) {
+      setEachEntry({...eachEntry, pdfName: "", pdfUrl: ""})
       } else {
-      setEachEntry({...eachEntry, gifName: currentGif.gifName, gifUrl: currentGif.gifUrl})
+      setEachEntry({...eachEntry, pdfName: currentFile.fileName, pdfUrl: currentFile.fileUrl})
     }} else {
-      handleUploadGif();   
+      handleUploadFile();   
     }
-    setOpenAnimatedGifList(false);
-    console.log('close animatedgiflist each entry:', eachEntry)
+    setOpenSnippetJpgList(false);
+    console.log('close snippetlist each entry:', eachEntry)
   }
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>,itemName :string, itemUrl: string) => {
@@ -41,23 +41,23 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
       const target = e.target;
       if (target.checked) {
         console.log(itemName, itemUrl);
-        setCurrentGif({ gifName: itemName, gifUrl:itemUrl });
+        setCurrentFile({ fileName: itemName, fileUrl:itemUrl });
       }
     }
 
-   const onGifChange = (e: React.ChangeEvent<HTMLInputElement> ) : void => {
+   const onFileChange = (e: React.ChangeEvent<HTMLInputElement> ) : void => {
     const input = e.target as HTMLInputElement;
     if (!input.files?.length) {
       return;
     }
     const currentFile : any  = input.files[0];
     const currentFileName : string = input.files[0].name;
-    setNewGif(currentFile);
-    setNewGifName(currentFileName);
+    setNewFile(currentFile);
+    setNewFileName(currentFileName);
   };
 
-  const handleUploadGif = () => {
-    const upLoadTask = storage.ref(`gif/${newGif.name}`).put(newGif);
+  const handleUploadFile = () => {
+    const upLoadTask = storage.ref(`snippets/${newFile.name}`).put(newFile);
     upLoadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -66,12 +66,12 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
       },
       () => {
         storage
-          .ref("gif")
-          .child(newGif.name)
+          .ref("snippets")
+          .child(newFile.name)
           .getDownloadURL()
           .then((url) => {
-            console.log('gif:',url);
-            setEachEntry({ ...eachEntry, gifUrl: url, gifName: newGif.name });
+            console.log('snippet:',url);
+            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: newFile.name });
           });
       }
     );
@@ -84,7 +84,7 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
           <section className="storagelist">
             <div className='container'>
               <div className='form'>
-              <h1>Animated gif list</h1>
+              <h1>Snippet  list</h1>
           
               <form >
                 <div  className="storagelistitem row">
@@ -107,16 +107,16 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
         
               </form>
           
-              <h3>animated gif niet gevonden? voeg toe uit bestand</h3>
+              <h3>juiste snippet niet gevonden? voeg toe uit bestand</h3>
               <form>
                 <div className="inputfield">
-                <label htmlFor="imgUrl">Kies Animated Gif</label>
+                <label htmlFor="imgUrl">Kies code snippet</label>
                 <input
                   className="file"
                   type="file"
                   name="gifUrl"
                   id="exampleFile"
-                  onChange={onGifChange}
+                  onChange={onFileChange}
                 />
                 </div> 
 
