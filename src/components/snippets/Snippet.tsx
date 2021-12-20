@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
-import { useFetch } from '../../util/useFetch';
 import "./../../css/card.css";
-import UpdateSnippet from './UpdateSnippet';
-import { ISnippet } from './SnippetsList';
+import { ISnippet, ISnippetControl } from './SnippetsList';
 
 type TutorialProps = {
     snippet : ISnippet
+    snippetControl: ISnippetControl
+    currentSnippet: ISnippet
+    setSnippetControl: any
+    setCurrentSnippet: any
 }
 
 export default function Snippet(props : TutorialProps) {
 
-    const {snippet} = props
-
-    const [openUpdateSnippet, setOpenUpdateSnippet] = useState(false);
-   
+    const {snippet, currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl} = props
     
     const scratchUrlBasis = "https://api.scratch.mit.edu/projects/";
     const scratchUrlProject = snippet.scratchUrl ? snippet.scratchUrl.slice(33) : '561290251/';
@@ -23,14 +22,29 @@ export default function Snippet(props : TutorialProps) {
     const colorCategorie = snippet.categorie && snippet.categorie.substring(0, snippet.categorie.indexOf("-"))
 
      
-    const handleUpdateSnippet = () => {
-        console.log('updateTurial openen')
-        setOpenUpdateSnippet(true);
+    const handleUpdateSnippet = () => { 
+        console.log('updateTutorial openen:', snippetControl)
+        setCurrentSnippet(
+            {
+                id: snippet.id ,
+                objName: snippet.objName,
+                titel: snippet.titel ,
+                categorie: snippet.categorie,
+                leerdoelen: snippet.leerdoelen ,
+                omschrijving: snippet.omschrijving, 
+                scratchUrl: snippet.scratchUrl ,
+                pdfName: snippet.pdfName,
+                pdfUrl: snippet.pdfUrl,
+                gifName: snippet.gifName,
+                gifUrl: snippet.gifUrl
+            }
+        )
+        setSnippetControl({ ...snippetControl, openUpdate: true})
+      
     }
 
     return (
         <>
-            {openUpdateSnippet && <UpdateSnippet snippet={snippet} openUpdateSnippet={openUpdateSnippet} setOpenUpdateSnippet={setOpenUpdateSnippet}  />   }  
             <div className="card snippet">                 
             <div className="card__header">
                 <img src={snippet.gifUrl ? snippet.gifUrl : snippet.pdfUrl} alt={snippet.titel} className="card__image"/>
@@ -46,7 +60,7 @@ export default function Snippet(props : TutorialProps) {
                                              
                              
                  <h4>{snippet.titel} | <i className="material-icons icon" onClick={handleUpdateSnippet}>mode</i></h4>                 
-                 <p>gif: {snippet.omschrijving}</p>
+                 <p>{snippet.omschrijving}</p>
  
                  <span className="tagline">
                     leerdoelen: {snippet.leerdoelen}
