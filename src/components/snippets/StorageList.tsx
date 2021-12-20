@@ -1,17 +1,19 @@
 import React, { useState, useEffect} from 'react';
 import { storage } from "../../util/firebase";
 import { IItem } from '../../util/getFromFirebase';
+import {ISnippetControl} from './SnippetsList';
 
 type AnimatedGifListProps = {
   allItems : IItem[]
   eachEntry : any
-  setEachEntry : any
-  setOpenSnippetJpgList : React.Dispatch<React.SetStateAction<boolean>>
+  snippetControl: ISnippetControl
+  setSnippetControl: any
+  setEachEntry : any 
 }
 
-export default function AnimatedGifList(props : AnimatedGifListProps) {
+export default function StorageList(props : AnimatedGifListProps) {
 
-  const {allItems, eachEntry, setEachEntry, setOpenSnippetJpgList} = props
+  const {allItems, eachEntry, setEachEntry, setSnippetControl, snippetControl} = props
 
   const [currentFile, setCurrentFile] = useState({fileName: 'geen file', fileUrl: 'geen fileUrl'});
   const [newFile, setNewFile] = useState<any | null>(null)
@@ -22,17 +24,20 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
   },[])
 
   const closeList = () => {
-    console.log('currentGif:',currentFile);
-    
+    console.log('currentFile:',currentFile);    
     if (!newFile) {
       if ( currentFile.fileName === 'geen file' ) {
       setEachEntry({...eachEntry, pdfName: "", pdfUrl: ""})
-      } else {
+      } else if (snippetControl.storageName === 'snippet')
+      {
       setEachEntry({...eachEntry, pdfName: currentFile.fileName, pdfUrl: currentFile.fileUrl})
-    }} else {
+      } else if (snippetControl.storageName === 'gif') {
+        setEachEntry({ ...eachEntry, gifUrl: currentFile.fileUrl, gifName: currentFile.fileName})
+      }
+    } else {
       handleUploadFile();   
     }
-    setOpenSnippetJpgList(false);
+    setSnippetControl({...snippetControl, openList:false});
     console.log('close snippetlist each entry:', eachEntry)
   }
 
@@ -57,7 +62,7 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
   };
 
   const handleUploadFile = () => {
-    const upLoadTask = storage.ref(`snippets/${newFile.name}`).put(newFile);
+    const upLoadTask = storage.ref(`${snippetControl.storageName}/${newFile.name}`).put(newFile);
     upLoadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -66,12 +71,15 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
       },
       () => {
         storage
-          .ref("snippets")
+          .ref(snippetControl.storageName)
           .child(newFile.name)
           .getDownloadURL()
           .then((url) => {
-            console.log('snippet:',url);
+            console.log(snippetControl.storageName, ':',url);
+            if (snippetControl.storageName === 'snippet') {
             setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: newFile.name });
+            } else if (snippetControl.storageName === 'gif') {
+            setEachEntry({ ...eachEntry, gifUrl: url, gifName: newFile.name })}
           });
       }
     );
@@ -88,16 +96,16 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
           
               <form >
                 <div  className="storagelistitem row">
-                <input type="radio" id='geen gif'
-                  name="gif" value='geen gif' onChange={(e) => handleChange(e,'geen gif','geen gifUrl')}/>
-                  <label htmlFor='geen gif'>geen gif</label>
+                <input type="radio" id='geen file'
+                  name="file" value='geen file' onChange={(e) => handleChange(e,'geen file','geen fileUrl')}/>
+                  <label htmlFor='geen file'>geen file</label>
                 </div>
 
                 {allItems && allItems.map((item, index) => {
                   return (
                     <div key={index} className="storagelistitem row">
                       <input type="radio" id={item.itemName}
-                        name="gif" value={item.itemName} onChange={(e) => handleChange(e,item.itemName,item.itemUrl)}/>
+                        name="item" value={item.itemName} onChange={(e) => handleChange(e,item.itemName,item.itemUrl)}/>
                       <label htmlFor={item.itemName}>{item.itemName}</label>
                       <img src={item.itemUrl} alt={item.itemName} />
                       <a href={item.itemUrl} target="_blank" className="img">bekijk grote afbeelding</a>
@@ -107,14 +115,14 @@ export default function AnimatedGifList(props : AnimatedGifListProps) {
         
               </form>
           
-              <h3>juiste snippet niet gevonden? voeg toe uit bestand</h3>
+              <h3>juiste afbeelding niet gevonden? voeg toe uit bestand</h3>
               <form>
                 <div className="inputfield">
-                <label htmlFor="imgUrl">Kies code snippet</label>
+                <label htmlFor="imgUrl">Kies afbeelding</label>
                 <input
                   className="file"
                   type="file"
-                  name="gifUrl"
+                  name="imgUrl"
                   id="exampleFile"
                   onChange={onFileChange}
                 />

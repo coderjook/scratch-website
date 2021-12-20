@@ -34,8 +34,7 @@ export const getFromFirebaseSnippets = () => {
     
         let storageRef = storage.ref().child('snippets/');
         storageRef.listAll().then(function (res) {
-         console.log(res.items, 'res items')
-          res.items.forEach((imageRef) => {
+           res.items.forEach((imageRef) => {
 
             imageRef.getDownloadURL().then((url) => {
              let currentItem = {

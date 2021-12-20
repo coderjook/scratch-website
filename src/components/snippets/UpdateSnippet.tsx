@@ -3,18 +3,21 @@ import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 import { IInputState} from './UploadSnippet';
-import AnimatedGifList from './AnimatedGifList';
-import SnippetJpgList from "./SnippetJpgList"
+import StorageList from "./StorageList"
 import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase';
-import {ISnippet} from './SnippetsList';
-import { isPropertyAccessOrQualifiedName } from 'typescript';
+import {ISnippet, ISnippetControl} from './SnippetsList';
+
 
   type UpdateSnippetProps = {
-    snippet :ISnippet
-    openUpdateSnippet: boolean
-    setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
+    snippetControl: ISnippetControl
+    setSnippetControl: any
+    currentSnippet: ISnippet
+    // setCurrentSnippet: any
+    // openUpdateSnippet: boolean
+    // setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
   }
-
+  
+  
   const initialInputState : IInputState = {
     titel: "",
     omschrijving: "",
@@ -29,10 +32,8 @@ import { isPropertyAccessOrQualifiedName } from 'typescript';
 
 export default function UpdateSnippet(props: UpdateSnippetProps) {
 
- const {snippet, openUpdateSnippet, setOpenUpdateSnippet} = props
+  const {snippetControl,setSnippetControl, currentSnippet} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
-  const [openAnimatedGifList, setOpenAnimatedGifList] = useState(false)
-  const [openSnippetJpgList, setOpenSnippetJpgList] = useState(false)
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
   const [promptDelete, setPromptDelete] = useState(false);
@@ -40,20 +41,20 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   useEffect(() => {
     setEachEntry({
       ...eachEntry,
-      titel: snippet.titel,
-      omschrijving: snippet.omschrijving,
-      categorie: snippet.categorie,
-      leerdoelen: snippet.leerdoelen,
-      scratchUrl: snippet.scratchUrl,
-      gifName: snippet.gifName,
-      gifUrl: snippet.gifUrl,
-      pdfName: snippet.pdfName,
-      pdfUrl: snippet.pdfUrl,
+      titel: currentSnippet.titel,
+      omschrijving: currentSnippet.omschrijving,
+      categorie: currentSnippet.categorie,
+      leerdoelen: currentSnippet.leerdoelen,
+      scratchUrl: currentSnippet.scratchUrl,
+      gifName: currentSnippet.gifName,
+      gifUrl: currentSnippet.gifUrl,
+      pdfName: currentSnippet.pdfName,
+      pdfUrl: currentSnippet.pdfUrl,
     });
   }, []);
 
   const updateSnippet = () => {
-    const snippetRef = firebase.database().ref("snippets").child(snippet.id.toString());
+    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
     snippetRef.update({
       titel: titel,
       omschrijving: omschrijving,
@@ -70,23 +71,25 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
 
   const handleGif = () => {
         setAllItems(allItemsGif)
-        setOpenAnimatedGifList(true);
+        setSnippetControl({...snippetControl, storageName: 'gif', openList: true})
+      
   }
 
    const handleJpg = () => {
         setAllItems(allItemsSnippets)
-        setOpenSnippetJpgList(true);
+        setSnippetControl({...snippetControl, storageName: 'snippet', openList: true})
+     
   }
 
   const deleteSnippet = () => {
-    const deleteSnippetRef = firebase.database().ref("snippets").child(snippet.id.toString());
+    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
     deleteSnippetRef.remove();
-    const snippetStorageRef = storage.ref(`snippets/${snippet.pdfName}`);
+    const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
     snippetStorageRef
       .delete()
       .then(function () {
         console.log(" File deleted successfully ");
-        setOpenUpdateSnippet(false)
+        setSnippetControl({...snippetControl, openUpdate: false})
       })
       .catch(function (error) {
         console.log(error);
@@ -100,21 +103,21 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
-  // const toggle = () => {
-  //   setOpenSnippetUpdate(!openSnippetUpdate);
-  // };
+
+  const close =() => {
+    setSnippetControl({...snippetControl, openUpdate: false})
+  }
 
   return (
     <>
-    { openUpdateSnippet &&
+    { snippetControl.openUpdate &&
     <div className='modal'>
     <section className="update-snippets">
       <div className="container">
         
         <h2>wijzig snippet</h2>
         
-        {openAnimatedGifList && <AnimatedGifList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenAnimatedGifList={setOpenAnimatedGifList} />}
-        {openSnippetJpgList && <SnippetJpgList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} setOpenSnippetJpgList={setOpenSnippetJpgList} />}
+        {snippetControl.openList && <StorageList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} snippetControl={snippetControl} setSnippetControl={setSnippetControl} />}
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
@@ -132,7 +135,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
             </div>
           </div>
          
-         {/* {snippet.gifUrl ? <p>wijzig animated gif</p> : <p>voeg animated gif toe</p>} */}
+         {/* {currentSnippet.gifUrl ? <p>wijzig animated gif</p> : <p>voeg animated gif toe</p>} */}
 
           {Object.keys(initialInputState).map((inputName, index) => {
             return (            
@@ -178,7 +181,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
             />
          
          
-          <div className="btn" onClick={() => setOpenUpdateSnippet(false)}>sluiten</div>
+          <div className="btn" onClick={close}>sluiten</div>
           <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
           {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
           </div>
