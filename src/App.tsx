@@ -28,7 +28,8 @@ function App() {
         
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/uploadforms" element={<UploadForms allItemsGif={allItemsGif} allItemsSnippets={allItemsSnippets}/>} />
+          {/* <Route path="/uploadforms" element={<UploadForms allItemsGif={allItemsGif} allItemsSnippets={allItemsSnippets}/>} /> */}
+          <Route path="/uploadforms" element={<UploadForms/>} />
           <Route path="/tutorials"element={<TutorialsList />} />
           <Route path="/snippets"element={<SnippetsList />} />
           <Route path="/faq"element={<Faq />} />  

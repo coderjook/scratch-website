@@ -2,10 +2,10 @@ import React,{useState, useEffect} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
-import { IInputState} from './UploadSnippet';
+import { IInputState, ISnippet, ISnippetControl} from './Interfaces';
 import StorageList from "./StorageList"
 import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase';
-import {ISnippet, ISnippetControl} from './SnippetsList';
+
 
 
   type UpdateSnippetProps = {
@@ -108,6 +108,13 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
     setSnippetControl({...snippetControl, openUpdate: false})
   }
 
+  const handleFinalSubmit = () => {
+    console.log('each entry:',eachEntry)
+    const pdfRef = firebase.database().ref("snippets");
+    pdfRef.push(eachEntry);
+    setEachEntry(initialInputState);
+  };
+
   return (
     <>
     { snippetControl.openUpdate &&
@@ -180,7 +187,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
               className="btn"             
             />
          
-         
+          <div className="btn" onClick={handleFinalSubmit}>toevoegen</div>
           <div className="btn" onClick={close}>sluiten</div>
           <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
           {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}

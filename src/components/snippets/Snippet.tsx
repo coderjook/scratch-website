@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import "./../../css/card.css";
-import { ISnippet, ISnippetControl } from './SnippetsList';
+import { ISnippet, ISnippetControl } from './Interfaces';
 
-type TutorialProps = {
+type SnippetProps = {
     snippet : ISnippet
     snippetControl: ISnippetControl
     currentSnippet: ISnippet
@@ -10,7 +10,7 @@ type TutorialProps = {
     setCurrentSnippet: any
 }
 
-export default function Snippet(props : TutorialProps) {
+export default function Snippet(props : SnippetProps) {
 
     const {snippet, currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl} = props
     

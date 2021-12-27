@@ -2,26 +2,7 @@ import react, { useEffect, useState } from "react";
 import firebase from "../../util/firebase";
 import Snippet from './Snippet';
 import UpdateSnippet from "./UpdateSnippet";
-
-export interface ISnippet  {
-    id: number
-    objName: string
-    titel: string 
-    categorie: string
-    leerdoelen: string 
-    omschrijving: string 
-    scratchUrl: string 
-    pdfName: string
-    pdfUrl: string
-    gifName: string
-    gifUrl: string
-}
-
-export interface ISnippetControl {
-    storageName: string
-    openUpdate: boolean
-    openList: boolean
-}
+import { ISnippet, ISnippetControl} from './Interfaces';
 
  const initialInputState = {   
     id: 0 ,
@@ -138,5 +119,5 @@ export default function SnippetsList() {
             </div>
         </div>
         </>
-    )
+     )
 }

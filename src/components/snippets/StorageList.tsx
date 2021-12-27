@@ -1,9 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import { storage } from "../../util/firebase";
 import { IItem } from '../../util/getFromFirebase';
-import {ISnippetControl} from './SnippetsList';
+import {ISnippetControl} from './Interfaces';
 
-type AnimatedGifListProps = {
+type StorageListProps = {
   allItems : IItem[]
   eachEntry : any
   snippetControl: ISnippetControl
@@ -11,7 +11,7 @@ type AnimatedGifListProps = {
   setEachEntry : any 
 }
 
-export default function StorageList(props : AnimatedGifListProps) {
+export default function StorageList(props : StorageListProps) {
 
   const {allItems, eachEntry, setEachEntry, setSnippetControl, snippetControl} = props
 
