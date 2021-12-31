@@ -7,7 +7,7 @@ import TutorialsList from './components/tutorials/TutorialsList';
 import UploadForms from './UploadForms';
 import './css/style.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { IItem, allItemsGif, getFromFirebaseGif, allItemsSnippets, getFromFirebaseSnippets } from './util/getFromFirebase'
+import { IItem, allItemsGif, getFromFirebase, allItemsSnippets, } from './util/getFromFirebase'
  
 
 
@@ -16,8 +16,9 @@ function App() {
   // const [allItems, setAllItems] = useState<IItem[]>([]);
 
   useEffect(() => { 
-  getFromFirebaseGif();
-  getFromFirebaseSnippets();
+    console.log('useEffect App.tsx')
+  getFromFirebase('gif/');
+  getFromFirebase('snippets/');
   }, [])
 
   return (

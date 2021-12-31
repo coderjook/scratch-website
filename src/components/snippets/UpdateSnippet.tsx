@@ -12,7 +12,7 @@ import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase'
     snippetControl: ISnippetControl
     setSnippetControl: any
     currentSnippet: ISnippet
-    // setCurrentSnippet: any
+    setCurrentSnippet: any
     // openUpdateSnippet: boolean
     // setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
   }
@@ -32,25 +32,27 @@ import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase'
 
 export default function UpdateSnippet(props: UpdateSnippetProps) {
 
-  const {snippetControl,setSnippetControl, currentSnippet} = props
+  const {snippetControl,setSnippetControl, currentSnippet, setCurrentSnippet} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
+  // const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
+  const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = currentSnippet;
   const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
-    setEachEntry({
-      ...eachEntry,
-      titel: currentSnippet.titel,
-      omschrijving: currentSnippet.omschrijving,
-      categorie: currentSnippet.categorie,
-      leerdoelen: currentSnippet.leerdoelen,
-      scratchUrl: currentSnippet.scratchUrl,
-      gifName: currentSnippet.gifName,
-      gifUrl: currentSnippet.gifUrl,
-      pdfName: currentSnippet.pdfName,
-      pdfUrl: currentSnippet.pdfUrl,
-    });
+    console.log('useEffect UpdateSnippet currentSnippet: ', currentSnippet)
+    // setEachEntry({
+    //   ...eachEntry,
+    //   titel: currentSnippet.titel,
+    //   omschrijving: currentSnippet.omschrijving,
+    //   categorie: currentSnippet.categorie,
+    //   leerdoelen: currentSnippet.leerdoelen,
+    //   scratchUrl: currentSnippet.scratchUrl,
+    //   gifName: currentSnippet.gifName,
+    //   gifUrl: currentSnippet.gifUrl,
+    //   pdfName: currentSnippet.pdfName,
+    //   pdfUrl: currentSnippet.pdfUrl,
+    // });
   }, []);
 
   const updateSnippet = () => {
@@ -97,11 +99,13 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
-    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+    // setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+    setCurrentSnippet({ ...currentSnippet, [e.target.name]: e.target.value });
   };
   
   const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
-    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+    // setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+    setCurrentSnippet({ ...currentSnippet, [e.target.name]: e.target.value });
   };
 
   const close =() => {
@@ -111,8 +115,9 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   const handleFinalSubmit = () => {
     console.log('each entry:',eachEntry)
     const pdfRef = firebase.database().ref("snippets");
-    pdfRef.push(eachEntry);
-    setEachEntry(initialInputState);
+    // pdfRef.push(eachEntry);
+     pdfRef.push(currentSnippet);
+    // setEachEntry(initialInputState);
   };
 
   return (
@@ -130,7 +135,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
             <label >Kies Animated Gif</label>
             <div className='row fileselect'>
             <div onClick={handleGif} className="btn fileselect">bekijk animated gifs</div>
-            <div className='choosenfile'>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
+            <div className='choosenfile'>{currentSnippet.gifName ? `gekozen gif: ${currentSnippet.gifName}` : `geen gif gekozen`}</div>
             </div>
           </div>
 
@@ -138,7 +143,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
             <label >Kies CodeSnippet</label>
             <div className='row fileselect'>
             <div onClick={handleJpg} className="btn fileselect">bekijk codes</div>
-            <div className='choosenfile'>{eachEntry.pdfName ? `gekozen gif: ${eachEntry.pdfName}` : `geen code gekozen`}</div>
+            <div className='choosenfile'>{currentSnippet.pdfName ? `gekozen gif: ${currentSnippet.pdfName}` : `geen code gekozen`}</div>
             </div>
           </div>
          
@@ -154,7 +159,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
                   <select
                     name={inputName}
                     onChange={handleInputChangeSelect}
-                    value={eachEntry[inputName]}
+                    value={currentSnippet[inputName]}
                   >
                     <option value="">-kies-</option>
                     <option value="besturing">besturing</option>
@@ -172,7 +177,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
                       name={inputName}
                       placeholder={inputName}
                       onChange={handleInputChange}
-                      value={eachEntry[inputName]}
+                      value={currentSnippet[inputName]}
                   ></input>
                 </div>
             

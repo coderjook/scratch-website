@@ -36,7 +36,7 @@ export default function UploadForms() {
             <div className="toggle" onClick={() => setToggleTutorial(!toggleTutorial)}>Upload Tutorial</div>
             {toggleTutorial && <UploadTutorial />}
             <div className="toggle" onClick={handleUploadSnippet}>Upload Snippet</div>
-            {toggleUploadSnippet &&  <UpdateSnippet currentSnippet={currentSnippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
+            {toggleUploadSnippet &&  <UpdateSnippet currentSnippet={currentSnippet} setCurrentSnippet={setCurrentSnippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
 
       
             <StorageList allItemsSnippets={allItemsSnippets} allItemsGif={allItemsGif} />

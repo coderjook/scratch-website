@@ -8,9 +8,9 @@ export interface IItem {
 export let allItemsGif : IItem[] = [];
 export let allItemsSnippets : IItem[] = [];
 
-export const getFromFirebaseGif = () => {
+export const getFromFirebase = (endpoint: 'gif/' | 'snippets/') => {
    
-        let storageRef = storage.ref().child('gif/');
+        let storageRef = storage.ref().child(endpoint);
         storageRef.listAll().then(function (res) {
             res.items.forEach((imageRef) => {
 
@@ -19,7 +19,11 @@ export const getFromFirebaseGif = () => {
                     itemUrl: url,
                     itemName: imageRef.name
                 }
+                if (endpoint === 'gif/') {
                allItemsGif.push(currentItem);
+                } else {
+                  allItemsSnippets.push(currentItem);
+                }
             });
           });  
         })
@@ -29,24 +33,3 @@ export const getFromFirebaseGif = () => {
 };
 
 
-export const getFromFirebaseSnippets = () => {
-   
-    
-        let storageRef = storage.ref().child('snippets/');
-        storageRef.listAll().then(function (res) {
-           res.items.forEach((imageRef) => {
-
-            imageRef.getDownloadURL().then((url) => {
-             let currentItem = {
-                    itemUrl: url,
-                    itemName: imageRef.name
-                }
-               allItemsSnippets.push(currentItem);
-            });
-          });  
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-   
-};

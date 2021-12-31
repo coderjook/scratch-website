@@ -85,7 +85,7 @@ export default function SnippetsList() {
 
     return (
         <>
-        {snippetControl.openUpdate && <UpdateSnippet currentSnippet={currentSnippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
+        {snippetControl.openUpdate && <UpdateSnippet currentSnippet={currentSnippet} setCurrentSnippet={setCurrentSnippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
         <div className="snippets">
             <div className="container">
                 <h2>snippets</h2> 
