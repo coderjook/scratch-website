@@ -1,28 +1,31 @@
-import react, { useEffect, useState } from "react";
+import react, { useEffect, useState, useContext } from "react";
 import firebase from "../../util/firebase";
 import Snippet from './Snippet';
 import UpdateSnippet from "./UpdateSnippet";
 import { ISnippet, ISnippetControl} from './Interfaces';
+import { SnippetContext } from '../../util/snippetContext';
 
- const initialInputState = {   
-    id: 0 ,
-    objName: '',
-    titel: '' ,
-    categorie: '',
-    leerdoelen: '' ,
-    omschrijving: '', 
-    scratchUrl: '' ,
-    pdfName: '',
-    pdfUrl: '',
-    gifName: '',
-    gifUrl: ''
- }
+//  const initialInputState = {   
+//     id: 0 ,
+//     objName: '',
+//     titel: '' ,
+//     categorie: '',
+//     leerdoelen: '' ,
+//     omschrijving: '', 
+//     scratchUrl: '' ,
+//     pdfName: '',
+//     pdfUrl: '',
+//     gifName: '',
+//     gifUrl: ''
+//  }
   
 
 
 export default function SnippetsList() {
+  const {currentSnippet, setCurrentSnippet } = useContext(SnippetContext) as ContextType;
+
   const [snippetsList, setSnippetsList] = useState<ISnippet[]>([]);
-  const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
+//   const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
   const [snippetControl, setSnippetControl] = useState<ISnippetControl>({ storageName: '', openUpdate: false, openList: false});
   const [filterSnippetsList, setFilterSnippetsList] = useState<ISnippet[]>(snippetsList);
   const [allCategories, setAllCategories] = useState<string[]>([]);
@@ -85,7 +88,7 @@ export default function SnippetsList() {
 
     return (
         <>
-        {snippetControl.openUpdate && <UpdateSnippet currentSnippet={currentSnippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
+        {snippetControl.openUpdate && <UpdateSnippet snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
         <div className="snippets">
             <div className="container">
                 <h2>snippets</h2> 
@@ -109,7 +112,7 @@ export default function SnippetsList() {
                         <div className="snippets">
                             {filterSnippetsList && filterSnippetsList.map((snippet) => (
                                 <>
-                                <Snippet snippet={snippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl} currentSnippet={currentSnippet} setCurrentSnippet={setCurrentSnippet}/>
+                                <Snippet snippet={snippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/>
                                 </>
                         )
                     )}

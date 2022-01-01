@@ -1,15 +1,36 @@
-import React, { createContext} from 'react';
+import React, { useState, createContext} from 'react';
+import {  ISnippetControl} from '../components/snippets/Interfaces';
 
-type SnippetContextProviderProps = {
-    children : React.ReactNode
-    snippet : any
-}
 
-const SnippetContext = createContext({});
+const initialInputState = {   
+    id: 0 ,
+    objName: '',
+    titel: '' ,
+    categorie: '',
+    leerdoelen: '' ,
+    omschrijving: '', 
+    scratchUrl: '' ,
+    pdfName: '',
+    pdfUrl: '',
+    gifName: '',
+    gifUrl: ''
+ }
 
-export const SnippetContextProvider = (children : SnippetContextProviderProps ) => {
+export const SnippetContext = createContext<ContextType | null>(null);
 
-return (
-    <SnippetContext.Provider value={SnippetContext}>{children}</SnippetContext.Provider>
-  );
+export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) : any => {
+
+    const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
+
+    return (
+        <SnippetContext.Provider value = {{
+           currentSnippet,
+           setCurrentSnippet 
+        }}>
+            {children}
+        </SnippetContext.Provider>
+    );
 };
+
+
+  
