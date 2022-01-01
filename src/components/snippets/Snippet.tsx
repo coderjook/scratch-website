@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "./../../css/card.css";
 import { ISnippet, ISnippetControl } from './Interfaces';
 
@@ -21,9 +21,13 @@ export default function Snippet(props : SnippetProps) {
 
     const colorCategorie = snippet.categorie && snippet.categorie.substring(0, snippet.categorie.indexOf("-"))
 
+     useEffect(() => {
+    console.log('useEffect snippet: ', snippet)
+     }, []);
+
      
     const handleUpdateSnippet = () => { 
-        console.log('updateTutorial openen:', snippetControl)
+        console.log('updateTutorial openen:', snippetControl, snippet, 'currentsnippet:', currentSnippet)
         setCurrentSnippet(
             {
                 id: snippet.id ,

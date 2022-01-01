@@ -1,21 +1,21 @@
 import React, { useState, useEffect} from 'react';
 import { storage } from "../../util/firebase";
 import { IItem } from '../../util/getFromFirebase';
-import {ISnippetControl} from './Interfaces';
+import {ISnippetControl, ISnippet} from './Interfaces';
 
 type StorageListProps = {
   allItems : IItem[]
-  eachEntry : any
+  currentSnippet : ISnippet
   snippetControl: ISnippetControl
   setSnippetControl: any
-  setEachEntry : any 
+  setCurrentSnippet : any 
 }
 
 export default function StorageList(props : StorageListProps) {
 
-  const {allItems, eachEntry, setEachEntry, setSnippetControl, snippetControl} = props
+  const {allItems, currentSnippet, setCurrentSnippet, setSnippetControl, snippetControl} = props
 
-  const [currentFile, setCurrentFile] = useState({fileName: 'geen file', fileUrl: 'geen fileUrl'});
+  const [changeFile, setChangeFile] = useState({fileName: 'geen file', fileUrl: 'geen fileUrl'});
   const [newFile, setNewFile] = useState<any | null>(null)
   const [newFileName, setNewFileName] = useState<string>('')
 
@@ -24,21 +24,21 @@ export default function StorageList(props : StorageListProps) {
   },[])
 
   const closeList = () => {
-    console.log('currentFile:',currentFile);    
+    console.log('changeFile:',changeFile);    
     if (!newFile) {
-      if ( currentFile.fileName === 'geen file' ) {
-      setEachEntry({...eachEntry, pdfName: "", pdfUrl: ""})
+      if ( changeFile.fileName === 'geen file' ) {
+      setCurrentSnippet({...currentSnippet, pdfName: "", pdfUrl: ""})
       } else if (snippetControl.storageName === 'snippet')
       {
-      setEachEntry({...eachEntry, pdfName: currentFile.fileName, pdfUrl: currentFile.fileUrl})
+      setCurrentSnippet({...currentSnippet, pdfName: changeFile.fileName, pdfUrl: changeFile.fileUrl})
       } else if (snippetControl.storageName === 'gif') {
-        setEachEntry({ ...eachEntry, gifUrl: currentFile.fileUrl, gifName: currentFile.fileName})
+        setCurrentSnippet({ ...currentSnippet, gifUrl: changeFile.fileUrl, gifName: changeFile.fileName})
       }
     } else {
       handleUploadFile();   
     }
     setSnippetControl({...snippetControl, openList:false});
-    console.log('close snippetlist each entry:', eachEntry)
+    console.log('close snippetlist each entry:', currentSnippet)
   }
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>,itemName :string, itemUrl: string) => {
@@ -46,7 +46,7 @@ export default function StorageList(props : StorageListProps) {
       const target = e.target;
       if (target.checked) {
         console.log(itemName, itemUrl);
-        setCurrentFile({ fileName: itemName, fileUrl:itemUrl });
+        setChangeFile({ fileName: itemName, fileUrl:itemUrl });
       }
     }
 
@@ -55,10 +55,10 @@ export default function StorageList(props : StorageListProps) {
     if (!input.files?.length) {
       return;
     }
-    const currentFile : any  = input.files[0];
-    const currentFileName : string = input.files[0].name;
-    setNewFile(currentFile);
-    setNewFileName(currentFileName);
+    const changeFile : any  = input.files[0];
+    const changeFileName : string = input.files[0].name;
+    setNewFile(changeFile);
+    setNewFileName(changeFileName);
   };
 
   const handleUploadFile = () => {
@@ -77,9 +77,9 @@ export default function StorageList(props : StorageListProps) {
           .then((url) => {
             console.log(snippetControl.storageName, ':',url);
             if (snippetControl.storageName === 'snippet') {
-            setEachEntry({ ...eachEntry, pdfUrl: url, pdfName: newFile.name });
+            setCurrentSnippet({ ...currentSnippet, pdfUrl: url, pdfName: newFile.name });
             } else if (snippetControl.storageName === 'gif') {
-            setEachEntry({ ...eachEntry, gifUrl: url, gifName: newFile.name })}
+            setCurrentSnippet({ ...currentSnippet, gifUrl: url, gifName: newFile.name })}
           });
       }
     );

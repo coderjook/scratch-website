@@ -42,8 +42,9 @@ export default function SnippetsList() {
 
       const snippets = snapshot.val();
       const snippetsList: ISnippet[] = [];
-      for (let id in snippets) {
-        snippetsList.push({ id, ...snippets[id] });
+      for (let objName in snippets) {
+        console.log('forloop objName', objName)
+        snippetsList.push({ objName: objName, id: objName, ...snippets[objName] });
       }
       console.log(snippetsList);
       setSnippetsList(snippetsList);

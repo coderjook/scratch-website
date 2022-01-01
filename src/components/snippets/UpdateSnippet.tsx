@@ -18,8 +18,10 @@ import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase'
   }
   
   
-  const initialInputState : IInputState = {
+  const initialInputState : ISnippet = {
+    id: 0,
     titel: "",
+    objName: "",
     omschrijving: "",
     leerdoelen: "",
     categorie: "",
@@ -56,7 +58,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   }, []);
 
   const updateSnippet = () => {
-    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
+    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     snippetRef.update({
       titel: titel,
       omschrijving: omschrijving,
@@ -84,7 +86,9 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
   }
 
   const deleteSnippet = () => {
-    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
+    console.log('delete snippet objName', currentSnippet.objName)
+    console.log('delete snippet currentSnippet', currentSnippet)
+    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     deleteSnippetRef.remove();
     const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
     snippetStorageRef
@@ -129,7 +133,7 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
         
         <h2>wijzig snippet</h2>
         
-        {snippetControl.openList && <StorageList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} snippetControl={snippetControl} setSnippetControl={setSnippetControl} />}
+        {snippetControl.openList && <StorageList allItems={allItems} currentSnippet={currentSnippet} setCurrentSnippet={setCurrentSnippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl} />}
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
@@ -168,19 +172,19 @@ export default function UpdateSnippet(props: UpdateSnippetProps) {
                   </select>
                 </div>
               </div>
-              :
+              : inputName === 'titel' || inputName === 'leerdoelen' || inputName === 'omschrijving' || inputName === 'scratchUrl'  ?
                 <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
-                      type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                      type={`text`}
                       className="input"
                       name={inputName}
                       placeholder={inputName}
-                      onChange={handleInputChange}
+                      onChange={handleInputChange}  
                       value={currentSnippet[inputName]}
                   ></input>
                 </div>
-            
+              : <></>
             )
         } )}
 
