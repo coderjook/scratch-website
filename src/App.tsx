@@ -8,12 +8,14 @@ import UploadForms from './UploadForms';
 import './css/style.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { IItem, allItemsGif, getFromFirebaseGif, allItemsSnippets, getFromFirebaseSnippets } from './util/getFromFirebase'
- 
+import {SnippetContextProvider } from './util/snippetContext';
 
 
 function App() {
 
   // const [allItems, setAllItems] = useState<IItem[]>([]);
+
+  const snippet : any = [];
 
   useEffect(() => { 
   getFromFirebaseGif();
@@ -27,12 +29,14 @@ function App() {
         <Nav/>
         
         <Routes>
+          <SnippetContextProvider snippet = {snippet}>
           <Route path="/" element={<Home />} />
           {/* <Route path="/uploadforms" element={<UploadForms allItemsGif={allItemsGif} allItemsSnippets={allItemsSnippets}/>} /> */}
           <Route path="/uploadforms" element={<UploadForms/>} />
           <Route path="/tutorials"element={<TutorialsList />} />
           <Route path="/snippets"element={<SnippetsList />} />
           <Route path="/faq"element={<Faq />} />  
+          </SnippetContextProvider>
         </Routes>
       </div>
     </Router>
