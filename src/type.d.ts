@@ -1,12 +1,11 @@
 export type ContextType = {
-  currentSnippet : ISnippet;
-  setCurrentSnippet: any;
-  snippetControl: ISnippetControl;
-  setSnippetControl: any;
-  // setSnippetControl: React.Dispatch<React.SetStateAction<ISnippetControl>>
-}
+    currentSnippet : ISnippet;
+    setCurrentSnippet: any;
+    snippetControl: ISnippetControl;
+    setSnippetControl: any;
+  }
 
-export interface ISnippet  {
+interface ISnippet  {
     id: number
     objName: string
     titel: string 
@@ -24,8 +23,4 @@ export interface ISnippetControl {
     storageName: string
     openUpdate: boolean
     openList: boolean
-}
-
-export interface IInputState {
-  [propertyName: string]: string;
 }

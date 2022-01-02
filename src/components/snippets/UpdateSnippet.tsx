@@ -1,21 +1,22 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState, useEffect, useContext} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
-import { IInputState, ISnippet, ISnippetControl} from './Interfaces';
+import {ContextType, IInputState, ISnippet, ISnippetControl} from './Interfaces';
 import StorageList from "./StorageList"
 import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase';
+import { SnippetContext } from '../../util/snippetContext';
 
 
-
-  type UpdateSnippetProps = {
-    snippetControl: ISnippetControl
-    setSnippetControl: any
-    currentSnippet: ISnippet
-    // setCurrentSnippet: any
-    // openUpdateSnippet: boolean
-    // setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
-  }
+  // type UpdateSnippetProps = {
+  //   snippetControl: ISnippetControl
+  //   setSnippetControl: Dispatch<SetStateAction<ISnippetControl>>
+   
+  //   setCurrentSnippet: any
+  //   openUpdateSnippet: boolean
+  //   setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
+  //   Dispatch<SetStateAction<ISnippetControl>>
+  // }
   
   
   const initialInputState : IInputState = {
@@ -30,9 +31,11 @@ import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase'
     pdfUrl: "",
   };
 
-export default function UpdateSnippet(props: UpdateSnippetProps) {
+export default function UpdateSnippet() {
 
-  const {snippetControl,setSnippetControl, currentSnippet} = props
+  const {currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
+
+  // const {snippetControl,setSnippetControl} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
