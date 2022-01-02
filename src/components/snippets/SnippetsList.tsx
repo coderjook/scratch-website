@@ -2,31 +2,16 @@ import react, { useEffect, useState, useContext } from "react";
 import firebase from "../../util/firebase";
 import Snippet from './Snippet';
 import UpdateSnippet from "./UpdateSnippet";
-import { ISnippet, ISnippetControl} from './Interfaces';
+import { ContextType, ISnippet, ISnippetControl} from './Interfaces';
 import { SnippetContext } from '../../util/snippetContext';
 
-//  const initialInputState = {   
-//     id: 0 ,
-//     objName: '',
-//     titel: '' ,
-//     categorie: '',
-//     leerdoelen: '' ,
-//     omschrijving: '', 
-//     scratchUrl: '' ,
-//     pdfName: '',
-//     pdfUrl: '',
-//     gifName: '',
-//     gifUrl: ''
-//  }
-  
+ 
 
 
 export default function SnippetsList() {
-//   const {currentSnippet, setCurrentSnippet } = useContext(SnippetContext) as ContextType;
+  const {snippetControl } = useContext(SnippetContext) as ContextType;
 
   const [snippetsList, setSnippetsList] = useState<ISnippet[]>([]);
-//   const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
-  const [snippetControl, setSnippetControl] = useState<ISnippetControl>({ storageName: '', openUpdate: false, openList: false});
   const [filterSnippetsList, setFilterSnippetsList] = useState<ISnippet[]>(snippetsList);
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [currentCategorie, setCurrentCategorie] = useState('alle opdrachten');
@@ -88,7 +73,7 @@ export default function SnippetsList() {
 
     return (
         <>
-        {snippetControl.openUpdate && <UpdateSnippet snippetControl={snippetControl} setSnippetControl={setSnippetControl}/> }
+        {snippetControl.openUpdate && <UpdateSnippet /> }
         <div className="snippets">
             <div className="container">
                 <h2>snippets</h2> 

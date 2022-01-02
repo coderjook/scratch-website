@@ -3,6 +3,7 @@ export type ContextType = {
   setCurrentSnippet: any;
   snippetControl: ISnippetControl;
   setSnippetControl: any;
+  // setSnippetControl: React.Dispatch<React.SetStateAction<ISnippetControl>>
 }
 
 export interface ISnippet  {

@@ -5,8 +5,6 @@ import { SnippetContext } from '../../util/snippetContext';
 
 type SnippetProps = {
     snippet : ISnippet
-    // snippetControl: ISnippetControl   
-    // setSnippetControl: any
 }
 
 export default function Snippet(props : SnippetProps) {

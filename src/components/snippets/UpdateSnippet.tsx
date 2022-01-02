@@ -8,14 +8,15 @@ import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase'
 import { SnippetContext } from '../../util/snippetContext';
 
 
-  type UpdateSnippetProps = {
-    snippetControl: ISnippetControl
-    setSnippetControl: any
+  // type UpdateSnippetProps = {
+  //   snippetControl: ISnippetControl
+  //   setSnippetControl: Dispatch<SetStateAction<ISnippetControl>>
    
-    // setCurrentSnippet: any
-    // openUpdateSnippet: boolean
-    // setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
-  }
+  //   setCurrentSnippet: any
+  //   openUpdateSnippet: boolean
+  //   setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
+  //   Dispatch<SetStateAction<ISnippetControl>>
+  // }
   
   
   const initialInputState : IInputState = {
@@ -30,11 +31,11 @@ import { SnippetContext } from '../../util/snippetContext';
     pdfUrl: "",
   };
 
-export default function UpdateSnippet(props: UpdateSnippetProps) {
+export default function UpdateSnippet() {
 
-  const {currentSnippet, setCurrentSnippet } = useContext(SnippetContext) as ContextType;
+  const {currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
 
-  const {snippetControl,setSnippetControl} = props
+  // const {snippetControl,setSnippetControl} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
