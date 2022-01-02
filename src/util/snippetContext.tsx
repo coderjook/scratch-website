@@ -1,8 +1,9 @@
 import React, { useState, createContext} from 'react';
 import { ContextType,ISnippet, ISnippetControl, IItem} from '../components/snippets/Interfaces';
+import { storage } from "./firebase";
 
 
-const initialInputState = {   
+export const initialInputStateCurrentSnippet = {   
     id: 0 ,
     objName: '',
     titel: '' ,
@@ -20,10 +21,35 @@ export const SnippetContext = createContext<ContextType | null>(null);
 
 export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) : any => {
 
-    const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
+    const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputStateCurrentSnippet);
     const [snippetControl, setSnippetControl] = useState<ISnippetControl>({ storageName: '', openUpdate: false, openList: false});
-    let allItemsGif : IItem[] = [];
-    let allItemsSnippets : IItem[] = [];
+    const [allItemsGif, setAllItemsGif] = useState<IItem[]>([]);
+    const [allItemsSnippets, setAllItemsSnippets] = useState<IItem[]>([]);
+    
+    const getFromFirebaseStorage = (endpoint: 'gif/' | 'snippets/') => {
+   
+        let storageRef = storage.ref().child(endpoint);
+        storageRef.listAll().then(function (res) {
+            res.items.forEach((imageRef) => {
+
+            imageRef.getDownloadURL().then((url) => {
+             let currentItem = {
+                    itemUrl: url,
+                    itemName: imageRef.name
+                }
+                if (endpoint === 'gif/') {               
+                    setAllItemsGif((prevState)=> [...prevState, currentItem])
+                } else {
+                   setAllItemsSnippets((prevState)=> [...prevState, currentItem])
+                }
+            });
+          });  
+        })
+        .catch(function (error) {
+            console.log(error);
+        });   
+};
+
 
     return (
         <SnippetContext.Provider value = {{
@@ -32,7 +58,8 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
            snippetControl,
            setSnippetControl,
            allItemsGif,
-           allItemsSnippets
+           allItemsSnippets, 
+           getFromFirebaseStorage
 
 
         }}>

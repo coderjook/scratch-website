@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Home from "./components/Home"
 import Nav from './components/Nav';
 import SnippetsList from './components/snippets/SnippetsList';
@@ -7,19 +7,19 @@ import TutorialsList from './components/tutorials/TutorialsList';
 import UploadForms from './UploadForms';
 import './css/style.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { IItem, allItemsGif, getFromFirebaseGif, allItemsSnippets, getFromFirebaseSnippets } from './util/getFromFirebase'
-import {SnippetContextProvider } from './util/snippetContext';
+import { SnippetContext} from './util/snippetContext';
+import { ContextType } from './components/snippets/Interfaces'
 
 
 function App() {
 
-  // const [allItems, setAllItems] = useState<IItem[]>([]);
 
+  const {getFromFirebaseStorage} = useContext(SnippetContext) as ContextType
 
 
   useEffect(() => { 
-  getFromFirebaseGif();
-  getFromFirebaseSnippets();
+    getFromFirebaseStorage('gif/');
+    getFromFirebaseStorage('snippets/');
   }, [])
 
   return (

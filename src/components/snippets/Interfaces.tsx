@@ -7,6 +7,7 @@ export type ContextType = {
    setSnippetControl: React.Dispatch<React.SetStateAction<ISnippetControl>>
   allItemsGif: IItem[];
   allItemsSnippets: IItem[];
+  getFromFirebaseStorage: any
 }
 
 export interface IItem {

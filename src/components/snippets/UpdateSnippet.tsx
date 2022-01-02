@@ -4,20 +4,10 @@ import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 import {ContextType, IInputState, ISnippet, ISnippetControl} from './Interfaces';
 import StorageList from "./StorageList"
-import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase';
-import { SnippetContext } from '../../util/snippetContext';
+import { IItem} from './Interfaces';
+import { SnippetContext, initialInputStateCurrentSnippet } from '../../util/snippetContext';
 
 
-  // type UpdateSnippetProps = {
-  //   snippetControl: ISnippetControl
-  //   setSnippetControl: Dispatch<SetStateAction<ISnippetControl>>
-   
-  //   setCurrentSnippet: any
-  //   openUpdateSnippet: boolean
-  //   setOpenUpdateSnippet: React.Dispatch<React.SetStateAction<boolean>>
-  //   Dispatch<SetStateAction<ISnippetControl>>
-  // }
-  
   
   const initialInputState : IInputState = {
     titel: "",
@@ -33,15 +23,19 @@ import { SnippetContext } from '../../util/snippetContext';
 
 export default function UpdateSnippet() {
 
-  const {currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
+  const {currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl, allItemsGif, allItemsSnippets } = useContext(SnippetContext) as ContextType;
 
   // const {snippetControl,setSnippetControl} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
+  const [newItem, setNewItem] = useState<boolean>(false);
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
   const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
+    if (currentSnippet.id === 0) {
+      setNewItem(true)
+    }
     setEachEntry({
       ...eachEntry,
       titel: currentSnippet.titel,
@@ -73,15 +67,15 @@ export default function UpdateSnippet() {
   };
 
   const handleGif = () => {
-        setAllItems(allItemsGif)
-        setSnippetControl({...snippetControl, storageName: 'gif', openList: true})
-      
+        console.log('allItemsGif:', allItemsGif);
+        setAllItems(allItemsGif);
+        setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, storageName: 'gif', openList: true}))
   }
 
-   const handleJpg = () => {
-        setAllItems(allItemsSnippets)
-        setSnippetControl({...snippetControl, storageName: 'snippet', openList: true})
-     
+  const handleJpg = () => {
+        console.log('allItemsSnippets:', allItemsSnippets);
+        setAllItems(allItemsSnippets);
+        setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, storageName: 'snippet', openList: true}))
   }
 
   const deleteSnippet = () => {
@@ -92,7 +86,7 @@ export default function UpdateSnippet() {
       .delete()
       .then(function () {
         console.log(" File deleted successfully ");
-        setSnippetControl({...snippetControl, openUpdate: false})
+        setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
       })
       .catch(function (error) {
         console.log(error);
@@ -108,14 +102,17 @@ export default function UpdateSnippet() {
   };
 
   const close =() => {
-    setSnippetControl({...snippetControl, openUpdate: false})
+    setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
+    setNewItem(false)
+    setCurrentSnippet(initialInputStateCurrentSnippet);
   }
 
-  const handleFinalSubmit = () => {
+  const handleUploadNewSnippet = () => {
     console.log('each entry:',eachEntry)
     const pdfRef = firebase.database().ref("snippets");
     pdfRef.push(eachEntry);
     setEachEntry(initialInputState);
+    setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
   };
 
   return (
@@ -127,7 +124,7 @@ export default function UpdateSnippet() {
         
         <h2>wijzig snippet</h2>
         
-        {snippetControl.openList && <StorageList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry} snippetControl={snippetControl} setSnippetControl={setSnippetControl} />}
+        {snippetControl.openList && <StorageList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry}  />}
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
@@ -178,23 +175,22 @@ export default function UpdateSnippet() {
                       value={eachEntry[inputName]}
                   ></input>
                 </div>
-            
             )
         } )}
 
           
         <div className='row'>
-          <input
+          {!newItem && <input
               type="submit"
               value="wijzig"
               className="btn"             
-            />
+            />}
          
-          <div className="btn" onClick={handleFinalSubmit}>toevoegen</div>
+          {newItem  && <div className="btn" onClick={handleUploadNewSnippet}>toevoegen</div>}
           <div className="btn" onClick={close}>sluiten</div>
           <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
           {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
-          </div>
+         </div>
           &#65039;
         </form>
 
