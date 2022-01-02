@@ -1,12 +1,12 @@
 import { storage } from "./firebase";
  
-export interface IItem {
-      itemUrl: string
-      itemName: string              
-}
+// export interface IItem {
+//       itemUrl: string
+//       itemName: string              
+// }
 
-export let allItemsGif : IItem[] = [];
-export let allItemsSnippets : IItem[] = [];
+// export let allItemsGif : IItem[] = [];
+// export let allItemsSnippets : IItem[] = [];
 
 export const getFromFirebaseGif = () => {
    

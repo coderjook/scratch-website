@@ -22,8 +22,8 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
 
     const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
     const [snippetControl, setSnippetControl] = useState<ISnippetControl>({ storageName: '', openUpdate: false, openList: false});
-    // let allItemsGif : IItem[] = [];
-    // let allItemsSnippets : IItem[] = [];
+    let allItemsGif : IItem[] = [];
+    let allItemsSnippets : IItem[] = [];
 
     return (
         <SnippetContext.Provider value = {{
@@ -31,8 +31,8 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
            setCurrentSnippet,
            snippetControl,
            setSnippetControl,
-        //    allItemsGif,
-        //    allItemsSnippets
+           allItemsGif,
+           allItemsSnippets
 
 
         }}>

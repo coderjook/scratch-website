@@ -3,10 +3,10 @@ export type ContextType = {
   setCurrentSnippet: any;
   // setCurrentSnippet: React.Dispatch<React.SetStateAction<ISnippet>>
   snippetControl: ISnippetControl;
-  setSnippetControl: any;
-  // setSnippetControl: React.Dispatch<React.SetStateAction<ISnippetControl>>
-  // allItemsGif: IItem;
-  // allItemsSnippets: IItem;
+  // setSnippetControl: any;
+   setSnippetControl: React.Dispatch<React.SetStateAction<ISnippetControl>>
+  allItemsGif: IItem[];
+  allItemsSnippets: IItem[];
 }
 
 export interface IItem {

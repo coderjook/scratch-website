@@ -12,8 +12,8 @@ export default function UploadForms() {
     const [toggleUploadSnippet, setToggleUploadSnippet] = useState(false);
 
     const handleUploadSnippet = () => {
-        setSnippetControl((prevState: ISnippetControl)=> ({ openUpdate: !prevState.openUpdate}))
-        // setSnippetControl({...snippetControl, openUpdate: true})
+        setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate: !prevState.openUpdate}))
+        //setSnippetControl({...snippetControl, openUpdate: true})
         setToggleUploadSnippet(!toggleUploadSnippet);
 
     }
