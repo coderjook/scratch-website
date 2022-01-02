@@ -22,7 +22,7 @@ import { SnippetContext } from '../../util/snippetContext';
 
 
 export default function SnippetsList() {
-  const {currentSnippet, setCurrentSnippet } = useContext(SnippetContext) as ContextType;
+//   const {currentSnippet, setCurrentSnippet } = useContext(SnippetContext) as ContextType;
 
   const [snippetsList, setSnippetsList] = useState<ISnippet[]>([]);
 //   const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
@@ -112,7 +112,7 @@ export default function SnippetsList() {
                         <div className="snippets">
                             {filterSnippetsList && filterSnippetsList.map((snippet) => (
                                 <>
-                                <Snippet snippet={snippet} snippetControl={snippetControl} setSnippetControl={setSnippetControl}/>
+                                <Snippet snippet={snippet} />
                                 </>
                         )
                     )}

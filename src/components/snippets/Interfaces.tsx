@@ -1,3 +1,10 @@
+export type ContextType = {
+  currentSnippet : ISnippet;
+  setCurrentSnippet: any;
+  snippetControl: ISnippetControl;
+  setSnippetControl: any;
+}
+
 export interface ISnippet  {
     id: number
     objName: string

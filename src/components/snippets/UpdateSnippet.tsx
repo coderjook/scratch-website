@@ -2,7 +2,7 @@ import React,{useState, useEffect, useContext} from 'react';
 import firebase from "../../util/firebase";
 import { storage } from "../../util/firebase";
 import "./../../css/form.css";
-import { IInputState, ISnippet, ISnippetControl} from './Interfaces';
+import {ContextType, IInputState, ISnippet, ISnippetControl} from './Interfaces';
 import StorageList from "./StorageList"
 import { IItem, allItemsGif, allItemsSnippets} from '../../util/getFromFirebase';
 import { SnippetContext } from '../../util/snippetContext';

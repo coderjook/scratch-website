@@ -1,7 +1,9 @@
-type ContextType = {
+export type ContextType = {
     currentSnippet : ISnippet;
     setCurrentSnippet: any;
-}
+    snippetControl: ISnippetControl;
+    setSnippetControl: any;
+  }
 
 interface ISnippet  {
     id: number
@@ -15,4 +17,10 @@ interface ISnippet  {
     pdfUrl: string
     gifName: string
     gifUrl: string
+}
+
+export interface ISnippetControl {
+    storageName: string
+    openUpdate: boolean
+    openList: boolean
 }
