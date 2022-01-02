@@ -1,5 +1,5 @@
 import React, { useState, createContext} from 'react';
-import { ContextType,ISnippet, ISnippetControl} from '../components/snippets/Interfaces';
+import { ContextType,ISnippet, ISnippetControl, IItem} from '../components/snippets/Interfaces';
 
 
 const initialInputState = {   
@@ -22,13 +22,18 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
 
     const [currentSnippet,setCurrentSnippet] = useState<ISnippet>(initialInputState);
     const [snippetControl, setSnippetControl] = useState<ISnippetControl>({ storageName: '', openUpdate: false, openList: false});
+    // let allItemsGif : IItem[] = [];
+    // let allItemsSnippets : IItem[] = [];
 
     return (
         <SnippetContext.Provider value = {{
            currentSnippet,
            setCurrentSnippet,
            snippetControl,
-           setSnippetControl
+           setSnippetControl,
+        //    allItemsGif,
+        //    allItemsSnippets
+
 
         }}>
             {children}
