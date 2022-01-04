@@ -36,5 +36,6 @@ export interface ISnippetControl {
 }
 
 export interface IInputState {
-  [propertyName: string]: string;
+  [propertyName: string]: string | number;
+ 
 }
