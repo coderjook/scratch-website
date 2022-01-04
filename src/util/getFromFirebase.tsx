@@ -1,4 +1,6 @@
+import React, { useContext} from 'react';
 import { storage } from "./firebase";
+
  
 export interface IItem {
       itemUrl: string
@@ -9,6 +11,7 @@ export let allItemsGif : IItem[] = [];
 export let allItemsSnippets : IItem[] = [];
 
 export const getFromFirebaseGif = () => {
+     
    
         let storageRef = storage.ref().child('gif/');
         storageRef.listAll().then(function (res) {

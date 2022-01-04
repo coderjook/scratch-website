@@ -1,19 +1,20 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { storage } from "../../util/firebase";
 import { IItem } from '../../util/getFromFirebase';
-import {ISnippetControl} from './Interfaces';
+import {ISnippetControl, ContextType} from './Interfaces';
+import {SnippetContext} from '../../util/snippetContext';
 
 type StorageListProps = {
   allItems : IItem[]
   eachEntry : any
-  snippetControl: ISnippetControl
-  setSnippetControl: any
   setEachEntry : any 
 }
 
 export default function StorageList(props : StorageListProps) {
 
-  const {allItems, eachEntry, setEachEntry, setSnippetControl, snippetControl} = props
+  const {setSnippetControl, snippetControl } = useContext(SnippetContext) as ContextType
+
+  const {allItems, eachEntry, setEachEntry} = props
 
   const [currentFile, setCurrentFile] = useState({fileName: 'geen file', fileUrl: 'geen fileUrl'});
   const [newFile, setNewFile] = useState<any | null>(null)
