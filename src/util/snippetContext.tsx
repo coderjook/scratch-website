@@ -26,7 +26,7 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
     const [allItemsGif, setAllItemsGif] = useState<IItem[]>([]);
     const [allItemsSnippets, setAllItemsSnippets] = useState<IItem[]>([]);
     
-    const getFromFirebaseStorage = (endpoint: 'gif/' | 'snippets/') => {
+    const getFromFirebaseStorage = (endpoint: 'gif/' | 'snippet/') => {
    
         let storageRef = storage.ref().child(endpoint);
         storageRef.listAll().then(function (res) {

@@ -36,6 +36,7 @@ export default function Snippet(props : SnippetProps) {
                 gifUrl: snippet.gifUrl
             }
         )
+
         setSnippetControl({ ...snippetControl, openUpdate: true})
       
     }
@@ -62,6 +63,7 @@ export default function Snippet(props : SnippetProps) {
                  <span className="tagline">
                     leerdoelen: {snippet.leerdoelen}
                  </span>
+                 <img src={snippet.pdfUrl} alt={snippet.titel} className="card__image"/>
                 
                 <div className="card__footer mobile">
                    <a href={snippet.pdfUrl} target="_blank" className="btn" rel="noreferrer">bekijk code</a>
