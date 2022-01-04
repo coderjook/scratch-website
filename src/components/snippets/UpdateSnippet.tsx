@@ -98,7 +98,7 @@ export default function UpdateSnippet() {
   }
 
   const deleteSnippet = () => {
-    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
+    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     deleteSnippetRef.remove();
     const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
     snippetStorageRef
