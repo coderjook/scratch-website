@@ -9,16 +9,29 @@ import { SnippetContext, initialInputStateCurrentSnippet } from '../../util/snip
 
 
   
+  // const initialInputState : ISnippet = {
+  //   id: 0,
+  //   objName:"",
+  //   titel: "",
+  //   omschrijving: "",
+  //   leerdoelen: "",
+  //   categorie: "",
+  //   scratchUrl: "",
+  //   gifName: "",
+  //   gifUrl: "",
+  //   pdfName: "",
+  //   pdfUrl: "",
+   
+  // };
+
   const initialInputState : IInputState = {
+  
     titel: "",
     omschrijving: "",
     leerdoelen: "",
     categorie: "",
-    scratchUrl: "",
-    gifName: "",
-    gifUrl: "",
-    pdfName: "",
-    pdfUrl: "",
+    scratchUrl: ""
+
   };
 
 export default function UpdateSnippet() {
@@ -29,30 +42,36 @@ export default function UpdateSnippet() {
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const [newItem, setNewItem] = useState<boolean>(false);
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const { omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = eachEntry;
+  const {id, objName, omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = currentSnippet;
   const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
+    console.log('UpdateSnippet, currentSnippet: ', currentSnippet)
     if (currentSnippet.id === 0) {
       setNewItem(true)
     }
-    setEachEntry({
-      ...eachEntry,
-      titel: currentSnippet.titel,
-      omschrijving: currentSnippet.omschrijving,
-      categorie: currentSnippet.categorie,
-      leerdoelen: currentSnippet.leerdoelen,
-      scratchUrl: currentSnippet.scratchUrl,
-      gifName: currentSnippet.gifName,
-      gifUrl: currentSnippet.gifUrl,
-      pdfName: currentSnippet.pdfName,
-      pdfUrl: currentSnippet.pdfUrl,
-    });
+    // setEachEntry({
+    //   ...eachEntry,
+    //   id: currentSnippet.id ,
+    //   objName: currentSnippet.objName,
+    //   titel: currentSnippet.titel,
+    //   omschrijving: currentSnippet.omschrijving,
+    //   categorie: currentSnippet.categorie,
+    //   leerdoelen: currentSnippet.leerdoelen,
+    //   scratchUrl: currentSnippet.scratchUrl,
+    //   gifName: currentSnippet.gifName,
+    //   gifUrl: currentSnippet.gifUrl,
+    //   pdfName: currentSnippet.pdfName,
+    //   pdfUrl: currentSnippet.pdfUrl,
+    // });
   }, []);
 
   const updateSnippet = () => {
-    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
+    console.log('updateSnippet, updateSnippet, currentSnippet', currentSnippet)
+    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     snippetRef.update({
+      // id: id ,
+      // objName: objName,
       titel: titel,
       omschrijving: omschrijving,
       categorie: categorie,
@@ -79,7 +98,7 @@ export default function UpdateSnippet() {
   }
 
   const deleteSnippet = () => {
-    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.id.toString());
+    const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     deleteSnippetRef.remove();
     const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
     snippetStorageRef
@@ -94,11 +113,11 @@ export default function UpdateSnippet() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
-    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+    setCurrentSnippet({ ...currentSnippet, [e.target.name]: e.target.value });
   };
   
   const handleInputChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) : void => {
-    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+    setCurrentSnippet({ ...currentSnippet, [e.target.name]: e.target.value });
   };
 
   const close =() => {
@@ -108,12 +127,32 @@ export default function UpdateSnippet() {
   }
 
   const handleUploadNewSnippet = () => {
-    console.log('each entry:',eachEntry)
+    console.log('new currentSnippet:',currentSnippet)
     const pdfRef = firebase.database().ref("snippets");
-    pdfRef.push(eachEntry);
-    setEachEntry(initialInputState);
+    pdfRef.push(currentSnippet);
+    setCurrentSnippet(initialInputStateCurrentSnippet);
+    // setEachEntry(initialInputState);
     setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
   };
+
+  const log = () => {
+    console.log('currenSnippet log', currentSnippet)
+    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
+    snippetRef.update({
+      // id: id ,
+      // objName: objName,
+      titel: titel,
+      omschrijving: omschrijving,
+      categorie: categorie,
+      leerdoelen: leerdoelen,
+      scratchUrl: scratchUrl,
+      gifName: gifName,
+      gifUrl: gifUrl,
+      pdfName: pdfName,
+      pdfUrl: pdfUrl
+  
+    }); 
+  }
 
   return (
     <>
@@ -124,13 +163,13 @@ export default function UpdateSnippet() {
         
         <h2>wijzig snippet</h2>
         
-        {snippetControl.openList && <StorageList allItems={allItems} eachEntry={eachEntry} setEachEntry={setEachEntry}  />}
+        {snippetControl.openList && <StorageList allItems={allItems}/>}
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
             <div className='row fileselect'>
             <div onClick={handleGif} className="btn fileselect">bekijk animated gifs</div>
-            <div className='choosenfile'>{eachEntry.gifName ? `gekozen gif: ${eachEntry.gifName}` : `geen gif gekozen`}</div>
+            <div className='choosenfile'>{currentSnippet.gifName ? `gekozen gif: ${currentSnippet.gifName}` : `geen gif gekozen`}</div>
             </div>
           </div>
 
@@ -138,7 +177,7 @@ export default function UpdateSnippet() {
             <label >Kies CodeSnippet</label>
             <div className='row fileselect'>
             <div onClick={handleJpg} className="btn fileselect">bekijk codes</div>
-            <div className='choosenfile'>{eachEntry.pdfName ? `gekozen gif: ${eachEntry.pdfName}` : `geen code gekozen`}</div>
+            <div className='choosenfile'>{currentSnippet.pdfName ? `gekozen gif: ${currentSnippet.pdfName}` : `geen code gekozen`}</div>
             </div>
           </div>
          
@@ -154,7 +193,7 @@ export default function UpdateSnippet() {
                   <select
                     name={inputName}
                     onChange={handleInputChangeSelect}
-                    value={eachEntry[inputName]}
+                    value={currentSnippet[inputName]}
                   >
                     <option value="">-kies-</option>
                     <option value="besturing">besturing</option>
@@ -164,17 +203,21 @@ export default function UpdateSnippet() {
                 </div>
               </div>
               :
+              <>
+             
                 <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
-                      type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                      type={`text`}
                       className="input"
                       name={inputName}
                       placeholder={inputName}
                       onChange={handleInputChange}
-                      value={eachEntry[inputName]}
+                      value={currentSnippet[inputName as keyof ISnippet]}
                   ></input>
                 </div>
+                
+              </>
             )
         } )}
 
@@ -188,6 +231,7 @@ export default function UpdateSnippet() {
          
           {newItem  && <div className="btn" onClick={handleUploadNewSnippet}>toevoegen</div>}
           <div className="btn" onClick={close}>sluiten</div>
+          {/* <div className="btn" onClick={log}>log</div> */}
           <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
           {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
          </div>

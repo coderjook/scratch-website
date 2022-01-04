@@ -20,11 +20,11 @@ export default function Snippet(props : SnippetProps) {
 
      
     const handleUpdateSnippet = () => { 
-        console.log('updateTutorial openen:', snippetControl)
+        console.log('Snippet, snippet:', snippet)
         setCurrentSnippet(
             {
-                id: snippet.id ,
-                objName: snippet.objName,
+                // id: snippet.id ,
+                objName: snippet.id,
                 titel: snippet.titel ,
                 categorie: snippet.categorie,
                 leerdoelen: snippet.leerdoelen ,
