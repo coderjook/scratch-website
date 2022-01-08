@@ -23,17 +23,20 @@ export default function SnippetsList() {
  
 
    useEffect(() => {
-    console.log("useEffect snippetsList");
     const imageRef = firebase.database().ref("snippets");
     imageRef.on("value", (snapshot) => {
-      console.log(snapshot.val());
+      console.log("UE snippetsList snapshot:",snapshot.val());
 
       const snippets = snapshot.val();
       const snippetsList: ISnippet[] = [];
-      for (let id in snippets) {
-        snippetsList.push({ id, ...snippets[id] });
+    //   for (let id in snippets) {
+    //     snippetsList.push({ id, ...snippets[id] });
+    //   }
+      for (let objName in snippets) {
+        console.log("UE snippetsList for-loop objName:",objName)
+        snippetsList.push({...snippets[objName], objName: objName, id: parseInt(objName) });       
       }
-      console.log(snippetsList);
+      console.log("UE snippetsList snippetlist:",snippetsList);
       setSnippetsList(snippetsList);
       setFilterSnippetsList(snippetsList)
       const allcurrentCategories: string[] = ["alle opdrachten", ...Array.from(new Set(snippetsList.map((item) => item.categorie)))];

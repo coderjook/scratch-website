@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect,  useContext} from 'react';
 import "./../../css/card.css";
 import { ContextType, ISnippet, ISnippetControl } from './Interfaces';
 import { SnippetContext } from '../../util/snippetContext';
@@ -17,10 +17,13 @@ export default function Snippet(props : SnippetProps) {
     const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
 
     const colorCategorie = snippet.categorie && snippet.categorie.substring(0, snippet.categorie.indexOf("-"))
-
+    
+    useEffect(()=> {
+        console.log('useEffect snippet:', snippet)
+    },[])
      
     const handleUpdateSnippet = () => { 
-        console.log('Snippet, snippet:', snippet)
+        console.log('UE:Snippet, snippet:', snippet)
         setCurrentSnippet(
             {
                 // id: snippet.id ,
