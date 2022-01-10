@@ -4,7 +4,7 @@ import { storage } from "./firebase";
 
 
 export const initialInputStateCurrentSnippet = {   
-    id: 0 ,
+    id: "0" ,
     objName: '',
     titel: '' ,
     categorie: '',

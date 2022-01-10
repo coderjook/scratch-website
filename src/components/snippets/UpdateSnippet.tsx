@@ -47,7 +47,7 @@ export default function UpdateSnippet() {
 
   useEffect(() => {
     console.log('UpdateSnippet, currentSnippet: ', currentSnippet)
-    if (currentSnippet.id === 0) {
+    if (currentSnippet.id === "0") {
       setNewItem(true)
     }
     // setEachEntry({

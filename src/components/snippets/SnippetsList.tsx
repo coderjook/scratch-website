@@ -34,7 +34,7 @@ export default function SnippetsList() {
     //   }
       for (let objName in snippets) {
         console.log("UE snippetsList for-loop objName:",objName)
-        snippetsList.push({...snippets[objName], objName: objName, id: parseInt(objName) });       
+        snippetsList.push({...snippets[objName], objName: objName, id: objName });       
       }
       console.log("UE snippetsList snippetlist:",snippetsList);
       setSnippetsList(snippetsList);

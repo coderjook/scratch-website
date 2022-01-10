@@ -26,7 +26,7 @@ export default function Snippet(props : SnippetProps) {
         console.log('UE:Snippet, snippet:', snippet)
         setCurrentSnippet(
             {
-                // id: snippet.id ,
+                id: snippet.id ,
                 objName: snippet.id,
                 titel: snippet.titel ,
                 categorie: snippet.categorie,
