@@ -16,7 +16,7 @@ export interface IItem {
 }
 
 export interface ISnippet  {
-    id: number
+    id: string
     objName: string
     titel: string 
     categorie: string

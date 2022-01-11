@@ -4,7 +4,7 @@ import { storage } from "./firebase";
 
 
 export const initialInputStateCurrentSnippet = {   
-    id: 0 ,
+    id: "0" ,
     objName: '',
     titel: '' ,
     categorie: '',
@@ -26,7 +26,7 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
     const [allItemsGif, setAllItemsGif] = useState<IItem[]>([]);
     const [allItemsSnippets, setAllItemsSnippets] = useState<IItem[]>([]);
     
-    const getFromFirebaseStorage = (endpoint: 'gif/' | 'snippets/') => {
+    const getFromFirebaseStorage = (endpoint: 'gif/' | 'snippet/') => {
    
         let storageRef = storage.ref().child(endpoint);
         storageRef.listAll().then(function (res) {

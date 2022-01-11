@@ -47,7 +47,7 @@ export default function UpdateSnippet() {
 
   useEffect(() => {
     console.log('UpdateSnippet, currentSnippet: ', currentSnippet)
-    if (currentSnippet.id === 0) {
+    if (currentSnippet.id === "0") {
       setNewItem(true)
     }
     // setEachEntry({
@@ -70,8 +70,6 @@ export default function UpdateSnippet() {
     console.log('updateSnippet, updateSnippet, currentSnippet', currentSnippet)
     const snippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     snippetRef.update({
-      // id: id ,
-      // objName: objName,
       titel: titel,
       omschrijving: omschrijving,
       categorie: categorie,
@@ -100,16 +98,16 @@ export default function UpdateSnippet() {
   const deleteSnippet = () => {
     const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     deleteSnippetRef.remove();
-    const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
-    snippetStorageRef
-      .delete()
-      .then(function () {
-        console.log(" File deleted successfully ");
-        setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
+    // snippetStorageRef
+    //   .delete()
+    //   .then(function () {
+    //     console.log(" File deleted successfully ");
+    //     setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {

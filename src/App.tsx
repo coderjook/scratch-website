@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => { 
     getFromFirebaseStorage('gif/');
-    getFromFirebaseStorage('snippets/');
+    getFromFirebaseStorage('snippet/');
   }, [])
 
   return (
