@@ -1,6 +1,5 @@
 import React,{useState, useEffect, useContext} from 'react';
 import firebase from "../../util/firebase";
-import { storage } from "../../util/firebase";
 import "./../../css/form.css";
 import {ContextType, IInputState, ISnippet, ISnippetControl} from './Interfaces';
 import StorageList from "./StorageList"
@@ -8,21 +7,6 @@ import { IItem} from './Interfaces';
 import { SnippetContext, initialInputStateCurrentSnippet } from '../../util/snippetContext';
 
 
-  
-  // const initialInputState : ISnippet = {
-  //   id: 0,
-  //   objName:"",
-  //   titel: "",
-  //   omschrijving: "",
-  //   leerdoelen: "",
-  //   categorie: "",
-  //   scratchUrl: "",
-  //   gifName: "",
-  //   gifUrl: "",
-  //   pdfName: "",
-  //   pdfUrl: "",
-   
-  // };
 
   const initialInputState : IInputState = {
   
@@ -37,12 +21,9 @@ import { SnippetContext, initialInputStateCurrentSnippet } from '../../util/snip
 export default function UpdateSnippet() {
 
   const {currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl, allItemsGif, allItemsSnippets } = useContext(SnippetContext) as ContextType;
-
-  // const {snippetControl,setSnippetControl} = props
   const [allItems, setAllItems] = useState<IItem[]>([]);
   const [newItem, setNewItem] = useState<boolean>(false);
-  const [eachEntry, setEachEntry] = useState(initialInputState);
-  const {id, objName, omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = currentSnippet;
+  const {omschrijving,titel, leerdoelen, categorie,scratchUrl, gifName, gifUrl, pdfName, pdfUrl } = currentSnippet;
   const [promptDelete, setPromptDelete] = useState(false);
 
   useEffect(() => {
@@ -50,20 +31,7 @@ export default function UpdateSnippet() {
     if (currentSnippet.id === "0") {
       setNewItem(true)
     }
-    // setEachEntry({
-    //   ...eachEntry,
-    //   id: currentSnippet.id ,
-    //   objName: currentSnippet.objName,
-    //   titel: currentSnippet.titel,
-    //   omschrijving: currentSnippet.omschrijving,
-    //   categorie: currentSnippet.categorie,
-    //   leerdoelen: currentSnippet.leerdoelen,
-    //   scratchUrl: currentSnippet.scratchUrl,
-    //   gifName: currentSnippet.gifName,
-    //   gifUrl: currentSnippet.gifUrl,
-    //   pdfName: currentSnippet.pdfName,
-    //   pdfUrl: currentSnippet.pdfUrl,
-    // });
+  
   }, []);
 
   const updateSnippet = () => {
@@ -78,8 +46,7 @@ export default function UpdateSnippet() {
       gifName: gifName,
       gifUrl: gifUrl,
       pdfName: pdfName,
-      pdfUrl: pdfUrl
-  
+      pdfUrl: pdfUrl  
     }); 
   };
 
@@ -98,16 +65,7 @@ export default function UpdateSnippet() {
   const deleteSnippet = () => {
     const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     deleteSnippetRef.remove();
-    // const snippetStorageRef = storage.ref(`snippets/${currentSnippet.pdfName}`);
-    // snippetStorageRef
-    //   .delete()
-    //   .then(function () {
-    //     console.log(" File deleted successfully ");
-    //     setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
@@ -133,24 +91,9 @@ export default function UpdateSnippet() {
     setSnippetControl((prevState: ISnippetControl)=> ({ ...prevState, openUpdate:false}))
   };
 
-  const log = () => {
-    console.log('currenSnippet log', currentSnippet)
-    const snippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
-    snippetRef.update({
-      // id: id ,
-      // objName: objName,
-      titel: titel,
-      omschrijving: omschrijving,
-      categorie: categorie,
-      leerdoelen: leerdoelen,
-      scratchUrl: scratchUrl,
-      gifName: gifName,
-      gifUrl: gifUrl,
-      pdfName: pdfName,
-      pdfUrl: pdfUrl
-  
-    }); 
-  }
+  // const log = () => {
+  //   console.log('currenSnippet log', currentSnippet)    
+  // }
 
   return (
     <>

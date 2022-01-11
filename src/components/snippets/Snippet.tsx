@@ -1,6 +1,6 @@
-import React, {useState, useEffect,  useContext} from 'react';
+import React, { useEffect,  useContext} from 'react';
 import "./../../css/card.css";
-import { ContextType, ISnippet, ISnippetControl } from './Interfaces';
+import { ContextType, ISnippet } from './Interfaces';
 import { SnippetContext } from '../../util/snippetContext';
 
 type SnippetProps = {
@@ -10,11 +10,11 @@ type SnippetProps = {
 export default function Snippet(props : SnippetProps) {
 
     const {snippet} = props
-    const {currentSnippet, setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
+    const {setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
     const scratchUrlBasis = "https://api.scratch.mit.edu/projects/";
     const scratchUrlProject = snippet.scratchUrl ? snippet.scratchUrl.slice(33) : '561290251/';
-    const scratchUrlProjectId = scratchUrlProject.slice(0,9)
-    const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
+    // const scratchUrlProjectId = scratchUrlProject.slice(0,9)
+    // const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
 
     const colorCategorie = snippet.categorie && snippet.categorie.substring(0, snippet.categorie.indexOf("-"))
     

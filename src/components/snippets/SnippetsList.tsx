@@ -1,8 +1,8 @@
-import react, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import firebase from "../../util/firebase";
 import Snippet from './Snippet';
 import UpdateSnippet from "./UpdateSnippet";
-import { ContextType, ISnippet, ISnippetControl} from './Interfaces';
+import { ContextType, ISnippet} from './Interfaces';
 import { SnippetContext } from '../../util/snippetContext';
 
  
@@ -29,9 +29,6 @@ export default function SnippetsList() {
 
       const snippets = snapshot.val();
       const snippetsList: ISnippet[] = [];
-    //   for (let id in snippets) {
-    //     snippetsList.push({ id, ...snippets[id] });
-    //   }
       for (let objName in snippets) {
         console.log("UE snippetsList for-loop objName:",objName)
         snippetsList.push({...snippets[objName], objName: objName, id: objName });       

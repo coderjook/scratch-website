@@ -23,7 +23,7 @@ export default function UploadTutorial() {
   // const { omschrijving,titel, leerdoelen, categorie, pdfName, pdfUrl, scratchUrl } = eachEntry;
   const [file, setFile] = useState<ArrayBuffer | Blob | Uint8Array | null>(null);
   const [fileName, setFileName] = useState<string>('');
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
  
 
   useEffect(() => {

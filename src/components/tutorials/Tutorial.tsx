@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { useFetch } from '../../util/useFetch';
 import "./../../css/card.css";
 import UpdateTutorial from './UpdateTutorial';
 import { ITutorial} from './TutorialsList';
@@ -18,7 +17,7 @@ export default function Tutorial(props:TutorialProps) {
     const scratchUrlBasis : string = "https://api.scratch.mit.edu/projects/";
     const scratchUrlProject : string = tutorial.scratchUrl ? tutorial.scratchUrl.slice(33) : '561290251/';
     const scratchUrlProjectId : string = scratchUrlProject.slice(0,9)
-    const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
+    // const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
 
     const colorCategorie: string = tutorial.categorie && tutorial.categorie.substring(0, tutorial.categorie.indexOf("-"))
       

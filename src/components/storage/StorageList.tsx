@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import { storage } from "../../util/firebase";
 import { IItem } from '../../util/getFromFirebase'
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { storage } from "../../util/firebase";
 import { IItem} from './Interfaces';
-import {ISnippetControl, ContextType} from './Interfaces';
+import { ContextType} from './Interfaces';
 import {SnippetContext} from '../../util/snippetContext';
 
 type StorageListProps = {
@@ -18,9 +18,9 @@ export default function StorageList(props : StorageListProps) {
 
   const [currentFile, setCurrentFile] = useState({fileName: 'geen file', fileUrl: 'geen fileUrl'});
   const [newFile, setNewFile] = useState<any | null>(null)
-  const [newFileName, setNewFileName] = useState<string>('')
+  // const [newFileName, setNewFileName] = useState<string>('')
 
-  useEffect(() => {
+  useEffect(() => { 
     console.log('useEffect snippetlist allItems:', allItems)
   },[])
 
@@ -59,7 +59,7 @@ export default function StorageList(props : StorageListProps) {
     const currentFile : any  = input.files[0];
     const currentFileName : string = input.files[0].name;
     setNewFile(currentFile);
-    setNewFileName(currentFileName);
+    // setNewFileName(currentFileName);
   };
 
   const handleUploadFile = () => {
@@ -109,7 +109,7 @@ export default function StorageList(props : StorageListProps) {
                         name="item" value={item.itemName} onChange={(e) => handleChange(e,item.itemName,item.itemUrl)}/>
                       <label htmlFor={item.itemName}>{item.itemName}</label>
                       <img src={item.itemUrl} alt={item.itemName} />
-                      <a href={item.itemUrl} target="_blank" className="img">bekijk grote afbeelding</a>
+                      <a href={item.itemUrl} target="_blank" className="img" rel="noopener">bekijk grote afbeelding</a>
                     </div>
                           );
                 })}
