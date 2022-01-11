@@ -44,7 +44,7 @@ const [allItems, setAllItems] = useState<IItem[]>([]);
                   <div key={index} className="storagelistitem row">
                     <div className="name"> {item.itemName}</div>
                     <img src={item.itemUrl} alt={item.itemName} />
-                    <a href={item.itemUrl} target="_blank" className="img">bekijk grote afbeelding</a>
+                    <a href={item.itemUrl} target="_blank" className="img" rel="noreferrer">bekijk grote afbeelding</a>
                     <div onClick={() => deleteFromFirebase(item.itemUrl)} className="btn">
                     verwijder
                     </div>

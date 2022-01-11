@@ -111,12 +111,12 @@ export default function UploadTutorial() {
           </div>       
 
 
-      {Object.keys(initialInputState).map((inputName) => {
+      {Object.keys(initialInputState).map((inputName, index) => {
         return (
             inputName === 'pdfName' || inputName === 'pdfUrl' ? <></> :
             inputName === 'categorie'
             ?
-              <div className="inputfield">
+              <div className="inputfield" key={index}>
                 <label htmlFor="type">{inputName}</label>
                 <div className="custom_select">
                   <select
@@ -134,7 +134,7 @@ export default function UploadTutorial() {
                 </div>
               </div>
               :
-                <div className="inputfield">
+                <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
                       type='text'

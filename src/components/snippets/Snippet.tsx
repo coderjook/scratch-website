@@ -11,8 +11,8 @@ export default function Snippet(props : SnippetProps) {
 
     const {snippet} = props
     const {setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
-    const scratchUrlBasis = "https://api.scratch.mit.edu/projects/";
-    const scratchUrlProject = snippet.scratchUrl ? snippet.scratchUrl.slice(33) : '561290251/';
+    // const scratchUrlBasis = "https://api.scratch.mit.edu/projects/";
+    // const scratchUrlProject = snippet.scratchUrl ? snippet.scratchUrl.slice(33) : '561290251/';
     // const scratchUrlProjectId = scratchUrlProject.slice(0,9)
     // const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
 

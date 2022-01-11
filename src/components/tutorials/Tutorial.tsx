@@ -14,7 +14,7 @@ export default function Tutorial(props:TutorialProps) {
 
     const [openUpdateTutorial, setOpenUpdateTutorial] = useState<boolean>(false);
     
-    const scratchUrlBasis : string = "https://api.scratch.mit.edu/projects/";
+    // const scratchUrlBasis : string = "https://api.scratch.mit.edu/projects/";
     const scratchUrlProject : string = tutorial.scratchUrl ? tutorial.scratchUrl.slice(33) : '561290251/';
     const scratchUrlProjectId : string = scratchUrlProject.slice(0,9)
     // const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;

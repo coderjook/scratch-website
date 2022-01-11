@@ -57,7 +57,7 @@ export default function StorageList(props : StorageListProps) {
       return;
     }
     const currentFile : any  = input.files[0];
-    const currentFileName : string = input.files[0].name;
+    // const currentFileName : string = input.files[0].name;
     setNewFile(currentFile);
     // setNewFileName(currentFileName);
   };

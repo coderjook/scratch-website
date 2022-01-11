@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "../../util/firebase";
 import Tutorial from './Tutorial';
 
@@ -104,9 +104,9 @@ export default function TutorialsList() {
                         </div>
                         }
                         <div className="tutorials">
-                            {filterTutorialsList && filterTutorialsList.map((tutorial) => (
+                            {filterTutorialsList && filterTutorialsList.map((tutorial, index) => (
                                 <>
-                                    <Tutorial tutorial={tutorial} />
+                                    <Tutorial tutorial={tutorial} key={index} />
                                 </>
                         )
                     )}
