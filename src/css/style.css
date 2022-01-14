@@ -7,7 +7,7 @@
   --color-purple: #5e76bf;
   --color-pink: #cd5b9f;
   --color-yellow: #ffd501;
-  --color-dark-blue: #504699;
+  --color-dark-blue: #41afd1;
   --color-light-blue: #3dbeff;
   --color-teal: #77e608;
 }
@@ -71,22 +71,6 @@ h2 {
   background-color: var(--color-pink);
 }
 
-.btn {
-  /* border: 1px solid var(--color-light-grey); */
-  background-color: var(--color-dark-blue);
-  color: white;
-  font-size: 0.9em;
-  text-transform: uppercase;
-  padding: 1em 1rem;
-  border-radius: 10px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background-color: var(--color-purple);
-  cursor: pointer;
-}
-
 .toggle {
   background-color: var(--color-teal);
   color: white;
@@ -99,6 +83,94 @@ h2 {
 .toggle:hover {
   color: var(--color-dark-blue);
 }
+
+span {
+  color: var(--color-teal);
+  font-weight: bold;
+}
+
+/* -----------btn -----------*/
+.btn {
+  background-color: var(--color-teal);
+  color: var(--color-dark);
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.5em 1rem;
+  border-radius: 50px;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--color-dark);
+  color: var(--color-teal);
+  border: 2px solid var(--color-teal);
+  cursor: pointer;
+}
+
+.btn-green {
+  background-color: var(--color-teal);
+  color: var(--color-dark);
+}
+
+.btn-green:hover {
+  background-color: var(--color-dark);
+  color: var(--color-teal);
+  border: 2px solid var(--color-teal);
+}
+
+.btn-green-outline {
+  background-color: var(--color-dark);
+  color: var(--color-teal);
+  border: 2px solid var(--color-teal);
+}
+
+.btn-green-outline:hover {
+  background-color: var(--color-teal);
+  color: var(--color-dark);
+}
+
+.btn-blue-outline {
+  background-color: var(--color-dark);
+  color: var(--color-dark-blue);
+  border: 2px solid var(--color-dark-blue);
+}
+
+.btn-blue-outline:hover {
+  background-color: var(--color-dark-blue);
+  color: var(--color-dark);
+  border: 2px solid var(--color-dark-blue);
+}
+
+.btn-orange-outline {
+  background-color: var(--color-dark);
+  color: var(--color-orange);
+  border: 2px solid var(--color-orange);
+}
+
+.btn-orange-outline:hover {
+  background-color: var(--color-orange);
+  color: var(--color-dark);
+  border: 2px solid var(--color-orange);
+}
+
+.btn-categories {
+  color: var(--color-dark);
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding: 0.5em 1rem;
+  border-radius: 50px;
+  border: 1px solid var(--color-teal);
+}
+
+.btn-categories:hover {
+  background-color: var(--color-purple);
+  cursor: pointer;
+}
+
+/* -----------einde-btn -----------*/
+
 /* -----nav----------  */
 
 .nav {
@@ -126,20 +198,6 @@ h2 {
 }
 
 /* ----tutorialslist/snippetslist----------  */
-
-.btn-categories {
-  color: var(--color-dark);
-  font-size: 0.8em;
-  text-transform: uppercase;
-  padding: 0.5em 1rem;
-  border-radius: 50px;
-  border: 1px solid var(--color-teal);
-}
-
-.btn-categories:hover {
-  background-color: var(--color-purple);
-  cursor: pointer;
-}
 
 .tutorials,
 .snippets {
@@ -224,7 +282,6 @@ h2 {
   .btn-categories {
     color: var(--color-dark);
     width: 100%;
-
     color: var(--color-dark-blue);
     font-size: 0.8em;
     font-weight: bold;
@@ -250,18 +307,14 @@ h2 {
   background-image: url(../images/bannerstraat.png);
   background-blend-mode: multiply;
   background-size: cover;
-  height: 75vh;
+  height: 60vh;
   padding: 3em;
   color: white;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
 }
 
 .hero-text,
 .hero-image {
-  width: 50%;
+  width: 48%;
   flex-direction: column;
   text-align: left;
   font-size: 1.5rem;
@@ -285,30 +338,21 @@ h2 {
   background-color: var(--color-dark);
 }
 
-p span {
-  color: var(--color-teal);
-}
-
-.btn-home {
-  color: var(--color-dark);
-  font-size: 0.8em;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 0.5em 1rem;
-  border-radius: 50px;
-  background-color: var(--color-teal);
-}
-
-.btn-home:hover {
-  background-color: var(--color-purple);
-  cursor: pointer;
-}
 .content {
-  margin: 3em 0;
+  padding: 3em 0;
   color: white;
 }
 .content p {
   padding: 1.5em 0;
+}
+
+.content .row {
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.col {
+  width: 30%;
 }
 
 /* ---------einde homepage----------------------- */
