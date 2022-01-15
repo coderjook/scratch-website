@@ -16,8 +16,7 @@ export default function Snippet(props : SnippetProps) {
     // const scratchUrlProjectId = scratchUrlProject.slice(0,9)
     // const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
 
-    const colorCategorie = snippet.categorie && snippet.categorie.substring(0, snippet.categorie.indexOf("-"))
-    
+    const colorCategorie = snippet.categorie && snippet.categorie
     useEffect(()=> {
         console.log('useEffect snippet:', snippet)
     },[])
@@ -63,14 +62,17 @@ export default function Snippet(props : SnippetProps) {
                  <h4>{snippet.titel} | <i className="material-icons icon" onClick={handleUpdateSnippet}>mode</i></h4>                 
                  <p>{snippet.omschrijving}</p>
  
-                 <span className="tagline">
+                 {/* <span className="tagline">
                     leerdoelen: {snippet.leerdoelen}
-                 </span>
-                 <img src={snippet.pdfUrl} alt={snippet.titel} className="card__image"/>
+                 </span> */}
+                 <img src={snippet.pdfUrl} alt={snippet.titel} className="card__image desktop"/>
                 
                 <div className="card__footer mobile">
-                   <a href={snippet.pdfUrl} target="_blank" className="btn" rel="noreferrer">bekijk code</a>
-                   <a href={snippet.scratchUrl} target="_blank" className="btn" rel="noreferrer">voorbeeld</a>
+                   <a href={snippet.pdfUrl} target="_blank" className="btn btn-blue" rel="noreferrer">bekijk code</a>
+                   { snippet.scratchUrl &&
+                    <>|
+                   <a href={snippet.scratchUrl} target="_blank" className="btn btn-blue" rel="noreferrer">voorbeeld</a></>
+                   }
              </div>
 
 
@@ -79,7 +81,7 @@ export default function Snippet(props : SnippetProps) {
                    <a href={snippet.pdfUrl} target="_blank" rel="noreferrer">bekijk code</a>
                    { snippet.scratchUrl &&
                     <>|
-                   <a href={snippet.scratchUrl} target="_blank" rel="noreferrer">voorbeeld scratch</a>~</>
+                   <a href={snippet.scratchUrl} target="_blank" rel="noreferrer">voorbeeld scratch</a></>
                    }
              </div>
 

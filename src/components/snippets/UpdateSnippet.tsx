@@ -109,7 +109,7 @@ export default function UpdateSnippet() {
           <div className="inputfield">
             <label >Kies Animated Gif</label>
             <div className='row fileselect'>
-            <div onClick={handleGif} className="btn fileselect">bekijk animated gifs</div>
+            <div onClick={handleGif} className="btn btn-blue">bekijk animated gifs</div>
             <div className='choosenfile'>{currentSnippet.gifName ? `gekozen gif: ${currentSnippet.gifName}` : `geen gif gekozen`}</div>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function UpdateSnippet() {
           <div className="inputfield">
             <label >Kies CodeSnippet</label>
             <div className='row fileselect'>
-            <div onClick={handleJpg} className="btn fileselect">bekijk codes</div>
+            <div onClick={handleJpg} className="btn btn-blue">bekijk codes</div>
             <div className='choosenfile'>{currentSnippet.pdfName ? `gekozen gif: ${currentSnippet.pdfName}` : `geen code gekozen`}</div>
             </div>
           </div>

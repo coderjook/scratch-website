@@ -76,10 +76,10 @@ export default function SnippetsList() {
         {snippetControl.openUpdate && <UpdateSnippet /> }
         <div className="snippets">
             <div className="header">
-                <div className="">
-                <h2>Codesnippets</h2> 
-                <p>Zit jij al boordevol ideeën. En wil jij direct aan de slag, gebruik dan deze codesnippets bij het maken van je spel. Bestuur je sprite, voeg een puntentelling toe, of maak je spel spannender met vijanden. Gebruik deze spelelementen om je game op te leuken.</p>
-            </div>
+                <div className="container">
+                    <h2>Codesnippets</h2> 
+                    <p>Zit jij al boordevol ideeën. En wil jij direct aan de slag, gebruik dan deze codesnippets bij het maken van je spel. Bestuur je sprite, voeg een puntentelling toe, of maak je spel spannender met vijanden. Gebruik deze spelelementen om je game op te leuken.</p>
+                </div>
             </div> 
             <div className="container">
                
@@ -94,7 +94,7 @@ export default function SnippetsList() {
                             <div className="categories row">
                             {allCategories && allCategories.map((categorie) => (
                                 <>
-                                <div className={`btn-categories ${determineColor(categorie)} ${device}`} onClick={() => handleFiltersnippetsList(categorie)}>{categorie}</div>
+                                <div className={`btn ${categorie} ${device}`} onClick={() => handleFiltersnippetsList(categorie)}>{categorie}</div>
                                 </>
 
                             ))}

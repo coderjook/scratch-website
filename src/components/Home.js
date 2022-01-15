@@ -1,5 +1,6 @@
 import React from 'react';
-import Intro from '../images/intro.mp4'
+import Intro from '../images/intro.mp4';
+import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
@@ -32,21 +33,28 @@ export default function Home() {
                     <p>
                         Werk met een uitgewerkt stappenplan, en volg nauwkeurig alle stappen van A tot Z en zo maak jij je game in no time.
                     </p>
-                     <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-green-outline">Ga naar de handleidingen</a>
+                    <Link to="/tutorials" className="btn btn-green-outline">
+                        Ga naar de handleidingen
+                    </Link>
+                     
                 </div>
                 <div className="col">
                     <h3>Spelelementen</h3> 
                     <p>
                         Zit jij al boordevol ideeën. En wil jij direct aan de slag met je eigen spel, gebruik dan de snippets met programmeerscripts en pas deze toe op jouw eigen spel.
                     </p>
-                     <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-blue-outline">Ga naar de snippets</a>
+                    <Link to="/snippets" className="btn btn-blue-outline">
+                        Ga naaar de CodeSnippets
+                    </Link>
                 </div>
                 <div className="col">
                     <h3>FAQ</h3>
                     <p>
                         Loop je vast? Kijk dan hier of de oplossing van jouw probleem erbij zit. Dan ben je in no-time weer back on track
                     </p>
-                     <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-orange-outline">Ga naar faq</a>
+                    <Link to="/faq" className="btn btn-orange-outline">
+                        Ga naar de FAQ
+                    </Link>
                </div>  
                </div>    
             </div>

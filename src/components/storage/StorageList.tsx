@@ -35,8 +35,8 @@ const [allItems, setAllItems] = useState<IItem[]>([]);
         <div>
             <div className="storagelist">
 
-              <div onClick={handleSnippets} className="btn">bekijk jpg scripts</div>
-              <div onClick={handleGif} className="btn">bekijk animated gif</div>
+              <div onClick={handleSnippets} className="toggle">bekijk jpg scripts</div>
+              <div onClick={handleGif} className="toggle">bekijk animated gif</div>
             
               {allItems && allItems.map((item, index) => {
                   console.log('item.itemName: ',item.itemName)

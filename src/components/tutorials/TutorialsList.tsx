@@ -84,10 +84,16 @@ export default function TutorialsList() {
 
     return (
         <div className="tutorials">
-            <div className="container">
-                <h2>tutorials</h2> 
+            
+            <div className="header">
+                <div className="container">
+                    <h2>Handleidingen</h2> 
+                    <p>Werk met een uitgewerkt stappenplan, en volg nauwkeurig alle stappen van A tot Z en zo maak jij je game in no time.</p>
+                </div>
+            </div> 
+           
                 
-
+            <div className="container">
                 <div className="tutorialslist">
                     <div className="container container__tutorialslist">
                         { device === "mobile" &&
@@ -97,7 +103,7 @@ export default function TutorialsList() {
                             <div className="categories row">
                             {allCategories && allCategories.map((categorie) => (
                                 <>
-                                <div className={`btn-categories ${determineColor(categorie)} ${device}`} onClick={() => handleFilterTutorialsList(categorie)}>{categorie}</div>
+                                <div className={`btn ${determineColor(categorie)} ${device}`} onClick={() => handleFilterTutorialsList(categorie)}>{categorie}</div>
                                 </>
 
                             ))}

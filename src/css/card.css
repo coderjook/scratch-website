@@ -26,6 +26,13 @@
   min-height: 300px;
 }
 
+.card__content .card__image {
+  /* border: 2px solid darkgreen; */
+  /* width: 100%; */
+  max-width: 200px;
+  max-height: 200px;
+}
+
 .tag {
   background: #cccccc;
   border-radius: 50px;
