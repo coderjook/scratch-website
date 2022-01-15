@@ -1,13 +1,14 @@
 :root {
-  --color-dark: #222c2a;
+  --color-dark: #2e2e2e;
+  --color-dark-grey: rgb(112, 111, 111);
   --color-light-grey: #d5dbd9;
   --color-bg-grey: #f7f8fc;
   --color-font-dark: #10182f;
-  --color-orange: #f98602;
+  --color-orange: #fc6636;
   --color-purple: #5e76bf;
   --color-pink: #cd5b9f;
   --color-yellow: #ffd501;
-  --color-dark-blue: #41afd1;
+  --color-dark-blue: #43c0f6;
   --color-light-blue: #3dbeff;
   --color-teal: #77e608;
 }
@@ -93,6 +94,7 @@ span {
 .btn {
   background-color: var(--color-teal);
   color: var(--color-dark);
+  border: 2px solid var(--color-teal);
   font-size: 0.8em;
   font-weight: bold;
   text-transform: uppercase;
@@ -112,6 +114,7 @@ span {
 .btn-green {
   background-color: var(--color-teal);
   color: var(--color-dark);
+  border: 2px solid var(--color-teal);
 }
 
 .btn-green:hover {
@@ -129,6 +132,19 @@ span {
 .btn-green-outline:hover {
   background-color: var(--color-teal);
   color: var(--color-dark);
+  border: 2px solid var(--color-teal);
+}
+
+.btn-blue {
+  background-color: var(--color-dark-blue);
+  color: var(--color-dark);
+  border: 2px solid var(--color-dark-blue);
+}
+
+.btn-blue:hover {
+  background-color: var(--color-dark);
+  color: var(--color-teal);
+  border: 2px solid var(--color-dark-blue);
 }
 
 .btn-blue-outline {
@@ -152,6 +168,18 @@ span {
 .btn-orange-outline:hover {
   background-color: var(--color-orange);
   color: var(--color-dark);
+  border: 2px solid var(--color-orange);
+}
+
+.btn-orange {
+  background-color: var(--color-orange);
+  color: var(--color-dark);
+  border: 2px solid var(--color-orange);
+}
+
+.btn-orange:hover {
+  background-color: var(--color-dark);
+  color: var(--color-teal);
   border: 2px solid var(--color-orange);
 }
 
@@ -197,6 +225,60 @@ span {
   cursor: pointer;
 }
 
+/* homepage*/
+
+.home {
+  background-color: var(--color-dark);
+}
+
+.hero {
+  top: 0px;
+  left: 0px;
+  background-color: #444;
+  background-image: url(../images/bannerstraat.png);
+  background-blend-mode: multiply;
+  background-size: cover;
+  height: 75vh;
+  padding: 3em;
+  color: white;
+}
+
+.hero-text,
+.hero-image {
+  width: 48%;
+  flex-direction: column;
+  text-align: left;
+  font-size: 1.5rem;
+  align-items: flex-start;
+}
+
+.wrapper__video {
+  border: 5px solid chartreuse;
+  object-fit: cover;
+  margin: auto, 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  padding: 3em 0;
+  color: white;
+}
+.content p {
+  padding: 1.5em 0;
+}
+
+.content .row {
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.col {
+  width: 30%;
+}
+
+/* ---------einde homepage----------------------- */
+
 /* ----tutorialslist/snippetslist----------  */
 
 .tutorials,
@@ -205,6 +287,11 @@ span {
   gap: 0.75rem;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.snippets .header {
+  background-image: url(../images/bannerstraat.png);
+  height: 30vh;
 }
 /* -------variabelen------------- */
 .mobile {
@@ -261,6 +348,33 @@ span {
     width: 95%;
   }
 
+  /* homepage */
+  .hero {
+    height: 68vh;
+    padding: 1em;
+  }
+  .home .row {
+    flex-direction: column;
+  }
+
+  .hero-text,
+  .hero-image {
+    width: 100%;
+    max-width: 750px;
+    flex-direction: column;
+    text-align: left;
+    font-size: 1rem;
+    align-items: flex-start;
+  }
+
+  .col {
+    width: 100%;
+    padding: 2em 1em;
+    background-color: var(--color-dark-grey);
+    text-align: center;
+    border-radius: 10px;
+  }
+
   /* tutorialslist /snippetslist */
   .tutorialslist .row,
   .snippetslist .row {
@@ -273,7 +387,7 @@ span {
 
   .tutorialslist .filter,
   .snippetslist .filter {
-    background-color: var(--color-teal);
+    background-color: var(--color-dark-blue);
     color: white;
     cursor: pointer;
     padding: 0.5em 0.5em;
@@ -298,61 +412,3 @@ span {
     cursor: pointer;
   }
 }
-
-/* homepage*/
-
-.hero {
-  position: 0;
-  background-color: #444;
-  background-image: url(../images/bannerstraat.png);
-  background-blend-mode: multiply;
-  background-size: cover;
-  height: 60vh;
-  padding: 3em;
-  color: white;
-}
-
-.hero-text,
-.hero-image {
-  width: 48%;
-  flex-direction: column;
-  text-align: left;
-  font-size: 1.5rem;
-  /* justify-content: center; */
-  align-items: flex-start;
-}
-
-.wrapper__video {
-  border: 5px solid chartreuse;
-  /* border-width: 10px;
-  border-color: chartreuse;
-  border-style: solid; */
-  object-fit: cover;
-  /* padding: 10px; */
-  margin: auto, 0;
-  width: 100%;
-  height: 100%;
-}
-
-.home {
-  background-color: var(--color-dark);
-}
-
-.content {
-  padding: 3em 0;
-  color: white;
-}
-.content p {
-  padding: 1.5em 0;
-}
-
-.content .row {
-  justify-content: space-between;
-  align-items: stretch;
-}
-
-.col {
-  width: 30%;
-}
-
-/* ---------einde homepage----------------------- */
