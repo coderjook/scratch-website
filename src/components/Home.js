@@ -9,9 +9,9 @@ export default function Home() {
                 <div className='hero-text row'>
                     <p>Maak je eigen <span>toffe</span> games</p>
                     
-                    <p>Speel jij graag computerspelletjes? En wil je graag je eigen game maken? <br />
+                    <p>Speel jij het liefst computerspelletjes? En wil je nu <span>je eigen game </span>maken? <br />
                     Top, dan kun hier direct aan de slag. </p>
-                    <h3><span>GAME ON</span>, GO SCRATCH!</h3>
+                    <h3>GAME ON,<span> GO SCRATCH!</span></h3>
                    
                 </div>
                 <div className='hero-image row'>
