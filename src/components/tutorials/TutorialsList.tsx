@@ -88,7 +88,8 @@ export default function TutorialsList() {
             <div className="header">
                 <div className="container">
                     <h2>Handleidingen</h2> 
-                    <p>Werk met een uitgewerkt stappenplan, en volg nauwkeurig alle stappen van A tot Z en zo maak jij je game in no time.</p>
+                    <p>Zie jij hieronder een spel of een opdracht dat je wil maken? Klik op handleiding pdf en ga aan de slag.
+                        Volg de instructies stap voor stap. Zo maak jij je eigen game in no time.</p>
                 </div>
             </div> 
            

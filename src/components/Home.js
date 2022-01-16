@@ -20,7 +20,7 @@ export default function Home() {
                         <source src={Intro} type='video/mp4'/>
                     </video>
                     
-                    <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-green">speel het spel</a>
+                    <a href="https://scratch.mit.edu/projects/325393399/" target="_blank" rel="noopener noreferrer" className="btn btn-green">speel het spel</a>
                 </div>                
                 </div>
             </div>

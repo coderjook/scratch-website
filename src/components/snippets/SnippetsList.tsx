@@ -18,9 +18,8 @@ export default function SnippetsList() {
   const [toggleCategorie, setToggleCategorie] = useState(false);
   const [device, setDevice] = useState('');
   
-
-  const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
- 
+  console.log( 'device:', device);
+  
 
    useEffect(() => {
     const imageRef = firebase.database().ref("snippets");
@@ -40,6 +39,9 @@ export default function SnippetsList() {
       setAllCategories(allcurrentCategories);
     });
 
+    const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+  
+
     if (viewportWidth >= 900 ) {
         setToggleCategorie(true);
         setDevice('desktop')
@@ -47,7 +49,8 @@ export default function SnippetsList() {
          setToggleCategorie(false);
         setDevice('mobile')
      }
-  }, []);
+
+  }, [ window.innerWidth, document.documentElement.clientWidth ]);
   
     const handleFiltersnippetsList = (categorie : string) => {
         if (categorie === "alle opdrachten") {
@@ -93,18 +96,18 @@ export default function SnippetsList() {
                         {toggleCategorie &&
                             <div className="categories row">
                             {allCategories && allCategories.map((categorie) => (
-                                <>
-                                <div className={`btn ${categorie} ${device}`} onClick={() => handleFiltersnippetsList(categorie)}>{categorie}</div>
-                                </>
+                                
+                                <div className={`btn ${categorie} ${device}`} onClick={() => handleFiltersnippetsList(categorie)} key={categorie}>{categorie}</div>
+                              
 
                             ))}
                         </div>
                         }
                         <div className="snippets">
                             {filterSnippetsList && filterSnippetsList.map((snippet, index) => (
-                                <>
+                                
                                 <Snippet snippet={snippet} key={index} />
-                                </>
+                                
                         )
                     )}
                     </div>
