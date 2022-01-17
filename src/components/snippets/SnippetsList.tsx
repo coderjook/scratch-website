@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useLayoutEffect } from "react";
 import firebase from "../../util/firebase";
 import Snippet from './Snippet';
 import UpdateSnippet from "./UpdateSnippet";
@@ -16,10 +16,32 @@ export default function SnippetsList() {
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [currentCategorie, setCurrentCategorie] = useState('alle opdrachten');
   const [toggleCategorie, setToggleCategorie] = useState(false);
-  const [device, setDevice] = useState('');
+  const [screensize, setScreensize] = useState<"mobile"|"desktop">("desktop")
+  const [device, setDevice] = useState<"mobile"|"desktop">("desktop");
   
   console.log( 'device:', device);
-  
+    const handleResize = () => {
+       
+         if (window.innerWidth >= 900 ) {
+            setToggleCategorie(true);
+            setDevice('desktop')
+        } else {
+            setToggleCategorie(false);
+            setDevice('mobile')
+        }
+    }
+   
+    // useLayoutEffect(() => {
+    //     window.addEventListener("resize", handleResize);
+    //     handleResize();
+    //     return () => window.removeEventListener("resize", handleResize)
+    // },[])
+
+       useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize)
+    },[device])
 
    useEffect(() => {
     const imageRef = firebase.database().ref("snippets");
@@ -38,19 +60,8 @@ export default function SnippetsList() {
       const allcurrentCategories: string[] = ["alle opdrachten", ...Array.from(new Set(snippetsList.map((item) => item.categorie)))];
       setAllCategories(allcurrentCategories);
     });
-
-    const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-  
-
-    if (viewportWidth >= 900 ) {
-        setToggleCategorie(true);
-        setDevice('desktop')
-     } else {
-         setToggleCategorie(false);
-        setDevice('mobile')
-     }
-
-  }, [ window.innerWidth, document.documentElement.clientWidth ]);
+ 
+  }, []);
   
     const handleFiltersnippetsList = (categorie : string) => {
         if (categorie === "alle opdrachten") {
@@ -70,9 +81,7 @@ export default function SnippetsList() {
         }
     };
 
-    const determineColor = (categorie : string) => {
-        return   categorie.substring(0, categorie.indexOf("-"))
-    }
+ 
 
     return (
         <>

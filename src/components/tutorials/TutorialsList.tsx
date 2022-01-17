@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import firebase from "../../util/firebase";
 import Tutorial from './Tutorial';
 
@@ -22,11 +22,27 @@ export default function TutorialsList() {
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [currentCategorie, setCurrentCategorie] = useState<string>('alle opdrachten');
   const [toggleCategorie, setToggleCategorie] = useState<boolean>(false);
-  const [device, setDevice] = useState<string>('');
+  const [device, setDevice] = useState<"mobile"|"desktop">("desktop");
   
 
-  const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
- 
+
+       const handleResize = () => {
+       
+         if (window.innerWidth >= 900 ) {
+            setToggleCategorie(true);
+            setDevice('desktop')
+        } else {
+            setToggleCategorie(false);
+            setDevice('mobile')
+        }
+    }
+     
+
+     useLayoutEffect(() => {
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize)
+    },[])
 
    useEffect(() => {
     console.log("useEffect tutorialslist: vraag tutorials op uit firebase/db/tutorials");
@@ -48,16 +64,7 @@ export default function TutorialsList() {
 
     }, []);
 
-    useEffect(() => {
-        if (viewportWidth >= 900 ) {
-            setToggleCategorie(true);
-            setDevice('desktop')
-        } else {
-            setToggleCategorie(false);
-            setDevice('mobile')
-        }
-    }, [viewportWidth])
-    
+   
   
   
     const handleFilterTutorialsList = (categorie:string) : void => {
