@@ -37,7 +37,7 @@ export default function SnippetsList() {
     //     return () => window.removeEventListener("resize", handleResize)
     // },[])
 
-       useEffect(() => {
+       useEffect(() => { 
         window.addEventListener("resize", handleResize);
         handleResize();
         return () => window.removeEventListener("resize", handleResize)

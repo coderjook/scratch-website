@@ -40,6 +40,11 @@ export default function Nav() {
                         upload forms
                     </Link>
                     </li>
+                    <li>
+                     <Link to="/login" className="link">
+                        login
+                    </Link>
+                    </li>
                 </ul>
             
             </div>

@@ -5,6 +5,13 @@ import SnippetsList from './components/snippets/SnippetsList';
 import Faq from './components/Faq';
 import TutorialsList from './components/tutorials/TutorialsList';
 import UploadForms from './UploadForms';
+import LoginApp from './login/LoginApp';
+import Signup from './login/Signup'; 
+import Dashboard from './login/Dashboard';
+import Login from './Login';
+import ForgotPassword from './login/ForgotPassword';
+import PrivateRoute from './login/PrivateRoute';
+import UpdateProfile from './login/UpdateProfile'
 import './css/style.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SnippetContext} from './util/snippetContext';
@@ -37,6 +44,12 @@ function App() {
           <Route path="/tutorials"element={<TutorialsList />} />
           <Route path="/snippets"element={ <SnippetsList />} />
           <Route path="/faq"element={<Faq />} />  
+          {/* <Route path="/login"element={<LoginApp />} />   */}
+           <PrivateRoute path="/dashboard" element={Dashboard} />
+           <PrivateRoute path="/update-profile" element={UpdateProfile} />
+           <Route path='/signup' element={Signup} />
+           <Route path='/login' element={Login} />
+           <Route path='/forgot-password' element={ForgotPassword} />
          
         </Routes>
         
