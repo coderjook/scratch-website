@@ -41,7 +41,7 @@ export default function Nav() {
                     </Link>
                     </li>
                     <li>
-                     <Link to="/signup" className="link">
+                     <Link to="/login" className="link">
                         login
                     </Link>
                     </li>

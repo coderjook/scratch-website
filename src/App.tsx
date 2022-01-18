@@ -8,7 +8,7 @@ import UploadForms from './UploadForms';
 import LoginApp from './login/LoginApp';
 import Signup from './login/Signup'; 
 import Dashboard from './login/Dashboard';
-import Login from './Login';
+import Login from './login/Login';
 import ForgotPassword from './login/ForgotPassword';
 import PrivateRoute from './login/PrivateRoute';
 import UpdateProfile from './login/UpdateProfile'
