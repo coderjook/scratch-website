@@ -1,28 +1,32 @@
-import React, {useRef, useState }from 'react';
+import React, {useRef, useState, useContext }from 'react';
 import {Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../util/AuthContext';
+import { SnippetContext } from '../util/snippetContext';
+import { ContextType} from '../components/snippets/Interfaces';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, currentUser } = useAuth();
+    const { signup, currentUser } = useContext(SnippetContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const history = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
+        console.log('handleSubmit: ',emailRef.current.value, passwordRef.current.value)
 
         if (passwordRef.current.value !== passwordConfirmRef.current.value){
             return setError('Passwords do not match')
         }
         try{
+             console.log('handleSubmit: in de try ', emailRef.current.value, passwordRef.current.value)
             setError('');
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value)
-            history.push("/")
+           
+            // history.push("/")
 
         } catch {
             setError('Failed to create an account')
@@ -34,7 +38,7 @@ export default function Signup() {
         <>
           <Card>
               <Card.Body>
-                  {/* {currentUser.email} */}
+                  {currentUser && currentUser.email}
                   <h2 className='text-center mb-4'>Sign Up</h2>
                   {error && <Alert variant='danger'>{error}</Alert>}
                   <Form onSubmit={handleSubmit}>

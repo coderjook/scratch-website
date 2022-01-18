@@ -1,14 +1,15 @@
-import React, {useRef, useState }from 'react';
+import React, {useRef, useState, useContext}from 'react';
 import {Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../util/AuthContext';
+import { SnippetContext } from '../util/snippetContext';
+import { ContextType} from '../components/snippets/Interfaces';
 import { Link} from 'react-router-dom';
 
 export default function ForgotPassword() {
     const emailRef = useRef();
-    const { resetPassword } = useAuth();
+    const { resetPassword } = useContext(SnippetContext);
    
   
-    const { login, currentUser } = useAuth();
+    const { login, currentUser } = useContext(SnippetContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');

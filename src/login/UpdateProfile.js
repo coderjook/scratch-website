@@ -1,13 +1,14 @@
-import React, {useRef, useState }from 'react';
+import React, {useRef, useState, useContext}from 'react';
 import {Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../util/AuthContext';
+import { SnippetContext } from '../util/snippetContext';
+import { ContextType} from '../components/snippets/Interfaces';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function UpdateProfile() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const {currentUser, updateEmail, updatePassword } = useAuth();
+    const {currentUser, updateEmail, updatePassword } = useContext(SnippetContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const history = useNavigate();

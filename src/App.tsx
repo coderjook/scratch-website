@@ -45,16 +45,19 @@ function App() {
           <Route path="/snippets"element={ <SnippetsList />} />
           <Route path="/faq"element={<Faq />} />  
           {/* <Route path="/login"element={<LoginApp />} />   */}
-           <PrivateRoute path="/dashboard" element={Dashboard} />
-           <PrivateRoute path="/update-profile" element={UpdateProfile} />
-           <Route path='/signup' element={Signup} />
-           <Route path='/login' element={Login} />
-           <Route path='/forgot-password' element={ForgotPassword} />
+           {/* <PrivateRoute path="/dashboard" element={Dashboard} />
+           <PrivateRoute path="/update-profile" element={UpdateProfile} /> */}
+
+          <Route path="/dashboard" element={<Dashboard/>} />
+           <Route path="/update-profile" element={<UpdateProfile/>} /> 
+           <Route path='/signup' element={<Signup />} />
+           <Route path='/login' element={<Login />} />
+           <Route path='/forgot-password' element={<ForgotPassword />} />
          
         </Routes>
         
       </div>
-    </Router>
+    </Router> 
     </>
   );
 }

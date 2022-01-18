@@ -78,7 +78,7 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
         return currentUser.updatePassword(password)
     }
 
-
+ // auth.onAuthStateChange method firebase notify you if user get set
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged( user => {
