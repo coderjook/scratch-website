@@ -1,23 +1,48 @@
 import React, { useContext } from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Route, Navigate, RouteProps } from 'react-router-dom';
 import { SnippetContext } from '../util/snippetContext';
 import { ContextType} from '../components/snippets/Interfaces';
  
 // een private wrapper om de Route zodat alleen ingelogde users het component kunnen  benaderen, 
 // de rest wordt doorgestuurd naar de loginpagina
 
-export default function PrivateRoute({ component: Component, ...rest}) {
+// interface PrivateRouteProps extends RouteProps{
+//     // tslint:disable-next-line:no-any
+//     component: any;
+// }
 
-    const {currentUser } = useContext(SnippetContext);
+// export default function PrivateRoute(props: PrivateRouteProps) {
 
-    return (
+//     const { component: Component,  ...rest } = props;
 
-        <Route
-            {...rest}
-            render={props => {
-               return currentUser ? <Component {...props} /> : <Navigate to="/"  />
+//     const {currentUser } = useContext(SnippetContext) as ContextType;
 
-            }}
-        ></Route>
-    )
-}
+//     return (
+
+//         <Route
+//             {...rest}
+//             render={ routeProps => {
+//                return currentUser ? <Component {...routeProps} /> : <Navigate to="/"  />
+
+//             }}
+//         ></Route>
+//     )
+// }
+
+// interface Props {
+//   component: React.ComponentType
+//   path?: string
+  
+// }
+
+// export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent }) => {
+
+//   const {currentUser } = useContext(SnippetContext) as ContextType;  
+ 
+
+//   if (currentUser) {
+//     return <RouteComponent />
+//   }
+
+//   return <Navigate to="/" />
+// }

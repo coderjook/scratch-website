@@ -12,7 +12,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
+    console.log('user-login:', currentUser);
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -30,31 +30,52 @@ export default function Login() {
 
     return (
         <>
-          <Card>
-              <Card.Body>
-                  <h2 className='text-center mb-4'>Log In</h2>
-                   {/* {currentUser.email} */}
-                  {error && <Alert variant='danger'>{error}</Alert>}
-                  <Form onSubmit={handleSubmit}>
-                      <Form.Group id="email">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type='email' ref={emailRef} required />
-                      </Form.Group>
-                       <Form.Group id="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' ref={passwordRef} required />
-                      </Form.Group>
+          <div className='modal'>
+            <section className="login">
+                <div className="container">
                     
-                      <Button  disabled={loading} className='w-100'type='submit'> Login</Button>
-                  </Form>
-                  <div className="w-100 text-center mt-3">
-                      <Link to="/forgot-password">Forgot Password</Link>
-                  </div>
-              </Card.Body>
-          </Card>
-          <div className="w-100 text-center mt-2">
-              Need an account? <Link to="/signup">Sign up</Link>
-          </div>
+
+                    <form className="form" onSubmit={handleSubmit}>
+                        <h2>Login</h2>
+                         {error && <div>{error}</div>}
+                      
+                        <div className="inputfield">
+                        <label htmlFor="emailadres">Emailadres</label>
+                        <input
+                            type="text"
+                            className="input"
+                            name="emailadres"
+                            placeholder="emailadres"
+                            ref={emailRef}
+                            required
+                        ></input>
+                        </div>
+
+                        <div className="inputfield">
+                        <label htmlFor='password'>Wachtwoord</label>
+                        <input
+                            type={`password`}
+                            className="input"
+                            name='password'
+                            placeholder='password'
+                            ref={passwordRef}
+                            required
+                        ></input>
+                        </div>
+
+                 
+                        <input type="submit" value="inloggen" className="btn" />    
+                        <div className="w-100 text-center mt-3">
+                            <Link to="/forgot-password">wachtwoord vergeten?</Link> | 
+                            <Link to="/">sluit scherm</Link>
+                        </div>                    
+                    </form>
+                    
+                </div>
+            </section>
+        </div>
+
+
         </>
     )
 }

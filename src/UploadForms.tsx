@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UploadForms() {
     const [toggleTutorial, setToggleTutorial] = useState(false);
-    const {setSnippetControl, allItemsGif, allItemsSnippets, currentUser, logout  } = useContext(SnippetContext) as ContextType;
+    const {setSnippetControl, allItemsGif, allItemsSnippets, currentUser, loggedIn, logout  } = useContext(SnippetContext) as ContextType;
     const [toggleUploadSnippet, setToggleUploadSnippet] = useState(false);
     const [error, setError] = useState("");
 
@@ -20,6 +20,7 @@ export default function UploadForms() {
         setToggleUploadSnippet(!toggleUploadSnippet);
 
     }
+    console.log('user-uploadforms:', currentUser);
 
     const navigate = useNavigate();
 
@@ -28,7 +29,8 @@ export default function UploadForms() {
 
         try {
             await logout();
-            navigate('/login');
+           
+            navigate('/');
             
         } catch  {
             setError('Failed to log out')
@@ -36,17 +38,21 @@ export default function UploadForms() {
 
     }
 
+    const  handleNewUser = () => {
+        navigate('/signup');
+    }
+
     return (
         <div className="container">
             user: {currentUser ? currentUser.email : "niet ingelogd"}
             <div className="toggle" onClick={() => setToggleTutorial(!toggleTutorial)}>Upload Tutorial</div>
-            {currentUser && toggleTutorial && <UploadTutorial />}
+            {toggleTutorial && <UploadTutorial />}
             <div className="toggle" onClick={handleUploadSnippet}>Upload Snippet</div>
-            {currentUser && toggleUploadSnippet &&  <UpdateSnippet /> }
+            {toggleUploadSnippet &&  <UpdateSnippet /> }
 
       
             <StorageList allItemsSnippets={allItemsSnippets} allItemsGif={allItemsGif} />
-            
+            <div onClick={handleNewUser} className="toggle">Maak een nieuwe gebruiker aan</div>
             <div onClick={handleLogout} className="toggle">Uitloggen</div>
            
         </div>

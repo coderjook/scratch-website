@@ -27,6 +27,7 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
     const [allItemsGif, setAllItemsGif] = useState<IItem[]>([]);
     const [allItemsSnippets, setAllItemsSnippets] = useState<IItem[]>([]);
     const [currentUser,setCurrentUser] = useState<any>();
+    const [loggedIn, setLoggedIn] = useState<boolean>(true);
     const [loading,setLoading] = useState<boolean>(true);
     
     const getFromFirebaseStorage = (endpoint: 'gif/' | 'snippet/') => {
@@ -55,39 +56,54 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
 
 
     function signup(email:any, password:any) {
+        setLoggedIn(true);
        return auth.createUserWithEmailAndPassword(email, password)
     }
 
     function login(email:any, password:any) {
+        setLoggedIn(true);
         return auth.signInWithEmailAndPassword(email, password)
     }
 
     function logout() {
-        return auth.signOut()
+        setLoggedIn(false);
+        return auth.signOut();
+        
     }
 
     function resetPassword(email:any) {
         return auth.sendPasswordResetEmail(email)
     }
 
-    function updateEmail(email:any) {
-        return currentUser.updateEmail(email)
-    }
-
-    function updatePassword(password:any) {
-        return currentUser.updatePassword(password)
-    }
+ 
 
  // auth.onAuthStateChange method firebase notify you if user get set
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged( user => {
-            setCurrentUser(user);
-            setLoading(false);
+             if (user) {
+                setCurrentUser(user);
+                setLoading(false);
+            } else {
+                setCurrentUser('noUser');
+                setLoading(false);
+                // User is signed out
+                // ...
+             }
+        
         })
 
         return unsubscribe;
     },[]) 
+
+    //   useEffect(() => {
+    //     const unsubscribe = auth.onAuthStateChanged( user => {
+    //         setCurrentUser(user);
+    //         setLoading(false);
+    //     })
+
+    //     return unsubscribe;
+    // },[]) 
 
     return (
         <SnippetContext.Provider value = {{
@@ -99,12 +115,13 @@ export const SnippetContextProvider : React.FC<React.ReactNode> = ({children}) :
            allItemsSnippets, 
            getFromFirebaseStorage,
             currentUser,
+            setCurrentUser,
             login,
             signup,
             logout,
             resetPassword,
-            updateEmail,
-            updatePassword
+            loggedIn,
+            setLoggedIn
 
 
         }}>

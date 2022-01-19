@@ -9,12 +9,13 @@ export type ContextType = {
   allItemsSnippets: IItem[];
   getFromFirebaseStorage: any;
   currentUser: any;
-            login: any;
-            signup: any;
-            logout: any;
-            resetPassword: any;
-            updateEmail: any;
-            updatePassword: any;
+  setCurrentUser: any;
+  login: any;
+  signup: any;
+  logout: any;
+  resetPassword: any;
+  loggedIn: boolean;
+  setLoggedIn: any;
 }
 
 export interface IItem {
