@@ -6,28 +6,9 @@ import "firebase/auth";
 
 
 
-// import { initializeApp } from 'firebase/app';
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: 
-//   authDomain: 
-//   projectId: 
-//   storageBucket: 
-//   messagingSenderId:
-//   appId: 
-// //   measurementId: "
-// };
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  // apiKey: "AIzaSyAgbx9p_oN0rFYo3OS-Rw6AGZ4h476pnAA",
-  // authDomain: "scratch-tutorials-45392.firebaseapp.com",
-  // databaseURL: "https://scratch-tutorials-45392-default-rtdb.europe-west1.firebasedatabase.app",
-  // projectId: "scratch-tutorials-45392",
-  // storageBucket: "scratch-tutorials-45392.appspot.com",
-  // messagingSenderId: "1078204108425",
-  // appId: "1:1078204108425:web:0eb49a016a7f31661f4058"
+
 
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,

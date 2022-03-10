@@ -35,11 +35,11 @@
 }
 
 .tag {
-  background: #cccccc;
+  background-color: var(--color-teal);
   border-radius: 50px;
   font-size: 0.9em;
   margin: 0.8em 0;
-  color: #fff;
+  color: var(--color-dark);
   padding: 5px 10px;
   text-transform: uppercase;
 }
@@ -56,7 +56,7 @@
 }
 
 .card__content .tagline {
-  /* font-size: 0.8em; */
+  font-size: 0.8em;
   color: var(--color-dark-blue);
   line-height: 1.1em;
   margin: 0 0 0px;
@@ -78,7 +78,7 @@
 }
 
 .card__footer a:hover {
-  color: var(--color-teal);
+  color: var(--color-orange);
 }
 
 /* [ON SMALL SCREENS] */
@@ -98,10 +98,12 @@
   .card__header {
     /* border: 2px solid darkgreen; */
     width: 30%;
+    font-size: 0.9rem;
   }
 
   .card__header .categorie {
     font-size: 0.8em;
+    font-weight: bold;
     padding: 0.5em;
     margin: 0;
   }

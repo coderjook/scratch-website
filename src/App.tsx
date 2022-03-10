@@ -18,7 +18,7 @@ import { ContextType } from './components/snippets/Interfaces'
 function App() {
 
 
-  const {getFromFirebaseStorage} = useContext(SnippetContext) as ContextType
+  const {getFromFirebaseStorage, currentUser} = useContext(SnippetContext) as ContextType
 
 
   useEffect(() => { 
@@ -36,8 +36,8 @@ function App() {
         <Routes>
           
           <Route path="/" element={<Home />} />
-          
-          <Route path="/uploadforms" element={<UploadForms/>} />
+          { currentUser !=="noUser" &&  <Route path="/uploadforms" element={<UploadForms/>} />}
+         
            {/* <PrivateRoute path="/uploadforms" element={<UploadForms/>} /> */}
           <Route path="/tutorials"element={<TutorialsList />} />
           <Route path="/snippets"element={ <SnippetsList />} />

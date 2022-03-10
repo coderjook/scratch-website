@@ -95,8 +95,9 @@ export default function TutorialsList() {
             <div className="header">
                 <div className="container">
                     <h2>Handleidingen</h2> 
-                    <p>Zie jij hieronder een spel of een opdracht dat je wil maken? Klik op handleiding pdf en ga aan de slag.
-                        Volg de instructies stap voor stap. Zo maak jij je eigen game in no time.</p>
+                    <p>Heb je een account bij Scratch en zie jij hieronder een leuk spel of een opdracht? Klik op handleiding pdf en ga aan de slag.
+                        Volg alle instructies stap voor stap. <span>De instructies van de basis-opdracht en basis-spel zijn heel uitgebreid.</span> Bij de vervolgopdrachten moet je al wat vaker met Scratch gewerkt hebben. 
+                        <span> Is scratch helemaal nieuw voor je?</span> Volg dan eerst de handleiding 'starten met scratch' en daarna 'Hallo wereld' (start).</p>
                 </div>
             </div> 
            

@@ -35,6 +35,20 @@
   /* transition: all 0.3s ease; */
 }
 
+.form .inputfield .file,
+.form .inputfield .input,
+.form .inputfield .textarea {
+  font-family: "Roboto", sans-serif;
+  color: var(--color-dark);
+  width: 100%;
+  outline: none;
+  border: 1px solid var(--color-light-grey);
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  border-radius: 3px;
+  /* transition: all 0.3s ease; */
+}
+
 .form .inputfield .custom_select {
   width: 100%;
   outline: none;
@@ -52,7 +66,7 @@
   border: 1px solid var(--color-light-grey);
 }
 
-.row.fileselect {
+.fileselect {
   width: 100%;
   justify-content: space-between;
 }
@@ -65,8 +79,11 @@
   width: 40%;
 }
 
-.row .choosenfile {
-  width: 60%;
+.choosenfile {
+  margin-top: 0.5rem;
+  width: 100%;
+  font-size: 0.7rem;
+  font-weight: bold;
 }
 /* .form .btn {
   border: 1px solid var(--color-light-grey);

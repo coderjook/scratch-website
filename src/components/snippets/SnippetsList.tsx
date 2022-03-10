@@ -90,7 +90,7 @@ export default function SnippetsList() {
             <div className="header">
                 <div className="container">
                     <h2>Codesnippets</h2> 
-                    <p>Zit jij al boordevol ideeën. En wil jij direct aan de slag, gebruik dan deze codesnippets bij het maken van je spel. Bestuur je sprite, voeg een puntentelling toe, of maak je spel spannender met vijanden. Gebruik deze spelelementen om je game op te leuken.</p>
+                    <p>Kan jij al scratchen en ben jij een game aan het maken? Gebruik dan deze codesnippets. Dit zijn scripts/codeblokken die je aan jouw spel kunt toevoegen. <span>Programmeer de besturing van je sprite, voeg een puntentelling of het aantal levens toe, of maak je spel spannender met extra levels en vijanden.</span> </p>
                 </div>
             </div> 
             <div className="container">

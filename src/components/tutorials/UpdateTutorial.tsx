@@ -72,6 +72,10 @@ export default function UploadTutorial(props : UploadTutorialProps) {
       });
   };
 
+const handleInputChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) : void => {
+    setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
     setEachEntry({ ...eachEntry, [e.target.name]: e.target.value });
   };
@@ -107,10 +111,10 @@ export default function UploadTutorial(props : UploadTutorialProps) {
                     onChange={handleInputChangeSelect}
                     value={eachEntry[inputName]}
                   >
-                    <option value="">-kies-</option>
+                    <option value="">-kies-</option> 
                     <option value="basis-opdracht">basis-opdracht</option>
                     <option value="basis-spel">basis-spel</option>
-                    <option value="start">start</option>
+                    <option value="start">start-basis</option>
                     <option value="vervolg-opdracht">vervolg-opdracht</option>
                     <option value="vervolg-spel">vervolg-spel</option>
                   </select>
@@ -119,15 +123,27 @@ export default function UploadTutorial(props : UploadTutorialProps) {
               :
                 <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
-                  <input
-                      type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                  <textarea
+                      // type={`${inputName === 'imgUrl' ? 'file': 'textarea'}`}
                       className="input"
                       name={inputName}
                       placeholder={inputName}
-                      onChange={handleInputChange}
+                      onChange={handleInputChangeTextArea}
                       value={eachEntry[inputName]}
-                  ></input>
+                  ></textarea>
                 </div>
+
+                //      <div className="inputfield" key={index}>
+                //   <label htmlFor={inputName}>{inputName}</label>
+                //   <input
+                //       type={`${inputName === 'imgUrl' ? 'file': 'text'}`}
+                //       className="input"
+                //       name={inputName}
+                //       placeholder={inputName}
+                //       onChange={handleInputChange}
+                //       value={eachEntry[inputName]}
+                //   ></input>
+                // </div>
             
             )
         } )}

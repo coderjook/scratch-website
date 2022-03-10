@@ -1,5 +1,4 @@
 import React, {useRef, useState, useContext }from 'react';
-import {Form, Button, Card, Alert } from 'react-bootstrap';
 import { SnippetContext } from '../util/snippetContext';
 import { ContextType} from '../components/snippets/Interfaces';
 import { Link, useNavigate } from 'react-router-dom';

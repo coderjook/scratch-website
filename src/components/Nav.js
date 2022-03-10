@@ -60,9 +60,9 @@ export default function Nav() {
                      </Link>
                     }   
                     </li>
-                    <li>
+                    {/* <li>
                         {currentUser === 'noUser' ? <>niet ingelogd</> : <>ingelogd: {currentUser.email}</>}
-                    </li>
+                    </li> */}
                 </ul>
             
             </div>

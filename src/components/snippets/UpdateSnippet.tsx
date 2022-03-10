@@ -65,7 +65,11 @@ export default function UpdateSnippet() {
   const deleteSnippet = () => {
     const deleteSnippetRef = firebase.database().ref("snippets").child(currentSnippet.objName);
     deleteSnippetRef.remove();
+    close();
 
+  };
+  const handleInputChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) : void => {
+    setCurrentSnippet({ ...currentSnippet, [e.target.name]: e.target.value });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
@@ -108,15 +112,15 @@ export default function UpdateSnippet() {
         <form className="form" onSubmit={updateSnippet}>
           <div className="inputfield">
             <label >Kies Animated Gif</label>
-            <div className='row fileselect'>
-            <div onClick={handleGif} className="btn btn-blue">bekijk animated gifs</div>
-            <div className='choosenfile'>{currentSnippet.gifName ? `gekozen gif: ${currentSnippet.gifName}` : `geen gif gekozen`}</div>
+            <div className='fileselect'>
+              <div onClick={handleGif} className="btn btn-blue">bekijk animated gifs</div>
+              <div className='choosenfile'>{currentSnippet.gifName ? `gekozen gif: ${currentSnippet.gifName}` : `geen gif gekozen`}</div>
             </div>
           </div>
 
           <div className="inputfield">
             <label >Kies CodeSnippet</label>
-            <div className='row fileselect'>
+            <div className='fileselect'>
             <div onClick={handleJpg} className="btn btn-blue">bekijk codes</div>
             <div className='choosenfile'>{currentSnippet.pdfName ? `gekozen gif: ${currentSnippet.pdfName}` : `geen code gekozen`}</div>
             </div>
@@ -145,8 +149,18 @@ export default function UpdateSnippet() {
               </div>
               :
               <>
-             
-                <div className="inputfield" key={index}>
+                    <div className="inputfield" key={index}>
+                  <label htmlFor={inputName}>{inputName}</label>
+                  <textarea
+                      // type={`${inputName === 'imgUrl' ? 'file': 'textarea'}`}
+                      className="input"
+                      name={inputName}
+                      placeholder={inputName}
+                      onChange={handleInputChangeTextArea}
+                      value={currentSnippet[inputName as keyof ISnippet]}
+                  ></textarea>
+                </div>
+                {/* <div className="inputfield" key={index}>
                   <label htmlFor={inputName}>{inputName}</label>
                   <input
                       type={`text`}
@@ -156,7 +170,7 @@ export default function UpdateSnippet() {
                       onChange={handleInputChange}
                       value={currentSnippet[inputName as keyof ISnippet]}
                   ></input>
-                </div>
+                </div> */}
                 
               </>
             )
@@ -174,8 +188,9 @@ export default function UpdateSnippet() {
           <div className="btn" onClick={close}>sluiten</div>
           {/* <div className="btn" onClick={log}>log</div> */}
           <div className="btn" onClick={() => setPromptDelete(true)}>verwijderen</div>
-          {promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}
+          
          </div>
+         <div className='row'>{promptDelete && <>weet je het zeker? <div className="link txt-orange" onClick={deleteSnippet}>ja</div> / <div className="link" onClick={() => setPromptDelete(false)}>nee</div></>}</div>
           &#65039;
         </form>
 

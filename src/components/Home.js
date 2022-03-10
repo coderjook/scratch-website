@@ -31,7 +31,7 @@ export default function Home() {
                <div className="col"> 
                     <h3>Kant en klare Handleidingen</h3>                  
                     <p>
-                        Werk met een uitgewerkt stappenplan, en volg nauwkeurig alle stappen van A tot Z en zo maak jij je game in no time.
+                        Of je nu een beginner bent of al vaker met Scratch hebt gewerkt, met een handleiding maak je snel je eigen game. Volg stap voor stap alle instructies en maak zo alle scripts voor je spel. Binnen no-time speel jij en je vrienden jouw zelf gemaakte game.
                     </p>
                     <Link to="/tutorials" className="btn btn-green-outline">
                         Ga naar de handleidingen
@@ -41,7 +41,7 @@ export default function Home() {
                 <div className="col">
                     <h3>Spelelementen</h3> 
                     <p>
-                        Zit jij al boordevol ideeën. En wil jij direct aan de slag met je eigen spel, gebruik dan de snippets met programmeerscripts en pas deze toe op jouw eigen spel.
+                        Heb jij al ideeën voor een eigen spel? En kun je al een beetje scratchen? Gebruik dan codesnippets om spelelementen aan je game toe te voegen. Dit zijn scripts die je kunt gebruiken om bijvoorbeeld een score, een vijand of de besturing van je sprite toe te voegen.
                     </p>
                     <Link to="/snippets" className="btn btn-blue-outline">
                         Ga naaar de CodeSnippets
@@ -50,7 +50,7 @@ export default function Home() {
                 <div className="col">
                     <h3>FAQ</h3>
                     <p>
-                        Loop je vast? Kijk dan hier of de oplossing van jouw probleem erbij zit. Dan ben je in no-time weer back on track
+                        Loop je vast? Kijk dan hier of de oplossing voor jouw probleem erbij staat. Dan ben je in no-time weer back-on-track. Dit onderdeel van de site is nog in de maak. Maar we gaan hem zo snel mogelijk vullen met oplossingen voor veel voorkomende problemen
                     </p>
                     <Link to="/faq" className="btn btn-orange-outline">
                         Ga naar de FAQ
