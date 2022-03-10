@@ -218,8 +218,6 @@ span {
 }
 
 .hero {
-  top: 0px;
-  left: 0px;
   background-color: #444;
   background-image: url(../images/bannerstraat.png);
   background-blend-mode: multiply;
@@ -323,6 +321,7 @@ span {
   border-bottom: 1px solid var(--color-dark-blue);
   padding: 0.25em 0px;
   margin: 0.5em 0px;
+  font-size: 0.9rem;
 }
 
 .storagelistitem img {
@@ -354,6 +353,7 @@ span {
 
   .btn {
     width: 100%;
+    text-align: center;
   }
   .container {
     width: 95%;
@@ -384,6 +384,7 @@ span {
     background-color: var(--color-dark-grey);
     text-align: center;
     border-radius: 10px;
+    font-size: 0.9rem;
   }
 
   /* tutorialslist /snippetslist */
@@ -391,7 +392,7 @@ span {
   .snippets .header {
     padding: 2em 0;
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 2.5em;
   }
 
@@ -411,5 +412,12 @@ span {
     cursor: pointer;
     padding: 0.5em 0.5em;
     margin-bottom: 0.5em;
+  }
+
+  .storagelistitem {
+    border-bottom: 1px solid var(--color-dark-blue);
+    padding: 0.25em 0px;
+    margin: 0.5em 0px;
+    font-size: 0.7rem;
   }
 }

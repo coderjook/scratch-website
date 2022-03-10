@@ -10,17 +10,18 @@ type SnippetProps = {
 export default function Snippet(props : SnippetProps) {
 
     const {snippet} = props
-    const {setCurrentSnippet, snippetControl, setSnippetControl } = useContext(SnippetContext) as ContextType;
+    const {setCurrentSnippet, snippetControl, setSnippetControl, loggedIn, currentUser } = useContext(SnippetContext) as ContextType;
     // const scratchUrlBasis = "https://api.scratch.mit.edu/projects/";
     // const scratchUrlProject = snippet.scratchUrl ? snippet.scratchUrl.slice(33) : '561290251/';
     // const scratchUrlProjectId = scratchUrlProject.slice(0,9)
     // const scratchUrlApi = `${scratchUrlBasis}${scratchUrlProject}`;
-
+    console.log('user-snippet:', currentUser);
     const colorCategorie = snippet.categorie && snippet.categorie
-    useEffect(()=> {
-        console.log('useEffect snippet:', snippet)
-    },[])
-     
+    // useEffect(()=> {
+    //     console.log('useEffect snippet:', snippet)
+    // },[])
+    
+    console.log('loggedIn snippet', loggedIn)
     const handleUpdateSnippet = () => { 
         console.log('UE:Snippet, snippet:', snippet)
         setCurrentSnippet(
@@ -59,9 +60,18 @@ export default function Snippet(props : SnippetProps) {
                  
                                              
                              
-                 <h4>{snippet.titel} | <i className="material-icons icon" onClick={handleUpdateSnippet}>mode</i></h4>                 
+                  
+                 {currentUser === 'noUser'
+                 ?
+                 <>
+                 <h4>{snippet.titel}</h4>                 
+                 </>
+                 :
+                 <>
+                 <h4>{snippet.titel}| <i className="material-icons icon" onClick={handleUpdateSnippet}>mode</i></h4>
+                 </>
+                 }
                  <p>{snippet.omschrijving}</p>
- 
                  {/* <span className="tagline">
                     leerdoelen: {snippet.leerdoelen}
                  </span> */}
